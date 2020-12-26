@@ -1,0 +1,20 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:CakeShop">
+
+    <FontFamily x:Key="OswaldBold">pack://application:,,,/Assets/Fonts/Oswald-Bold.ttf #Oswald Bold</FontFamily>
+    <FontFamily x:Key="OswaldMedium">pack://application:,,,/Assets/Fonts/Oswald-Medium.ttf #Oswald Medium</FontFamily>
+    <FontFamily x:Key="OswaldExtraLight">pack://application:,,,/Assets/Fonts/Oswald-ExtraLight.ttf #Oswald ExtraLight</FontFamily>
+    <FontFamily x:Key="OswaldLight">pack://application:,,,/Assets/Fonts/Oswald-Light.ttf #Oswald Light</FontFamily>
+    <FontFamily x:Key="OswaldRegular">pack://application:,,,/Assets/Fonts/Oswald-Regular.ttf #Oswald Regualar</FontFamily>
+    <FontFamily x:Key="OswaldSemiBold">pack://application:,,,/Assets/Fonts/Oswald-SemiBold.ttf #Oswald SemiBold</FontFamily>
+
+    <FontFamily x:Key="GilroyBold">pack://application:,,,/Assets/Fonts/SVN-Gilroy Bold.otf #SVN-Gilroy</FontFamily>
+    <FontFamily x:Key="GilroyMedium">pack://application:,,,/Assets/Fonts/SVN-Gilroy Medium.otf #SVN-Gilroy</FontFamily>
+    <FontFamily x:Key="GilroyRegular">pack://application:,,,/Assets/Fonts/SVN-Gilroy Regular.otf #SVN-Gilroy</FontFamily>
+    <FontFamily x:Key="GilroySemiBold">pack://application:,,,/Assets/Fonts/SVN-Gilroy SemiBold.otf #SVN-Gilroy SemiBold</FontFamily>
+    <FontFamily x:Key="GilroyThin">pack://application:,,,/Assets/Fonts/SVN-Gilroy Thin.otf #SVN-Gilroy Thin</FontFamily>
+
+    <FontFamily x:Key="HaveHeart2">pack://application:,,,/Assets/Fonts/SVN-Have Heart 2.ttf #SVN-Have Heart 2</FontFamily>
+
+</ResourceDictionary>

@@ -1,0 +1,52 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:CakeShop">
+
+    <ImageSource x:Key="AppLogo">pack://application:,,,/Assets/Images/app-logo.png</ImageSource>
+    <ImageSource x:Key="HorizontalRibbon">pack://application:,,,/Assets/Images/horizontal-ribbon.png</ImageSource>
+    <ImageSource x:Key="VerticalRibbon">pack://application:,,,/Assets/Images/vertical-ribbon.png</ImageSource>
+    <ImageSource x:Key="IconAsc">pack://application:,,,/Assets/Images/ic-asc.png</ImageSource>
+    <ImageSource x:Key="IconBrownAbout">pack://application:,,,/Assets/Images/ic-brown-about.png</ImageSource>
+    <ImageSource x:Key="IconBrownAdd">pack://application:,,,/Assets/Images/ic-brown-add.png</ImageSource>
+    <ImageSource x:Key="IconBrownClose">pack://application:,,,/Assets/Images/ic-brown-close.png</ImageSource>
+    <ImageSource x:Key="IconBrownDashboard">pack://application:,,,/Assets/Images/ic-brown-dashoard.png</ImageSource>
+    <ImageSource x:Key="IconBrownHelp">pack://application:,,,/Assets/Images/ic-brown-help.png</ImageSource>
+    <ImageSource x:Key="IconBrownHome">pack://application:,,,/Assets/Images/ic-brown-home.png</ImageSource>
+    <ImageSource x:Key="IconBrownOrder">pack://application:,,,/Assets/Images/ic-brown-order.png</ImageSource>
+    <ImageSource x:Key="IconCategory">pack://application:,,,/Assets/Images/ic-category.png</ImageSource>
+    <ImageSource x:Key="IconClearAll">pack://application:,,,/Assets/Images/ic-clear-all.png</ImageSource>
+    <ImageSource x:Key="IconCurQuantity">pack://application:,,,/Assets/Images/ic-cur-quantity.png</ImageSource>
+    <ImageSource x:Key="IconDesc">pack://application:,,,/Assets/Images/ic-desc.png</ImageSource>
+    <ImageSource x:Key="IconFilling">pack://application:,,,/Assets/Images/ic-filling.png</ImageSource>
+    <ImageSource x:Key="IconFirst">pack://application:,,,/Assets/Images/ic-first.png</ImageSource>
+    <ImageSource x:Key="IconGlazed">pack://application:,,,/Assets/Images/ic-glazed.png</ImageSource>
+    <ImageSource x:Key="IconId">pack://application:,,,/Assets/Images/ic-id.png</ImageSource>
+    <ImageSource x:Key="IconLargeGrid">pack://application:,,,/Assets/Images/ic-large-grid.png</ImageSource>
+    <ImageSource x:Key="IconLast">pack://application:,,,/Assets/Images/ic-last.png</ImageSource>
+    <ImageSource x:Key="IconMinimize">pack://application:,,,/Assets/Images/ic-minimize.png</ImageSource>
+    <ImageSource x:Key="IconMoney">pack://application:,,,/Assets/Images/ic-money.png</ImageSource>
+    <ImageSource x:Key="IconPrev">pack://application:,,,/Assets/Images/ic-prev.png</ImageSource>
+    <ImageSource x:Key="IconSearch">pack://application:,,,/Assets/Images/ic-search.png</ImageSource>
+    <ImageSource x:Key="IconSmallGrid">pack://application:,,,/Assets/Images/ic-small-grid.png</ImageSource>
+    <ImageSource x:Key="IconTopping">pack://application:,,,/Assets/Images/ic-topping.png</ImageSource>
+    <ImageSource x:Key="IconTotalCake">pack://application:,,,/Assets/Images/ic-total-cake.png</ImageSource>
+    <ImageSource x:Key="IconTotalInventory">pack://application:,,,/Assets/Images/ic-total-inventory.png</ImageSource>
+    <ImageSource x:Key="IconOrder">pack://application:,,,/Assets/Images/ic-total-order.png</ImageSource>
+    <ImageSource x:Key="IconProfit">pack://application:,,,/Assets/Images/ic-total-profit.png</ImageSource>
+    <ImageSource x:Key="IconTotalQuantity">pack://application:,,,/Assets/Images/ic-total-quantity.png</ImageSource>
+    <ImageSource x:Key="IconTotalReceivable">pack://application:,,,/Assets/Images/ic-total-receivable.png</ImageSource>
+    <ImageSource x:Key="IconWhiteAbout">pack://application:,,,/Assets/Images/ic-white-about.png</ImageSource>
+    <ImageSource x:Key="IconWhiteAdd">pack://application:,,,/Assets/Images/ic-white-add.png</ImageSource>
+    <ImageSource x:Key="IconWhiteDashboard">pack://application:,,,/Assets/Images/ic-white-dashboard.png</ImageSource>
+    <ImageSource x:Key="IconWhiteHelp">pack://application:,,,/Assets/Images/ic-white-help.png</ImageSource>
+    <ImageSource x:Key="IconWhiteHome">pack://application:,,,/Assets/Images/ic-white-home.png</ImageSource>
+    <ImageSource x:Key="IconWhiteOrder">pack://application:,,,/Assets/Images/ic-white-order.png</ImageSource>
+    <ImageSource x:Key="IconWhiteUpdate">pack://application:,,,/Assets/Images/ic-white-update.png</ImageSource>
+    
+    
+    <ImageSource x:Key="Mainbg">pack://application:,,,/Assets/Images/main-bg.png</ImageSource>
+    <ImageSource x:Key="TEST_AVT">pack://application:,,,/Assets/Images/test_avt.png</ImageSource>
+    <ImageSource x:Key="TEST_IMG">pack://application:,,,/Assets/Images/test_img.jpg</ImageSource>
+
+
+</ResourceDictionary>

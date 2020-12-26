@@ -1,0 +1,45 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:CakeShop">
+
+
+    <!-- Define Color -->
+    <SolidColorBrush x:Key="MyPink" Color="#e877a6"/>
+    <SolidColorBrush x:Key="MyLightPink" Color="#ecacc4"/>
+
+    <SolidColorBrush x:Key="MyBrown" Color="#301e1d"/>
+    <SolidColorBrush x:Key="MyBlack" Color="#303030"/>
+    
+    <SolidColorBrush x:Key="LightYellow" Color="#fce68d"/>
+    <SolidColorBrush x:Key="MyBlue" Color="#172975"/>
+  
+    <SolidColorBrush x:Key="RippleBlue" Color="#8fa2e2"/>
+    <SolidColorBrush x:Key="BlurBlue" Color="#408fa2e2"/>
+    <SolidColorBrush x:Key="OrangeHover" Color="#ff8b00"/>
+    <SolidColorBrush x:Key="RedHover" Color="#e5173a"/>
+    <SolidColorBrush x:Key="LightRedHover" Color="#ff6666"/>
+    <Color x:Key="YellowShadow">#fcdd00</Color>
+
+    <SolidColorBrush x:Key="MyLightGray" Color="#efefef"/>
+    <SolidColorBrush x:Key="MyLightGray2" Color="#e6e6e6"/>
+    <SolidColorBrush x:Key="MyLightGray3" Color="#d6d6d6"/>
+    <SolidColorBrush x:Key="MyLightGray4" Color="#808080"/>
+    <SolidColorBrush x:Key="MyLightGray5" Color="#666666"/>
+
+
+    <LinearGradientBrush x:Key="MyOrangeGradient">
+        <GradientStop Color="#e65925" Offset="0"/>
+        <GradientStop Color="#ffa129" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="MyOrangeGradientScale">
+        <GradientStop Color="#e65925" Offset="-0.5"/>
+        <GradientStop Color="#ffa129" Offset="1.5"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="MyGreenGradient">
+        <GradientStop Color="#157d74" Offset="0"/>
+        <GradientStop Color="#1aaf75" Offset="1.0"/>
+    </LinearGradientBrush>
+
+</ResourceDictionary>
