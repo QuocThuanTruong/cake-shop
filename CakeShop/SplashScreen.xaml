@@ -5,8 +5,159 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CakeShop"
         mc:Ignorable="d"
-        Title="SplashScreen" Height="450" Width="800">
-    <Grid>
-        
+        AllowsTransparency="True"
+        Background="Transparent"
+         xmlns:loc="clr-namespace:CakeShop.Properties"
+         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+         xmlns:converter="clr-namespace:CakeShop.Converter"
+        Title="SplashScreen" Loaded="Window_Loaded" Height="536" Width="916" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
+    
+    <Window.Resources>
+        <converter:AbsolutePathConverter x:Key="abosolutePathConverter"></converter:AbsolutePathConverter>
+    </Window.Resources>
+    
+    <Grid Margin="8" Background="{DynamicResource MyLightGray2}">
+        <Grid.Effect>
+            <DropShadowEffect BlurRadius="10" 
+                              Direction="-90"
+                              Color="#bcbcbc"
+                              RenderingBias="Quality" 
+                              ShadowDepth="2"/>
+        </Grid.Effect>
+
+
+        <Grid Name="mainContainer">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60*"/>
+                <ColumnDefinition Width="420*"/>
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="340*"/>
+                <ColumnDefinition Width="40*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80*"/>
+                <RowDefinition Height="40*"/>
+                <RowDefinition Height="100*"/>
+                <RowDefinition Height="250*"/>
+                <RowDefinition Height="50*"/>
+            </Grid.RowDefinitions>
+
+            <Image Name="splashBg"
+               Grid.ColumnSpan="5"
+               Grid.RowSpan="7"
+               Width="900"
+               Height="520"
+               Stretch="UniformToFill"
+               RenderOptions.BitmapScalingMode="HighQuality"
+               Source="{DynamicResource Mainbg}"/>
+
+            <!-- binding -->
+            <Image Name="cakeAvatar"
+                   Source="{StaticResource TEST_AVT}"
+                   Grid.Column="3"
+                   Grid.ColumnSpan="1"
+                   RenderOptions.BitmapScalingMode="HighQuality"
+                   Grid.Row="2"
+                   Grid.RowSpan="2"/>
+
+            <Image Name="cakeShadow"
+                   Width="300"
+                   Height="100"
+                   Source="{DynamicResource CakeShadow}"
+                   RenderOptions.BitmapScalingMode="HighQuality"
+                   Grid.Column="3"
+                   Grid.Row="3"
+                   Grid.RowSpan="2"
+                   VerticalAlignment="Bottom"/>
+
+
+            <Image Name="topRibbon"
+                   VerticalAlignment="Top"
+                   RenderOptions.BitmapScalingMode="HighQuality"
+                   Source="{DynamicResource HorizontalRibbon}"
+                   Width="900"
+                   Height="216"
+                   Grid.RowSpan="7"
+                   Grid.ColumnSpan="5"/>
+
+            <Image Name="appLogo"
+                   Width="144"
+                   Margin="0, 0, 0, 24"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   RenderOptions.BitmapScalingMode="HighQuality"
+                   Source="{DynamicResource AppLogo}"                
+                   Height="68"
+                   Grid.RowSpan="2"
+                   Grid.ColumnSpan="5"/>
+
+
+            <StackPanel Name="siteInfoContainer"
+                    HorizontalAlignment="Center"
+                    Grid.Column="1"
+                    Grid.Row="3"
+                    Grid.RowSpan="2">
+
+                <!--Binding-->
+                <TextBlock Name="siteNameTextBlock"
+                   Text="Peach and Raspberry Twist "
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Left"
+                   Style="{StaticResource LargeHeaderText}"/>
+
+                <Grid  Grid.Column="1"
+                   Grid.Row="4"
+                   Height="168">
+
+                    <!--Binding-->
+                    <ScrollViewer Margin="0, 16, 0, 0">
+                        <TextBlock Name="siteDescriptionTextBlock"          
+                               Text="Chúng mình sẽ phong tặng đây là chiếc bánh bí ẩn nhất trong dàn bánh nhà DOSH. Từ ngoài vào trong, là vị ngọt thanh của socola trắng và vụn bánh red velvet; là lớp phủ đường đào độc đáo mà có lẽ là lần đầu tiên bạn thử; và kiệt tác chính là phần bên trong với kem trứng vị đào hoà cùng vụn trái phúc bồn tử. Bạn sẽ phải gật gù mà cảm nhận từng hương vị được kết hợp trong chiếc donut ball này. "
+                               Style="{StaticResource RegularText}"
+                                   
+                               TextAlignment="Justify" 
+                               Margin="0, 0, 12, 0"
+                               ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+                    </ScrollViewer>
+                </Grid>
+
+            </StackPanel>
+
+
+            <Grid Name="checkboxContainer"
+                  VerticalAlignment="Top"
+                  Grid.Column="1"
+                  Grid.Row="5"
+                  Grid.ColumnSpan="3">
+
+                <CheckBox Name="turnOffSplashCheckBox"
+                          IsChecked="False"
+                          Unchecked="turnOffSplashCheckBox_Unchecked"
+                          Checked="turnOffSplashCheckBox_Checked"
+                          materialDesign:CheckBoxAssist.CheckBoxSize="18">
+
+                    <TextBlock Name="contentSplashCheckBox"
+                           Margin="0, 0, 0, 2"
+                           Style="{StaticResource SmallText}"
+                           Text="{x:Static loc:Resources.message_not_show_splash}"/>
+                </CheckBox>
+            </Grid>
+
+
+            <ProgressBar Name="loadingSimulator"
+                         Background="{DynamicResource MyLightPink}"
+                         VerticalAlignment="Bottom"
+                         IsIndeterminate="True"
+                         BorderThickness="0"
+                         Margin="0, 0, 0, -1"
+                         Foreground="{DynamicResource MyPink}"
+                         Height="6"
+                         Grid.Row="6"
+                         Grid.ColumnSpan="7"/>
+
+        </Grid>
+
     </Grid>
 </Window>

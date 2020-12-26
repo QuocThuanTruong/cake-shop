@@ -42,6 +42,9 @@
     <ImageSource x:Key="IconWhiteHome">pack://application:,,,/Assets/Images/ic-white-home.png</ImageSource>
     <ImageSource x:Key="IconWhiteOrder">pack://application:,,,/Assets/Images/ic-white-order.png</ImageSource>
     <ImageSource x:Key="IconWhiteUpdate">pack://application:,,,/Assets/Images/ic-white-update.png</ImageSource>
+    <ImageSource x:Key="CakeShadow">pack://application:,,,/Assets/Images/cake-shadow.png</ImageSource>
+    <ImageSource x:Key="IconAddImg">pack://application:,,,/Assets/Images/ic-add-img.png</ImageSource>
+    <ImageSource x:Key="IconSlimAdd">pack://application:,,,/Assets/Images/ic-slim-add.png</ImageSource>
     
     
     <ImageSource x:Key="Mainbg">pack://application:,,,/Assets/Images/main-bg.png</ImageSource>

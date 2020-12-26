@@ -6,19 +6,17 @@
     <!-- Define Color -->
     <SolidColorBrush x:Key="MyPink" Color="#e877a6"/>
     <SolidColorBrush x:Key="MyLightPink" Color="#ecacc4"/>
+    <Color x:Key="PinkShadow">#d30584</Color>
 
     <SolidColorBrush x:Key="MyBrown" Color="#301e1d"/>
+    <SolidColorBrush x:Key="MyLightBrown" Color="#a56c63"/>
     <SolidColorBrush x:Key="MyBlack" Color="#303030"/>
-    
-    <SolidColorBrush x:Key="LightYellow" Color="#fce68d"/>
-    <SolidColorBrush x:Key="MyBlue" Color="#172975"/>
-  
-    <SolidColorBrush x:Key="RippleBlue" Color="#8fa2e2"/>
-    <SolidColorBrush x:Key="BlurBlue" Color="#408fa2e2"/>
-    <SolidColorBrush x:Key="OrangeHover" Color="#ff8b00"/>
-    <SolidColorBrush x:Key="RedHover" Color="#e5173a"/>
-    <SolidColorBrush x:Key="LightRedHover" Color="#ff6666"/>
-    <Color x:Key="YellowShadow">#fcdd00</Color>
+
+    <SolidColorBrush x:Key="MyYellow" Color="#cca35a"/>
+
+    <SolidColorBrush x:Key="RipplePink" Color="#ff4ac3"/>
+    <SolidColorBrush x:Key="BlurPink" Color="#408fa2e2"/>
+
 
     <SolidColorBrush x:Key="MyLightGray" Color="#efefef"/>
     <SolidColorBrush x:Key="MyLightGray2" Color="#e6e6e6"/>
@@ -27,19 +25,214 @@
     <SolidColorBrush x:Key="MyLightGray5" Color="#666666"/>
 
 
-    <LinearGradientBrush x:Key="MyOrangeGradient">
-        <GradientStop Color="#e65925" Offset="0"/>
-        <GradientStop Color="#ffa129" Offset="1.0"/>
+    <LinearGradientBrush x:Key="MyPinkGradient">
+        <GradientStop Color="#e877a6" Offset="0"/>
+        <GradientStop Color="#ecacc4" Offset="1.0"/>
     </LinearGradientBrush>
 
-    <LinearGradientBrush x:Key="MyOrangeGradientScale">
-        <GradientStop Color="#e65925" Offset="-0.5"/>
-        <GradientStop Color="#ffa129" Offset="1.5"/>
+    <LinearGradientBrush x:Key="MyPurpleGradient">
+        <GradientStop Color="#b400e9" Offset="0"/>
+        <GradientStop Color="#ffa4f4" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="MyBlueGradient">
+        <GradientStop Color="#29abe2" Offset="0"/>
+        <GradientStop Color="#95f4e2" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="MyRedGradient">
+        <GradientStop Color="#ff1d25" Offset="0"/>
+        <GradientStop Color="#ff9169" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="MyYellowGradient">
+        <GradientStop Color="#f7931e" Offset="0"/>
+        <GradientStop Color="#fcee21" Offset="1.0"/>
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="MyGreenGradient">
         <GradientStop Color="#157d74" Offset="0"/>
-        <GradientStop Color="#1aaf75" Offset="1.0"/>
+        <GradientStop Color="#1ace6e" Offset="1.0"/>
     </LinearGradientBrush>
+
+
+    <!-- Text appearance -->
+    <Style TargetType="TextBlock"
+               x:Key="LargeHeaderText">
+        <Setter Property="FontSize" Value="33"/>
+        <Setter Property="FontFamily" Value="{DynamicResource HaveHeart2}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Left"/>
+        <Setter Property="Foreground" Value="{DynamicResource MyBrown}"/>
+    </Style>
+
+
+    <Style TargetType="TextBlock"
+                   x:Key="MemberRegularText">
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontFamily" Value="{DynamicResource GilroySemiBold}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Justify"/>
+        <Setter Property="Foreground" Value="{DynamicResource MyBlack}"/>
+    </Style>
+
+
+
+
+    <Style TargetType="TextBlock"
+               x:Key="MemberLargeText">
+        <Setter Property="FontSize" Value="19"/>
+        <Setter Property="FontFamily" Value="{DynamicResource GilroyBold}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+        <Setter Property="Foreground" Value="{StaticResource MyBlack}"/>
+    </Style>
+
+    <Style TargetType="TextBlock"
+               x:Key="MediumHeaderText">
+        <Setter Property="FontSize" Value="28"/>
+        <Setter Property="FontFamily" Value="{DynamicResource Bebas}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Left"/>
+        <Setter Property="Foreground" Value="{DynamicResource MyBrown}"/>
+    </Style>
+
+    <Style TargetType="TextBlock"
+                   x:Key="DetailTextBlock">
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="FontFamily" Value="{DynamicResource GilroyMedium}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Justify"/>
+        <Setter Property="Foreground" Value="{DynamicResource MyBlack}"/>
+    </Style>
+
+    <Style TargetType="TextBlock" x:Key="LinkTextBlock" BasedOn="{StaticResource DetailTextBlock}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Cursor" Value="Hand"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="TextBlock"
+               x:Key="RegularHeaderText">
+        <Setter Property="FontSize" Value="21"/>
+        <Setter Property="FontFamily" Value="{DynamicResource Bebas}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Left"/>
+        <Setter Property="Foreground" Value="{DynamicResource MyBrown}"/>
+    </Style>
+
+    <Style TargetType="TextBlock"
+                   x:Key="RegularText">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="{DynamicResource GilroyRegular}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Justify"/>
+        <Setter Property="Foreground" Value="{DynamicResource MyBlack}"/>
+    </Style>
+
+
+    <Style TargetType="TextBlock"
+                   x:Key="SemiBoldRegularText">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="{DynamicResource GilroySemiBold}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Justify"/>
+        <Setter Property="Foreground" Value="{DynamicResource MyBrown}"/>
+    </Style>
+
+    <Style TargetType="TextBlock"
+                   x:Key="SemiBoldLargeText">
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontFamily" Value="{DynamicResource GilroySemiBold}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Justify"/>
+        <Setter Property="Foreground" Value="{DynamicResource MyBrown}"/>
+    </Style>
+
+    <Style TargetType="TextBlock"
+                   x:Key="SemiBoldMediumText">
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontFamily" Value="{DynamicResource GilroySemiBold}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Justify"/>
+        <Setter Property="Foreground" Value="{DynamicResource MyBlack}"/>
+    </Style>
+
+    <Style TargetType="TextBlock"
+                   x:Key="MediumLargeText">
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontFamily" Value="{DynamicResource GilroyMedium}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Justify"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+    <Style TargetType="TextBlock"
+                   x:Key="SemiBoldBigText">
+        <Setter Property="FontSize" Value="44"/>
+        <Setter Property="FontFamily" Value="{DynamicResource GilroySemiBold}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Justify"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+    <Style TargetType="TextBlock"
+                   x:Key="SemiBoldQuiteBigText">
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="FontFamily" Value="{DynamicResource GilroySemiBold}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Justify"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+    <Style TargetType="TextBlock"
+                   x:Key="BoldMediumText">
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontFamily" Value="{DynamicResource GilroyBold}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Justify"/>
+        <Setter Property="Foreground" Value="{DynamicResource MyNeueGreen}"/>
+    </Style>
+
+    <Style TargetType="TextBlock"
+                   x:Key="ButtonMediumText">
+        <Setter Property="FontSize" Value="17"/>
+        <Setter Property="FontFamily" Value="{DynamicResource GilroyMedium}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Justify"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+    <Style TargetType="TextBlock"
+                   x:Key="SmallText">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontFamily" Value="{DynamicResource GilroyRegular}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Justify"/>
+        <Setter Property="Foreground" Value="{DynamicResource MyBlack}"/>
+    </Style>
+
+
+
+    <Style TargetType="TextBlock"
+                   x:Key="DrawerMediumText">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontFamily" Value="{DynamicResource GilroyMedium}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Left"/>
+        <Setter Property="Foreground" Value="{DynamicResource MyBrown}"/>
+    </Style>
+
+    <Style TargetType="TextBlock"
+                   x:Key="MediumText">
+        <Setter Property="FontSize" Value="13.5"/>
+        <Setter Property="FontFamily" Value="{DynamicResource GilroyRegular}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Justify"/>
+        <Setter Property="Foreground" Value="{DynamicResource MyBrown}"/>
+    </Style>
+
 
 </ResourceDictionary>
