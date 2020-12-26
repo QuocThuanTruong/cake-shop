@@ -5,10 +5,883 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CakeShop.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+       xmlns:loc="clr-namespace:CakeShop.Properties"
+         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+         xmlns:converter="clr-namespace:CakeShop.Converter"
+     d:DesignHeight="728" d:DesignWidth="1042"
       Title="HomePage">
 
-    <Grid>
-        
+    <Grid Name="mainContainer">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="962*"/>
+            <ColumnDefinition Width="40*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60*"/>
+            <RowDefinition Height="75*"/>
+            <RowDefinition Height="555*"/>
+            <RowDefinition Height="58*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Name="searchContainer"
+              Grid.Column="1"
+              Grid.Row="0">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="760*"/>
+                <ColumnDefinition Width="177*"/>
+                <ColumnDefinition Width="105*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Search box-->
+            <materialDesign:ColorZone Mode="Custom"
+                                      Margin="0, 0, 10, 0"
+                                      Height="{Binding ActualHeight, ElementName=searchContainer}">
+
+                <materialDesign:ColorZone.Effect>
+                    <DropShadowEffect BlurRadius="10" 
+                                      ShadowDepth="1" 
+                                      Color="LightGray" 
+                                      Opacity="0.5" 
+                                      RenderingBias="Performance" />
+                </materialDesign:ColorZone.Effect>
+
+                <materialDesign:Card Name="searchBoxContainer"
+                                 Width="680"
+                                 Height="45"
+                                 Style="{StaticResource CardScaleHover}"
+                                 UniformCornerRadius="23"
+                                 materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                                 Grid.Column="0">
+
+                    <Grid Name="searchContentCard">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="670*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Name="searchButton"
+                                materialDesign:ButtonAssist.CornerRadius="20"
+                                Background="Transparent"
+                                Padding="0"
+                                BorderThickness="0"
+                                materialDesign:RippleAssist.Feedback="{DynamicResource RipplePink}"
+                                Width="40"
+                                Height="40">
+
+                            <Image Name="iconSearch"
+                                   HorizontalAlignment="Center"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                               Width="23"
+                               Height="22"
+                               Source="{StaticResource IconSearch}"/>
+
+                        </Button>
+
+
+                        <!-- Search text box -->
+                        <TextBox Name="searchTextBox"
+                                 Margin="0, 8, 10, 0"
+                                 Style="{StaticResource SearchTextBox}"
+                                 materialDesign:HintAssist.Hint="Search your cake here..."
+                                 Grid.Column="1" 
+                                 />
+                    </Grid>
+                </materialDesign:Card>
+            </materialDesign:ColorZone>
+
+            <!-- Sort combo box-->
+            <materialDesign:ColorZone Mode="Custom"
+                                      Margin="0, 0, 0, 0"
+                                      Height="{Binding ActualHeight, ElementName=searchContainer}"
+                                      Grid.Column="1">
+
+                <materialDesign:ColorZone.Effect>
+                    <DropShadowEffect BlurRadius="10" 
+                                      ShadowDepth="1" 
+                                      Color="LightGray" 
+                                      Opacity="0.5" 
+                                      RenderingBias="Performance" />
+                </materialDesign:ColorZone.Effect>
+
+                <materialDesign:Card Name="sortBoxContainer"
+                                      Style="{StaticResource CardScaleHover}"
+                                 Width="155"
+                                 Height="45"
+                                 UniformCornerRadius="23"
+                                 materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                                 Grid.Column="0">
+
+                    <StackPanel Name="sortContentCard"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+
+                        <TextBlock Name="titleSortTextBlock"
+                                   VerticalAlignment="Center"
+                                   Style="{StaticResource MediumText}"
+                                   Foreground="{DynamicResource MyBlack}"
+                                   Text="Sort: "/>
+
+                        <ComboBox Name="sortTypeComboBox"
+                                  SelectedIndex="0"
+                                  Style="{StaticResource SearchBoxComboBox}"
+                                  ItemContainerStyle="{StaticResource SearchBoxComboBoxItem}"
+                                  Height="30"
+                                  BorderBrush="{DynamicResource MyBlack}"
+                                  BorderThickness="0"
+                                  materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
+                                  Margin="4, 1, 0, 0"
+                                  OverridesDefaultStyle="True"
+                                  Width="68">
+
+                            <!-- Date -->
+                            <ComboBoxItem Name="sortByDescDate">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="8*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Width="7"
+                                           Height="13"
+                                           Grid.Column="0"
+                                           VerticalAlignment="Center"
+                                           Source="{StaticResource IconDesc}"/>
+
+                                    <TextBlock Name="titleDesDate"
+                                               Text="Date"
+                                               VerticalAlignment="Center"
+                                               Margin="5, 0, 0, 0"
+                                               Grid.Column="1"/>
+                                </Grid>
+                            </ComboBoxItem>
+
+                            <ComboBoxItem Name="sortByAscDate">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="8*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Width="7"
+                                           Height="13"
+                                           Grid.Column="0"
+                                           VerticalAlignment="Center"
+                                           Source="{StaticResource IconAsc}"/>
+
+                                    <TextBlock Name="titleAscDate"
+                                               Text="Date"
+                                               VerticalAlignment="Center"
+                                               Margin="5, 0, 0, 0"
+                                               Grid.Column="1"/>
+                                </Grid>
+                            </ComboBoxItem>
+
+                            <!-- A-Z -->
+                            <ComboBoxItem Name="sortByAZ">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="8*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Width="7"
+                                           Height="13"
+                                           Grid.Column="0"
+                                           VerticalAlignment="Center"
+                                           Source="{StaticResource IconDesc}"/>
+
+                                    <TextBlock Name="titleAZ"
+                                               Text="A - Z"
+                                               VerticalAlignment="Center"
+                                               Margin="5, 0, 0, 0"
+                                               Grid.Column="1"/>
+                                </Grid>
+                            </ComboBoxItem>
+
+                            <ComboBoxItem Name="sortByZA">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="8*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Width="7"
+                                           Height="13"
+                                           Grid.Column="0"
+                                           VerticalAlignment="Center"
+                                           Source="{StaticResource IconAsc}"/>
+
+                                    <TextBlock Name="titleZA"
+                                               Text="Z - A"
+                                               VerticalAlignment="Center"
+                                               Margin="5, 0, 0, 0"
+                                               Grid.Column="1"/>
+                                </Grid>
+                            </ComboBoxItem>
+
+
+                            <!-- Price -->
+                            <ComboBoxItem Name="sortByDescPrice">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="8*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Width="7"
+                                           Height="13"
+                                           Grid.Column="0"
+                                           VerticalAlignment="Center"
+                                           Source="{StaticResource IconDesc}"/>
+
+                                    <TextBlock 
+                                               Text="Price"
+                                               VerticalAlignment="Center"
+                                               Margin="5, 0, 0, 0"
+                                               Grid.Column="1"/>
+                                </Grid>
+                            </ComboBoxItem>
+
+                            <ComboBoxItem Name="sortByAscPrice">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="8*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Width="7"
+                                           Height="13"
+                                           Grid.Column="0"
+                                           VerticalAlignment="Center"
+                                           Source="{StaticResource IconAsc}"/>
+
+                                    <TextBlock 
+                                               Text="Price"
+                                               VerticalAlignment="Center"
+                                               Margin="5, 0, 0, 0"
+                                               Grid.Column="1"/>
+                                </Grid>
+                            </ComboBoxItem>
+
+                        </ComboBox>
+                    </StackPanel>
+                </materialDesign:Card>
+            </materialDesign:ColorZone>
+
+
+            <materialDesign:ColorZone Mode="Custom"
+                                      HorizontalAlignment="Left"
+                                      Margin="16, 0, 0, 0"
+                                      Height="{Binding ActualHeight, ElementName=searchContainer}"
+                                      Grid.Column="2">
+
+                <materialDesign:ColorZone.Effect>
+                    <DropShadowEffect BlurRadius="10" 
+                                      ShadowDepth="1" 
+                                      Color="LightGray" 
+                                      Opacity="0.5" 
+                                      RenderingBias="Performance" />
+                </materialDesign:ColorZone.Effect>
+
+                <ToggleButton Name="gridViewButton"
+                              Click="gridViewButton_Click"
+                        Width="45"
+                        Height="45"
+                        Background="White"
+                        Style="{StaticResource MaterialDesignActionToggleButton}"
+                        materialDesign:RippleAssist.Feedback="{DynamicResource RipplePink}"
+                        materialDesign:ButtonAssist.CornerRadius="23"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                        Grid.Column="0">
+
+                    <materialDesign:ToggleButtonAssist.OnContentTemplate>
+                        <DataTemplate>
+                            <Image Width="20"
+                                   Height="20"
+                                   Margin="0, 0, 0, 0"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   Source="{StaticResource IconLargeGrid}"/>
+                        </DataTemplate>
+                    </materialDesign:ToggleButtonAssist.OnContentTemplate>
+
+                    <Image Width="20"
+                           Height="20"
+                           Margin="0, 0, 0, 0"
+                           RenderOptions.BitmapScalingMode="HighQuality"
+                           Source="{StaticResource IconSmallGrid}"/>
+
+                </ToggleButton>
+            </materialDesign:ColorZone>
+
+
+        </Grid>
+
+        <!-- Food group filter list box -->
+        <ListBox Name="cakeGroupListBox"
+                 SelectionChanged="cakeGroupListBox_SelectionChanged"
+                 ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                 ItemContainerStyle="{StaticResource NonHoverListBoxItem}"
+                 SelectionMode="Multiple"
+                 Foreground="{DynamicResource MyLightGray}"
+                 Grid.Column="1"
+                 Grid.Row="1">
+
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+
+            <Grid Margin="0, -8, 0, 0"
+                  Tag="0">
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                
+                <Button Name="toppingGroupButton"
+                        Grid.Column="1"
+                       Margin="-38, 0, 0, 0"
+                    Click="groupButton_Click"
+                    Tag="0"
+                    Background="{Binding Foreground, ElementName=cakeGroupListBox}"
+                    Style="{StaticResource GroupButton}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="34"/>
+                            <ColumnDefinition Width="8*"/>
+                        </Grid.ColumnDefinitions>
+
+
+                        <TextBlock Name="toppingTextBlock"
+                               Grid.Column="1"
+                               Margin="8, 0, 18, 0"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Style="{StaticResource MediumText}"
+                               Foreground="{DynamicResource MyBlack}"
+                               FontFamily="{DynamicResource GilroySemiBold}"
+                               Text="Topping"/>
+                    </Grid>
+                </Button>
+
+                <Image 
+                       HorizontalAlignment="Left"
+                       Width="66"
+                       Height="66"
+                       Margin="0, 0, 0, 8"
+                       RenderOptions.BitmapScalingMode="HighQuality"
+                       Source="{StaticResource IconTopping}"/>
+            </Grid>
+
+
+            <Grid Margin="0, -12, 0, 0"
+                  Tag="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Name="glazedGroupButton"
+                        Grid.Column="1"
+                       Margin="-40, 0, 0, 0"
+                    Click="groupButton_Click"
+                    Tag="1"
+                    Background="{Binding Foreground, ElementName=cakeGroupListBox}"
+                    Style="{StaticResource GroupButton}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="34"/>
+                            <ColumnDefinition Width="8*"/>
+                        </Grid.ColumnDefinitions>
+
+
+                        <TextBlock  Name="glazedTextBlock"
+                               Grid.Column="1"
+                               Margin="8, 0, 18, 0"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Style="{StaticResource MediumText}"
+                               Foreground="{DynamicResource MyBlack}"
+                               FontFamily="{DynamicResource GilroySemiBold}"
+                               Text="Glazed"/>
+                    </Grid>
+                </Button>
+
+                <Image 
+                       HorizontalAlignment="Left"
+                       Width="74"
+                       Height="74"
+                       Margin="0, 0, 0, 8"
+                       RenderOptions.BitmapScalingMode="HighQuality"
+                       Source="{StaticResource IconGlazed}"/>
+            </Grid>
+
+
+            <Grid Margin="0, -10, 0 , 0"
+                  Tag="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Name="fillingGroupButton"
+                        Grid.Column="1"
+                       Margin="-42, 0, 0, 0"
+                    Click="groupButton_Click"
+                    Tag="2"
+                    Background="{Binding Foreground, ElementName=cakeGroupListBox}"
+                    Style="{StaticResource GroupButton}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="34"/>
+                            <ColumnDefinition Width="8*"/>
+                        </Grid.ColumnDefinitions>
+
+
+                        <TextBlock Name="fillingTextBlock"
+                               Grid.Column="1"
+                               Margin="8, 0, 18, 0"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Style="{StaticResource MediumText}"
+                               Foreground="{DynamicResource MyBlack}"
+                               FontFamily="{DynamicResource GilroySemiBold}"
+                               Text="Filling"/>
+                    </Grid>
+                </Button>
+
+                <Image 
+                       HorizontalAlignment="Left"
+                       Width="78"
+                       Height="78"
+                       Margin="0, 0, 0, 0"
+                       RenderOptions.BitmapScalingMode="HighQuality"
+                       Source="{StaticResource IconFilling}"/>
+            </Grid>
+
+
+            <Button Name="eraserAllFilterButton"
+                    Click="eraserAllFilterButton_Click"
+                    Margin="10, 2, 0, 0"
+                    Width="42"
+                    ToolTip="Clear all filter"
+                    Style="{StaticResource GroupButton}">
+
+                <Image Name="eraserAllFilterImage"
+                       Width="20"
+                       Height="18"
+                       Source="{StaticResource IconClearAll}"/>
+            </Button>
+        </ListBox>
+
+        <!-- Main list - large list view -->
+        <ListView Name="largeCakesListView"
+                  Visibility="Visible"
+                  SelectionChanged="CakesListView_SelectionChanged"
+                  ItemContainerStyle="{StaticResource NonHoverListBoxItem}"
+                  SelectionMode="Single"
+                  ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                  VerticalAlignment="Top"
+                  HorizontalAlignment="Left"
+                  Margin="0, -10, 0, 0"
+                  Grid.Column="1"
+                  Grid.ColumnSpan="2"
+                  Grid.Row="2">
+
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="3"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <!-- Binding tag as ID of recipe -->
+                    <Grid Name="recipeCardContainer"
+                          Tag="10000"
+                          Width="310"
+                          Margin="0, 0, 0, 0"
+                          Height="164">
+                        
+
+                        <!--<Border 
+                                BorderBrush="White"
+                                BorderThickness="2"
+                                Margin="0, 0, 0, 0"
+                                Grid.ColumnSpan="4"
+                                Grid.Row="1"
+                                Grid.RowSpan="4"
+                                CornerRadius="13"
+                                Width="273"
+                                Height="108">
+                            <Border.Effect>
+                                <DropShadowEffect Color="Orange"
+                                                  Opacity="0.5"
+                                                  Direction="320"
+                                                  BlurRadius="5"/>
+                            </Border.Effect>
+                        </Border>-->
+
+                        <Button Name="cakeItemButton"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Bottom"
+                                ClickMode="Hover"
+                                Width="270"
+                                Height="108"
+                                Style="{StaticResource RecipeButton}"
+                                Padding="18">
+
+                            <StackPanel VerticalAlignment="Center"
+                                        Width="234"
+                                        
+                                        HorizontalAlignment="Left">
+
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Width="11"
+                                           Height="11"
+                                           Margin="0, 0, 8, 0"
+                                           RenderOptions.BitmapScalingMode="HighQuality"
+                                           Source="{DynamicResource IconCategory}"/>
+
+                                    <!-- binding -->
+                                    <TextBlock Name="categoryTextBlock"
+                                               Text="Topping"
+                                               Style="{StaticResource DetailTextBlock}"/>
+                                </StackPanel>
+
+                                <!-- binding -->
+                                <TextBlock Name="cakeNameTextBlock"
+                                           Text="Honeycomb Chocolate"
+                                           Margin="0, 4, 0, 4"
+                                           Style="{StaticResource BoldQuiteMediumText}"/>
+
+                                <!-- binding -->
+                                <TextBlock Name="priceTextBlock"
+                                           Text="123.000 đ"
+                                           Foreground="{DynamicResource MyYellow}"
+                                           Style="{StaticResource BoldMediumText}"/>
+
+                            </StackPanel>
+                        </Button>
+
+
+                        <!-- Binding data -->
+                        <Image 
+                               Width="144"
+                               Height="144"
+                               VerticalAlignment="Top"
+                               HorizontalAlignment="Right"
+                               Stretch="UniformToFill"
+                            Margin="0, -10, -10, 0"
+                            Cursor="Hand"
+                               RenderOptions.BitmapScalingMode="HighQuality"
+                               Source="{DynamicResource TEST_AVT}"/>
+                        
+                        <Image Width="120"
+                               Height="34"
+                               Opacity="0.6"
+                               Cursor="Hand"
+                               VerticalAlignment="Bottom"
+                               Margin="0, 0, 0, 0"
+                               HorizontalAlignment="Right"
+                               RenderOptions.BitmapScalingMode="HighQuality"
+                               Source="{DynamicResource CakeShadow}"/>
+
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+            <Grid Tag="1"></Grid>
+            <Grid Tag="2"></Grid>
+            <Grid Tag="3"></Grid>
+            <Grid Tag="4"></Grid>
+            <Grid Tag="5"></Grid>
+            <Grid Tag="6"></Grid>
+            <Grid Tag="7"></Grid>
+        </ListView>
+
+        <!-- Main list - small list view -->
+        <ListView Name="smallCakesListView"
+                  SelectionChanged="CakesListView_SelectionChanged"
+                  Visibility="Collapsed"
+                  ItemContainerStyle="{StaticResource NonHoverListBoxItem}"
+                  SelectionMode="Single"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  VerticalAlignment="Top"
+                  Margin="0, 0, 0, 0"
+                  Grid.Column="1"
+                  Grid.Row="2">
+
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="3"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <!-- Binding tag as ID of recipe -->
+                    <Grid Name="recipeCardContainer"
+                          Tag="10000"
+                          Width="290"
+                          Margin="0, 0, 0, 0"
+                          Height="250">
+
+
+                        <!--<Border 
+                                BorderBrush="White"
+                                BorderThickness="2"
+                                Margin="0, 0, 0, 0"
+                                Grid.ColumnSpan="4"
+                                Grid.Row="1"
+                                Grid.RowSpan="4"
+                                CornerRadius="13"
+                                Width="273"
+                                Height="108">
+                            <Border.Effect>
+                                <DropShadowEffect Color="Orange"
+                                                  Opacity="0.5"
+                                                  Direction="320"
+                                                  BlurRadius="5"/>
+                            </Border.Effect>
+                        </Border>-->
+
+                        <Button Name="cakeItemButton"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Bottom"
+                                ClickMode="Hover"
+                                Width="270"
+                                Height="144"
+                                Style="{StaticResource RecipeButton}"
+                                Padding="18">
+
+                            <StackPanel VerticalAlignment="Center"
+                                        Width="234"
+                                        
+                                        HorizontalAlignment="Left">
+
+                                <StackPanel Orientation="Vertical">
+                                    <Image Width="11"
+                                           HorizontalAlignment="Left"
+                                           Height="11"
+                                           Margin="0, 0, 8, 2"
+                                           RenderOptions.BitmapScalingMode="HighQuality"
+                                           Source="{DynamicResource IconCategory}"/>
+
+                                    <!-- binding -->
+                                    <TextBlock Name="categoryTextBlock"
+                                               Text="Topping"
+                                               Style="{StaticResource DetailTextBlock}"/>
+                                </StackPanel>
+
+                                
+
+                                <!-- binding -->
+                                <TextBlock Name="priceTextBlock"
+                                           Text="123.000 đ"
+                                           Margin="0, 24, 0, 4"
+                                           Foreground="{DynamicResource MyYellow}"
+                                           Style="{StaticResource BoldMediumText}"/>
+
+                                <!-- binding -->
+                                <TextBlock Name="cakeNameTextBlock"
+                                           Text="Honeycomb Chocolate"
+                                           
+                                           Style="{StaticResource BoldQuiteMediumText}"/>
+
+                            </StackPanel>
+                        </Button>
+
+
+                        <!-- Binding data -->
+                        <Image 
+                               Width="194"
+                               Height="194"
+                               VerticalAlignment="Top"
+                               HorizontalAlignment="Right"
+                               Stretch="UniformToFill"
+                            Cursor="Hand"
+                            Margin="0, -8, 0, 0"
+                               RenderOptions.BitmapScalingMode="HighQuality"
+                               Source="{DynamicResource TEST_AVT}"/>
+
+                        <Image Width="200"
+                               Height="60"
+                               Opacity="0.6"
+                               Cursor="Hand"
+                               VerticalAlignment="Bottom"
+                               Margin="0, 0, 0, 40"
+                               HorizontalAlignment="Right"
+                               RenderOptions.BitmapScalingMode="HighQuality"
+                               Source="{DynamicResource CakeShadow}"/>
+
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+            <Grid Tag="1"></Grid>
+            <Grid Tag="2"></Grid>
+            <Grid Tag="3"></Grid>
+            <Grid Tag="4"></Grid>
+            <Grid Tag="5"></Grid>
+   
+        </ListView>
+
+        <Grid Name="pageContainer"
+              Grid.Column="1"
+              Grid.Row="3">
+
+            <StackPanel Name="pageButtonContainer"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        FlowDirection="RightToLeft">
+
+                <Button Name="lastPageButton"
+                        ToolTip="Last page"
+                        
+                        Width="27"
+                        Height="40"
+                        materialDesign:ButtonAssist.CornerRadius="0"
+                        Style="{StaticResource WindowOptionsButton}">
+
+                    <Image Name="iconLast"
+                           Width="27"
+                           Height="36"
+                           RenderOptions.BitmapScalingMode="HighQuality"
+                           Source="{StaticResource IconLast}"/>
+                </Button>
+
+                <Button Name="nextPageButton"
+                        ToolTip="Next page"
+                        
+                        Width="27"
+                        Height="40"
+                        materialDesign:ButtonAssist.CornerRadius="0"
+                        Style="{StaticResource WindowOptionsButton}">
+
+                    <Image Name="iconNext"
+                           Width="27"
+                           Height="36"
+                           RenderOptions.BitmapScalingMode="HighQuality"
+                           Source="{StaticResource IconNext}"/>
+                </Button>
+
+                <materialDesign:ColorZone Mode="Custom"
+                                          Width="70"
+                                      Height="{Binding ActualHeight, ElementName=pageContainer}">
+
+                    <materialDesign:ColorZone.Effect>
+                        <DropShadowEffect BlurRadius="10" 
+                                          ShadowDepth="1" 
+                                          Color="#ff0606" 
+                                          Opacity="0.5" 
+                                          RenderingBias="Performance" />
+                    </materialDesign:ColorZone.Effect>
+
+                    <materialDesign:Card Name="currenPageContainer"
+                                         Width="60"
+                                         Background="{StaticResource MyRedGradientRev}"
+                                         Margin="0, 0, 0, 4"
+                                         Height="28"
+                                         UniformCornerRadius="14"
+                                         materialDesign:ShadowAssist.ShadowDepth="Depth0">
+
+                        <!-- Binding data -->
+                        <TextBlock Name="currentPageTextBlock"
+                                   FlowDirection="LeftToRight"
+                                   Text="1 of 5"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Foreground="White"
+                                   Style="{StaticResource SmallText}"
+                                   FontFamily="{StaticResource GilroySemiBold}"/>
+                    </materialDesign:Card>
+                </materialDesign:ColorZone>
+
+                <Button Name="prevPageButton"
+                        ToolTip="Previous page"
+                       
+                        Width="27"
+                        Height="40"
+                        materialDesign:ButtonAssist.CornerRadius="0"
+                        Style="{StaticResource WindowOptionsButton}">
+
+                    <Image Name="iconPrev"
+                           Width="27"
+                           Height="36"
+                           RenderOptions.BitmapScalingMode="HighQuality"
+                           Source="{StaticResource IconPrevious}"/>
+                </Button>
+
+                <Button Name="firstPageButton"
+                        ToolTip="First page"
+                        
+                        Width="27"
+                        Height="40"
+                        materialDesign:ButtonAssist.CornerRadius="0"
+                        Style="{StaticResource WindowOptionsButton}">
+
+                    <Image Name="iconFirst"
+                           Width="27"
+                           Height="36"
+                           RenderOptions.BitmapScalingMode="HighQuality"
+                           Source="{StaticResource IconFirst}"/>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <TextBlock Name="currentResultTextBlock"
+                   Grid.Column="1"
+                   Grid.Row="3"
+                   Margin="12, 0, 200, 0"
+                   VerticalAlignment="Center"
+                   Text="Hiển thị 12 trong tổng số 72 bánh"
+                   Foreground="{StaticResource MyLightBrown}"
+                   Style="{StaticResource RegularText}"/>
+
+        <!-- List not found -->
+        <Grid Name="messageNotFoundContainer"
+              Visibility="Collapsed"
+              Grid.Column="1"
+              Grid.Row="2">
+
+            <Border Background="{DynamicResource MyLightGray2}"/>
+
+            <StackPanel Name="videoStatusContent"
+                                VerticalAlignment="Center">
+
+                <Image Name="videoStatusImage"
+                               Width="100"
+                               Height="100"
+                               RenderOptions.BitmapScalingMode="HighQuality"
+                               Source="{StaticResource AppLogo}"/>
+
+                <TextBlock Name="videoStatusTextBlock"
+                                   Margin="0, 12, 0, 0"
+                                   HorizontalAlignment="Center"
+                                   Text="Danh sách hiện chưa có"
+                                   Style="{StaticResource RegularText}"
+                                   Foreground="{StaticResource MyLightGray4}"/>
+
+            </StackPanel>
+        </Grid>
+
+        <!-- Post mesage to notification to user here -->
+        <materialDesign:Snackbar Name="notiMessageSnackbar"
+                                 HorizontalAlignment="Left"
+                                 MessageQueue="{materialDesign:MessageQueue}"
+                                 Margin="24, 0, 0, 8"
+                                 MaxWidth="1000"
+                                 IsActive="False"
+                                 Grid.Column="1"
+                                 Grid.Row="2"
+                                 Grid.RowSpan="2">
+        </materialDesign:Snackbar>
+
     </Grid>
 </Page>

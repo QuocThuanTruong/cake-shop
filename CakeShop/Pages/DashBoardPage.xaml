@@ -116,16 +116,6 @@
                                    Foreground="White"
                                    Style="{StaticResource SemiBoldBigText}"/>
 
-                            <TextBlock Text="/"
-                                       VerticalAlignment="Bottom"
-                                       Margin="0, 0, 2, 8"
-                                   Style="{StaticResource SemiBoldQuiteBigText}"/>
-
-                            <TextBlock Text="999"
-                                       VerticalAlignment="Bottom"
-                                       Margin="0, 0, 0, 6"
-                                   Style="{StaticResource SemiBoldQuiteBigText}"/>
-
                         </StackPanel>
                     </StackPanel>
 
@@ -262,7 +252,76 @@
 
             </materialDesign:Card>
 
+
+            <!-- Year combo box -->
+            <materialDesign:ColorZone Mode="Custom"
+                                      Height="46"
+                                      Grid.Column="2"
+                                      Grid.Row="1">
+
+                <materialDesign:ColorZone.Effect>
+                    <DropShadowEffect BlurRadius="10" 
+                                      ShadowDepth="1" 
+                                      Color="LightGray" 
+                                      Opacity="0.5" 
+                                      RenderingBias="Performance" />
+                </materialDesign:ColorZone.Effect>
+
+                <materialDesign:Card 
+                                      Style="{StaticResource CardScaleHover}"
+                                 Width="130"
+                                 Height="45"
+                                 Margin="0, 0, 4, 0"
+                                 HorizontalAlignment="Right"
+                                 UniformCornerRadius="23"
+                                 materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                                 Grid.Column="0">
+
+                    <StackPanel 
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+
+                        <TextBlock 
+                                   VerticalAlignment="Center"
+                                   Margin="0, 0, 4, 0"
+                                   Style="{StaticResource MediumText}"
+                                   Foreground="{DynamicResource MyBlack}"
+                                   Text="Năm:"/>
+
+                        <ComboBox Name="yearCombobox"
+                                  SelectionChanged="yearCombobox_SelectionChanged"
+                                  Style="{StaticResource SearchBoxComboBox}"
+                                  ItemContainerStyle="{StaticResource SearchBoxComboBoxItem}"
+                                  Height="30"
+                                  SelectedIndex="0"
+                                  BorderBrush="{DynamicResource MyBlack}"
+                                  BorderThickness="0"
+                                  materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
+                                  Margin="0, 1, 0, 0"
+                                  OverridesDefaultStyle="True"
+                                  Width="50">
+
+                            <ComboBoxItem Name="grid34">
+                                <TextBlock Name="titleGrid34"
+                                           Text="2020"/>
+                            </ComboBoxItem>
+
+                            <ComboBoxItem Name="grid44">
+                                <TextBlock Name="titleGrid44"
+                                           Text="2021"/>
+                            </ComboBoxItem>
+
+                        </ComboBox>
+                    </StackPanel>
+                </materialDesign:Card>
+            </materialDesign:ColorZone>
+
+
         </Grid>
+
+
+      
 
         <Grid Name="chartContainer"
               Grid.Column="1"

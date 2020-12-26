@@ -9,12 +9,9 @@
         Background="Transparent"
          xmlns:loc="clr-namespace:CakeShop.Properties"
          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-         xmlns:converter="clr-namespace:CakeShop.Converter"
+         
         Title="SplashScreen" Loaded="Window_Loaded" Height="536" Width="916" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
-    
-    <Window.Resources>
-        <converter:AbsolutePathConverter x:Key="abosolutePathConverter"></converter:AbsolutePathConverter>
-    </Window.Resources>
+   
     
     <Grid Margin="8" Background="{DynamicResource MyLightGray2}">
         <Grid.Effect>

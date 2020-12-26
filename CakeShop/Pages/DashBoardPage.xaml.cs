@@ -48,5 +48,10 @@ namespace CakeShop.Pages
 
 
 		}
+
+		private void yearCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+
+		}
 	}
 }
