@@ -4,6 +4,7 @@
                     xmlns:local="clr-namespace:CakeShop">
 
     <converter:AbsolutePathConverter x:Key="abosolutePathConverter"/>
+    <converter:IsActiveViewConverter x:Key="isActiveConverter"/>
 
     <!-- Define Color -->
     <SolidColorBrush x:Key="MyPink" Color="#e877a6"/>
@@ -73,6 +74,15 @@
         <Setter Property="Foreground" Value="{DynamicResource MyBrown}"/>
     </Style>
 
+    <Style TargetType="TextBlock"
+               x:Key="SuperLargeHeaderText">
+        <Setter Property="FontSize" Value="40"/>
+        <Setter Property="FontFamily" Value="{DynamicResource HaveHeart2}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Left"/>
+        <Setter Property="Foreground" Value="{DynamicResource MyBrown}"/>
+    </Style>
+
 
     <Style TargetType="TextBlock"
                    x:Key="MemberRegularText">
@@ -123,8 +133,17 @@
 
     <Style TargetType="TextBlock"
                x:Key="RegularHeaderText">
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="FontFamily" Value="{DynamicResource OswaldMedium}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Left"/>
+        <Setter Property="Foreground" Value="{DynamicResource MyBrown}"/>
+    </Style>
+
+    <Style TargetType="TextBlock"
+               x:Key="SmallRegularHeaderText">
         <Setter Property="FontSize" Value="21"/>
-        <Setter Property="FontFamily" Value="{DynamicResource Bebas}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource OswaldMedium}"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="TextAlignment" Value="Left"/>
         <Setter Property="Foreground" Value="{DynamicResource MyBrown}"/>
@@ -177,6 +196,15 @@
     </Style>
 
     <Style TargetType="TextBlock"
+                   x:Key="BigMediumLargeText">
+        <Setter Property="FontSize" Value="21"/>
+        <Setter Property="FontFamily" Value="{DynamicResource GilroyMedium}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Justify"/>
+        <Setter Property="Foreground" Value="{DynamicResource MyBrown}"/>
+    </Style>
+
+    <Style TargetType="TextBlock"
                    x:Key="SemiBoldBigText">
         <Setter Property="FontSize" Value="44"/>
         <Setter Property="FontFamily" Value="{DynamicResource GilroySemiBold}"/>
@@ -197,6 +225,15 @@
     <Style TargetType="TextBlock"
                    x:Key="BoldMediumText">
         <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontFamily" Value="{DynamicResource GilroyBold}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Justify"/>
+        <Setter Property="Foreground" Value="{DynamicResource MyBrown}"/>
+    </Style>
+
+    <Style TargetType="TextBlock"
+                   x:Key="BoldLargeText">
+        <Setter Property="FontSize" Value="26"/>
         <Setter Property="FontFamily" Value="{DynamicResource GilroyBold}"/>
         <Setter Property="TextWrapping" Value="Wrap"/>
         <Setter Property="TextAlignment" Value="Justify"/>

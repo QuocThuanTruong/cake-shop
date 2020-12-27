@@ -171,6 +171,45 @@
         </Setter>
     </Style>
 
+   
+    
+  
+
+    <Style x:Key="ImageRecipeListViewItem" TargetType="ListBoxItem">
+        <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <Setter Property="OverridesDefaultStyle" Value="true"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Border Name="Border" 
+                            Padding="0, 0, 16, 0" 
+                            SnapsToDevicePixels="true"
+                            Background="Transparent">
+                        <ContentPresenter VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="true">
+                            <Setter TargetName="Border" Property="Background" Value="Transparent"/>
+                        </Trigger>
+
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground" Value="Transparent"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="Border" Property="Background" Value="Transparent"/>
+                            <Setter Property="Grid.ZIndex" Value="1"/>
+                            <Setter Property="RenderTransformOrigin" Value="0.5, 0.5"/>
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="1.05" ScaleY="1.05"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <Style x:Key="RecipeButton" TargetType="{x:Type Button}" BasedOn="{StaticResource WindowOptionsButton}">
         <Setter Property="Height" Value="126"/>
@@ -226,6 +265,29 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style x:Key="StepButton" TargetType="{x:Type Button}" BasedOn="{StaticResource RecipeButton}">
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Width" Value="85"/>
+        <Setter Property="Background" Value="{DynamicResource MyRedGradient}"/>
+        <Setter Property="Foreground" Value="#ff3c00"/>
+        <Setter Property="materialDesign:RippleAssist.Feedback" Value="Yellow"/>
+        <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="5"/>
+        <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth0"/>
+    </Style>
+
+    <Style x:Key="AddRecipePageTextBox" TargetType="{x:Type TextBox}" BasedOn="{StaticResource MaterialDesignOutlinedTextFieldTextBox}">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Foreground" Value="{DynamicResource MyBlack}"/>
+        <Setter Property="materialDesign:HintAssist.IsFloating" Value="False"/>
+        <Setter Property="Height" Value="32"/>
+        <Setter Property="FontFamily" Value="{StaticResource GilroyRegular}"/>
+        <Setter Property="Padding" Value="-5"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+
+  
 
     <Style x:Key="ImageRecipeCard" TargetType="{x:Type materialDesign:Card}">
         <Setter Property="Width" Value="95"/>
@@ -326,6 +388,14 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="SearchBoxComboBox" TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MaterialDesignComboBox}">
+        <Setter Property="FontSize" Value="13.5"/>
+        <Setter Property="FontFamily" Value="{DynamicResource GilroySemiBold}"/>
+        <Setter Property="Foreground" Value="{DynamicResource MyBlack}"/>
+        <Setter Property="materialDesign:ComboBoxAssist.ClassicMode" Value="True"/>
+        <Setter Property="materialDesign:RippleAssist.Feedback" Value="{DynamicResource RippleBlue}" />
+    </Style>
+
     <Style x:Key="SearchBoxComboBoxItem" TargetType="ComboBoxItem" BasedOn="{StaticResource MaterialDesignComboBoxItemSelectedCollapsedStyle}">
         <Setter Property="BorderBrush" Value="{DynamicResource RippleBlue}"/>
         <Setter Property="materialDesign:RippleAssist.Feedback" Value="{DynamicResource RippleBlue}" />
@@ -377,14 +447,143 @@
         </Setter>
     </Style>
 
-    <Style x:Key="SearchBoxComboBox" TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MaterialDesignComboBox}">
-        <Setter Property="FontSize" Value="13.5"/>
-        <Setter Property="FontFamily" Value="{DynamicResource GilroySemiBold}"/>
-        <Setter Property="Foreground" Value="{DynamicResource MyBlack}"/>
-        <Setter Property="materialDesign:ComboBoxAssist.ClassicMode" Value="True"/>
-        <Setter Property="materialDesign:RippleAssist.Feedback" Value="{DynamicResource RippleBlue}" />
+    <Style x:Key="AddRecipeComboBox" TargetType="{x:Type ComboBox}" BasedOn="{StaticResource SearchBoxComboBox}">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="Transparent"/>
+        <Setter Property="FontFamily" Value="{DynamicResource GilroyRegular}"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="White"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
+    <Style x:Key="ImagePickerButton" TargetType="{x:Type ButtonBase}" BasedOn="{StaticResource MaterialDesignFlatButton}">
+        <Setter Property="Width" Value="35"/>
+        <Setter Property="Height" Value="35"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Background" Value="LightGray"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{DynamicResource RippleBlue}"/>
+        <Setter Property="materialDesign:RippleAssist.Feedback" Value="{DynamicResource RipplePink}" />
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="1" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ButtonBase}">
+                    <Grid>
+                        <Border Background="{TemplateBinding Background}"
+                                x:Name="border" 
+                                CornerRadius="{Binding Path=(materialDesign:ButtonAssist.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <materialDesign:Ripple Content="{TemplateBinding Content}" 
+                                        ContentTemplate="{TemplateBinding ContentTemplate}" 
+                                        Focusable="False"
+                                        ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                        Padding="{TemplateBinding Padding}" 
+                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                                <materialDesign:Ripple.Clip>
+                                    <MultiBinding Converter="{StaticResource BorderClipConverter}">
+                                        <Binding ElementName="border" Path="ActualWidth" />
+                                        <Binding ElementName="border" Path="ActualHeight" />
+                                        <Binding ElementName="border" Path="CornerRadius" />
+                                        <Binding ElementName="border" Path="BorderThickness" />
+                                    </MultiBinding>
+                                </materialDesign:Ripple.Clip>
+                            </materialDesign:Ripple>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="#ffc2db" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Opacity" Value="1"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ImageStepListViewItem" TargetType="ListBoxItem">
+        <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <Setter Property="OverridesDefaultStyle" Value="true"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Border Name="Border" 
+                            Padding="4, 8, 8, 8" 
+                            SnapsToDevicePixels="true"
+                            Background="Transparent">
+                        <ContentPresenter VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="true">
+                            <Setter TargetName="Border" Property="Background" Value="Transparent"/>
+                        </Trigger>
+
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground" Value="Transparent"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="Border" Property="Background" Value="Transparent"/>
+                            <Setter Property="Grid.ZIndex" Value="1"/>
+                            <Setter Property="RenderTransformOrigin" Value="0.5, 0.5"/>
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="1.05" ScaleY="1.05"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SiteHoverListBox" TargetType="ListBoxItem">
+        <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <Setter Property="OverridesDefaultStyle" Value="true"/>
+        <Setter Property="Foreground" Value="{DynamicResource RipplePink}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Border Name="Border" 
+                            Padding="0, 4, 0, 4" 
+                            SnapsToDevicePixels="true"
+                            Background="Transparent">
+                        <ContentPresenter VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="true">
+                            <Setter TargetName="Border" Property="Background" Value="Transparent"/>
+                        </Trigger>
+
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground" Value="Transparent"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="Border" Property="Background" Value="{Binding Foreground,
+                                                                                        RelativeSource={RelativeSource Mode=TemplatedParent},
+                                                                                        Converter={StaticResource BrushOpacityConverter},
+                                                                                        ConverterParameter=0.25}" />
+                            <Setter Property="Grid.ZIndex" Value="1"/>
+                            <Setter Property="RenderTransformOrigin" Value="0.5, 0.5"/>
+                            <Setter Property="RenderTransform">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="1.01" ScaleY="1.01"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <!-- Custom Scroll bar -->
     <Style x:Key="ScrollBarThumb" TargetType="{x:Type Thumb}">

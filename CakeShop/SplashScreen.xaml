@@ -98,7 +98,7 @@
                     Grid.RowSpan="2">
 
                 <!--Binding-->
-                <TextBlock Name="siteNameTextBlock"
+                <TextBlock Name="cakeNameTextBlock"
                    Text="Peach and Raspberry Twist "
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left"

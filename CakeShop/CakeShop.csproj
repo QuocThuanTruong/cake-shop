@@ -76,6 +76,8 @@
     </ApplicationDefinition>
     <Compile Include="Converter\AbsolutePathConverter.cs" />
     <Compile Include="Converter\BrushOpacityConverter.cs" />
+    <Compile Include="Converter\IsActiveViewConverter.cs" />
+    <Compile Include="CustomView\ListBoxExtension.cs" />
     <Compile Include="Pages\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
@@ -191,6 +193,12 @@
     <Content Include="Assets\Images\ic-slim-add.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Images\ic-white-close.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\ic-white-save.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Images\vertical-ribbon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -243,9 +251,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="CustomView\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Assets\Images\app-logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

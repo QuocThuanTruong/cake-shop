@@ -23,6 +23,9 @@ namespace CakeShop.Pages
 	{
 		private List<Tuple<Button, TextBlock>> cakeGroupButton;
 
+		public delegate void ShowCakeDetailPageHandler(int cakeID);
+		public event ShowCakeDetailPageHandler ShowCakeDetailPage;
+
 		public HomePage()
 		{
 			InitializeComponent();
@@ -129,6 +132,8 @@ namespace CakeShop.Pages
 				//selectedID = ((Recipe)recipesListView.SelectedItem).ID_RECIPE;
 				selectedID = int.Parse(((Grid)listView.SelectedItem).Tag.ToString());
 				Debug.WriteLine(selectedID);
+
+				ShowCakeDetailPage?.Invoke(selectedID);
 			}
 		}
 	}

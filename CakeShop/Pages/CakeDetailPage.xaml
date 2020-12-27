@@ -4,11 +4,356 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CakeShop.Pages"
+       xmlns:loc="clr-namespace:CakeShop.Properties"
+     
+         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="728" d:DesignWidth="1042"
       Title="CakeDetailPage">
 
-    <Grid>
-        
+    <Grid Name="mainContainer">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="66*"/>
+            <ColumnDefinition Width="358*"/>
+            <ColumnDefinition Width="52*"/>
+            <ColumnDefinition Width="500*"/>
+            <ColumnDefinition Width="66*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="474*"/>
+            <RowDefinition Height="74*"/>
+            <RowDefinition Height="120*"/>
+        </Grid.RowDefinitions>
+
+
+        <Image Name="cakeAvatar"
+               Grid.ColumnSpan="3"
+               Grid.RowSpan="2"
+               Margin="0, 10, 0, 0"
+               VerticalAlignment="Top"
+               Source="{DynamicResource TEST_AVT}"
+               Width="422"
+               Height="422"/>
+
+        <!-- ItemsSource="{Binding IMAGES_LIST_FOR_BINDING}" -->
+        <!-- Image cake list view -->
+        <ListView Name="imageCakeListView"
+                  VerticalAlignment="Bottom"
+                  Height="126"
+                  ScrollViewer.CanContentScroll="False"
+                  
+                  Margin="4, 8, 0, 0"
+                  ItemContainerStyle="{StaticResource ImageRecipeListViewItem}"
+                  Grid.Column="1"
+                  Grid.Row="1">
+
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+
+                    <!-- Binding data -->
+                    <Image 
+                       Width="92"
+                       Height="92"
+                       Stretch="UniformToFill"
+                       RenderOptions.BitmapScalingMode="HighQuality"
+                       Source="{StaticResource TEST_IMG}">
+                        <Image.Style>
+                            <Style TargetType="Image">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Cursor" Value="Hand"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            
+            <Image></Image>
+            <Image></Image>
+            <Image></Image>
+            <Image></Image>
+            <Image></Image>
+        </ListView>
+
+        <StackPanel  
+            Grid.Column="3"
+            Grid.Row="1">
+
+
+            <TextBlock Name="cakeNameTextBlock"
+                   Text="Peach and Raspberry Twist "
+                   Style="{StaticResource SuperLargeHeaderText}"/>
+
+            <StackPanel Margin="0, 14, 0, 0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1.2*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="16"
+                                   Height="16"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   Source="{StaticResource IconCategory}"/>
+
+                            <TextBlock Text="Loại bánh"
+                                       Margin="10, 0, 0, 0"
+                                       Foreground="{DynamicResource MyLightBrown}"
+                                       Style="{StaticResource MediumLargeText}"/>
+                        </StackPanel>
+
+                        <!-- binding -->
+                        <TextBlock Name="cakeCatergoryTextBlock"
+                            Text="Topping"
+                                       Margin="26, 0, 0, 0"
+                                   Foreground="{DynamicResource MyBlack}"
+                                       Style="{StaticResource BigMediumLargeText}"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="16"
+                                   Height="16"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   Source="{StaticResource IconId}"/>
+
+                            <TextBlock Text="ID"
+                                       Margin="10, 0, 0, 0"
+                                       Foreground="{DynamicResource MyLightBrown}"
+                                       Style="{StaticResource MediumLargeText}"/>
+                        </StackPanel>
+
+                        <!-- binding -->
+                        <TextBlock Name="cakeIDTextBlock"
+                            Text="1707"
+                                   Foreground="{DynamicResource MyBlack}"
+                                       Margin="26, 0, 0, 0"
+                                       Style="{StaticResource BigMediumLargeText}"/>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Margin="0, 10, 0, 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1.2*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="16"
+                                   Height="16"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   Source="{StaticResource IconMoney}"/>
+
+                            <TextBlock Text="Giá bán"
+                                       Margin="10, 0, 0, 0"
+                                       Foreground="{DynamicResource MyLightBrown}"
+                                       Style="{StaticResource MediumLargeText}"/>
+                        </StackPanel>
+
+                        <!-- binding -->
+                        <TextBlock Name="salePriceTextBlock"
+                            Text="17.700 đ"
+                                   Foreground="{DynamicResource MyBlack}"
+                                       Margin="26, 0, 0, 0"
+                                       Style="{StaticResource BoldLargeText}"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="16"
+                                   Height="16"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   Source="{StaticResource IconMoney}"/>
+
+                            <TextBlock Text="Giá gốc"
+                                       Margin="10, 0, 0, 0"
+                                       Foreground="{DynamicResource MyLightBrown}"
+                                       Style="{StaticResource MediumLargeText}"/>
+                        </StackPanel>
+
+                        <!-- binding -->
+                        <TextBlock Name="originPriceTextBlock"
+                                    Text="10.000 đ"
+                                   Foreground="{DynamicResource MyBlack}"
+                                       Margin="26, 0, 0, 0"
+                                       Style="{StaticResource BoldMediumText}"/>
+                    </StackPanel>
+                </Grid>
+
+
+                <Grid Margin="0, 10, 0, 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1.2*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="16"
+                                   Height="16"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   Source="{StaticResource IconCurQuantity}"/>
+
+                            <TextBlock Text="SL Hiện tại"
+                                       Margin="10, 0, 0, 0"
+                                       Foreground="{DynamicResource MyLightBrown}"
+                                       Style="{StaticResource MediumLargeText}"/>
+                        </StackPanel>
+
+                        <!-- binding -->
+                        <TextBlock Name="currentQuantityTextBlock"
+                            Text="09"
+                                   Foreground="{DynamicResource MyBlack}"
+                                       Margin="26, 0, 0, 0"
+                                       Style="{StaticResource BigMediumLargeText}"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="16"
+                                   Height="16"
+                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                   Source="{StaticResource IconTotalQuantity}"/>
+
+                            <TextBlock Text="SL Nhập"
+                                       Margin="10, 0, 0, 0"
+                                       Foreground="{DynamicResource MyLightBrown}"
+                                       Style="{StaticResource MediumLargeText}"/>
+                        </StackPanel>
+
+                        <!-- binding -->
+                        <TextBlock Name="totalQuantityTextBlock"
+                            Text="11"
+                                   Foreground="{DynamicResource MyBlack}"
+                                       Margin="26, 0, 0, 0"
+                                       Style="{StaticResource BigMediumLargeText}"/>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+
+            <StackPanel Margin="0, 30, 0, 0">
+                <TextBlock Text="MÔ TẢ"
+                           Style="{StaticResource RegularHeaderText}"/>
+
+                <Grid  Grid.Column="1"
+                   Grid.Row="4"
+                   Height="130">
+
+                    <!--Binding-->
+                    <ScrollViewer Margin="0, 2, 0, 0">
+                        <TextBlock Name="cakeDescriptionTextBlock"          
+                               Text="Chúng mình sẽ phong tặng đây là chiếc bánh bí ẩn nhất trong dàn bánh nhà DOSH. Từ ngoài vào trong, là vị ngọt thanh của socola trắng và vụn bánh red velvet; là lớp phủ đường đào độc đáo mà có lẽ là lần đầu tiên bạn thử; và kiệt tác chính là phần bên trong với kem trứng vị đào hoà cùng vụn trái phúc bồn tử. Bạn sẽ phải gật gù mà cảm nhận từng hương vị được kết hợp trong chiếc donut ball này. "
+                               Style="{StaticResource RegularText}"
+                               TextAlignment="Justify" 
+                               Margin="0, 0, 12, 0"
+                               ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+                    </ScrollViewer>
+                </Grid>
+            </StackPanel>
+
+        </StackPanel>
+
+        <materialDesign:ColorZone Mode="Custom"
+                                  VerticalAlignment="Center"
+                                  Padding="0, 20, 4, 0"
+                                  HorizontalAlignment="Center"
+                                  Grid.Column="1"
+                                  Grid.Row="2"
+                                  Grid.ColumnSpan="3">
+
+            <materialDesign:ColorZone.Effect>
+                <DropShadowEffect BlurRadius="10" 
+                                          ShadowDepth="1" 
+                                          Color="#ffbc00" 
+                                          Opacity="0.4" 
+                                          RenderingBias="Performance" />
+            </materialDesign:ColorZone.Effect>
+
+            <StackPanel 
+                        Height="40"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+
+                
+                <Button Name="addToOrderButton"
+                        Width="176"
+                        Style="{StaticResource StepButton}"
+                        materialDesign:ButtonAssist.CornerRadius="16"
+                        Height="32"                        
+                        materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                    <Grid Width="176">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="4*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        
+                        <Image Width="15"
+                               Height="15"
+                               RenderOptions.BitmapScalingMode="HighQuality"
+                               Source="{DynamicResource IconWhiteAdd}"/>
+
+                        <TextBlock 
+                            HorizontalAlignment="Center"
+                            Grid.Column="1"
+                            Margin="0, 0, 22, 0"
+                           Style="{StaticResource RegularText}"
+                           Foreground="White"
+                           Text="ADD TO ORDER"/>
+                    </Grid>
+                   
+                </Button>
+
+                <Button Name="updateCakeButton"
+                        Click="updateCakeButton_Click"
+                        Width="142"
+                        Margin="46, 0, 0, 0"
+                        Style="{StaticResource StepButton}"
+                        materialDesign:ButtonAssist.CornerRadius="16"
+                        Height="32"                        
+                        materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                    <Grid Width="142">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+
+
+                        <Image Width="15"
+                               Height="15"
+                               RenderOptions.BitmapScalingMode="HighQuality"
+                               Source="{DynamicResource IconWhiteUpdate}"/>
+
+                        <TextBlock 
+                            HorizontalAlignment="Center"
+                            Grid.Column="1"
+                            Margin="0, 0, 22, 0"
+                           Style="{StaticResource RegularText}"
+                           Foreground="White"
+                           Text="UPDATE"/>
+                    </Grid>
+
+                </Button>
+            </StackPanel>
+        </materialDesign:ColorZone>
+
+
+
+
     </Grid>
 </Page>

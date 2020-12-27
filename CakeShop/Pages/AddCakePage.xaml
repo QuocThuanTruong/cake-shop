@@ -4,11 +4,452 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CakeShop.Pages"
+       xmlns:loc="clr-namespace:CakeShop.Properties"
+         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="728" d:DesignWidth="1042"
       Title="AddCakePage">
 
-    <Grid>
+    <Grid Name="mainContainer">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="60*"/>
+            <ColumnDefinition Width="912*"/>
+            <ColumnDefinition Width="70*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="322*"/>
+            <RowDefinition Height="242*"/>
+            <RowDefinition Height="114*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="CẬP NHẬT THÔNG TIN BÁNH"
+                   Name="updateTextBlock"
+                   Visibility="Collapsed"
+                   Grid.Column="1"
+                   VerticalAlignment="Bottom"
+                  Margin="0, 0, 0, 8"
+                   FontSize="28"
+                   Foreground="{DynamicResource MyLightBrown}"
+                   Style="{StaticResource SmallRegularHeaderText}"/>
         
+        <materialDesign:Card
+            Grid.Column="1"
+            Grid.Row="1"
+            Background="#60ffffff"
+            UniformCornerRadius="10"
+            Padding="14"
+            Margin="0, 0, 0, 30"
+            materialDesign:ShadowAssist.ShadowDepth="Depth0">
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="487*"/>
+                    <ColumnDefinition Width="40*"/>
+                    <ColumnDefinition Width="280*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="300*"/>
+                            <ColumnDefinition Width="187*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Margin="0, 0, 10, 0">
+                            <TextBlock Text="TÊN BÁNH"
+                                       Style="{StaticResource SmallRegularHeaderText}"/>
+
+                            <TextBox Name="cakeNameTextBox"
+                             Margin="2, 8, 0 ,0"
+                             Style="{StaticResource AddRecipePageTextBox}"
+                             materialDesign:HintAssist.Hint="Nhập tên bánh"
+                             Grid.Column="1"
+                             Grid.Row="1"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="10, 0, 0 ,0"
+                                    Grid.Column="1">
+
+                            <TextBlock Text="LOẠI BÁNH"
+                                       Style="{StaticResource SmallRegularHeaderText}"/>
+                            <Grid
+                                VerticalAlignment="Bottom"
+                                Margin="2, 6, 0, 0">
+
+                                <Border Name="cakeComboBoxBorder"
+                                    Height="34"
+                            BorderBrush="Black"
+                            Background="{Binding Foreground, ElementName=cakeCategoryComboBox}"
+                            BorderThickness="1"
+                            CornerRadius="4">
+    
+                                </Border>
+
+                                <ComboBox Name="cakeCategoryComboBox"
+                              HorizontalAlignment="Left"
+                              
+                              Style="{StaticResource AddRecipeComboBox}"
+                              ItemContainerStyle="{StaticResource SearchBoxComboBoxItem}"
+                              Height="30"
+                              SelectedIndex="0"
+                              HorizontalContentAlignment="Left"
+                              BorderBrush="{DynamicResource MyBlack}"
+                              BorderThickness="0"
+                              materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
+                              Margin="12, 0, 0, 2"
+                              OverridesDefaultStyle="True"
+                              Width="170">
+
+                                    <ComboBoxItem Name="toppingCategory">
+                                        <TextBlock
+                                            Foreground="{DynamicResource MyBlack}"
+                                           Text="Topping"/>
+                                    </ComboBoxItem>
+
+                                    <ComboBoxItem Name="glazedCategory">
+                                        <TextBlock
+                                             Foreground="{DynamicResource MyBlack}"
+                                           Text="Glazed"/>
+                                    </ComboBoxItem>
+
+                                    <ComboBoxItem Name="fillingCategory">
+                                        <TextBlock
+                                             Foreground="{DynamicResource MyBlack}"
+                                           Text="Filling"/>
+                                    </ComboBoxItem>
+
+                                </ComboBox>
+                            </Grid>
+                        </StackPanel>
+                       
+
+
+                    </Grid>
+
+                    <StackPanel Margin="0, 20, 0, 0">
+                        <TextBlock Text="MÔ TẢ"
+                                       Style="{StaticResource SmallRegularHeaderText}"/>
+
+                        <TextBox Name="cakeDescriptionTextBox"
+                             Margin="2, 8, 0 ,0"
+                                 Height="124"
+                                 TextWrapping="Wrap"
+                             Style="{StaticResource AddRecipePageTextBox}"
+                             materialDesign:HintAssist.Hint="Nhập mô tả của bánh"
+                             Grid.Column="1"
+                             Grid.Row="1"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2"
+                            Margin="0, 0, 8, 0">
+                    <TextBlock Text="GIÁ GỐC"
+                                       Style="{StaticResource SmallRegularHeaderText}"/>
+
+                    <TextBox Name="originPriceTextBox"
+                             Margin="2, 8, 0 ,0"
+                             Style="{StaticResource AddRecipePageTextBox}"
+                             materialDesign:HintAssist.Hint="Giá gốc"
+                             Grid.Column="1"
+                             Grid.Row="1"/>
+
+                    <TextBlock Text="GIÁ BÁN"
+                               Margin="0, 20, 0, 0"
+                                       Style="{StaticResource SmallRegularHeaderText}"/>
+
+                    <TextBox Name="salePriceTextBox"
+                             Margin="2, 8, 0 ,0"
+                             Style="{StaticResource AddRecipePageTextBox}"
+                             materialDesign:HintAssist.Hint="Giá bán"
+                             Grid.Column="1"
+                             Grid.Row="1"/>
+
+                    <TextBlock Text="SỐ LƯỢNG NHẬP"
+                               Margin="0, 20, 0, 0"
+                                       Style="{StaticResource SmallRegularHeaderText}"/>
+
+                    <TextBox Name="importQuantityTextBox"
+                             Margin="2, 8, 0 ,0"
+                             Style="{StaticResource AddRecipePageTextBox}"
+                             materialDesign:HintAssist.Hint="Số lượng bánh nhập kho"
+                             Grid.Column="1"
+                             Grid.Row="1"/>
+                </StackPanel>
+
+            </Grid>
+            
+        </materialDesign:Card>
+
+        <Grid Grid.Column="1"
+              Grid.Row="2">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.83*"/>
+                <ColumnDefinition Width="0.14*"/>
+                <ColumnDefinition Width="2.7*"/>
+            </Grid.ColumnDefinitions>
+
+
+            <materialDesign:Card
+                    Grid.Column="0"
+                    Background="#60ffffff"
+                    UniformCornerRadius="10"
+                    Padding="14"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth0">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30*"/>
+                        <RowDefinition Height="176*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="ẢNH ĐẠI DIỆN"
+                                       Style="{StaticResource SmallRegularHeaderText}"/>
+
+                    <Button Name="addCakeAvatarButton"
+                        Style="{StaticResource ImagePickerButton}"
+                        Background="{DynamicResource MyLightPink}"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left"
+                        Margin="0, 8, 0, 0"
+                            Grid.Row="1"
+                        Width="176"
+                        Height="176" 
+                        >
+
+                        <Image Width="60"
+                               Height="50"
+                               Source="{StaticResource IconAddImg}"/>
+                    </Button>
+                </Grid>
+                
+            </materialDesign:Card>
+
+
+            <materialDesign:Card
+                    Grid.Column="2"
+                    Background="#60ffffff"
+                    UniformCornerRadius="10"
+                    Padding="14"
+                    materialDesign:ShadowAssist.ShadowDepth="Depth0">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30*"/>
+                        <RowDefinition Height="176*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="HÌNH ẢNH ĐI KÈM"
+                                       Style="{StaticResource SmallRegularHeaderText}"/>
+
+
+                        <Button Name="addCakeImagesOption2Button"
+                                HorizontalAlignment="Right"
+                                Visibility="Hidden"
+                                Grid.Column="1"
+                                 Click="addCakeImagesButton_Click"
+                                VerticalAlignment="Center"
+                                Width="110"
+                                Style="{StaticResource StepButton}"
+                                materialDesign:ButtonAssist.CornerRadius="12"
+                                Height="24"                        
+                                materialDesign:ShadowAssist.ShadowDepth="Depth0" >
+                            <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center">
+
+                                <Image 
+                                    Width="11"
+                                    Height="11"
+                                    RenderOptions.BitmapScalingMode="HighQuality"
+                                    Source="{StaticResource IconWhiteAdd}"/>
+
+                                <TextBlock Text="ADD IMAGES"
+                                    Margin="6, 0, 8, 0"
+                                    Foreground="White"
+                                    Style="{StaticResource SmallText}"/>
+                            </StackPanel>
+                        </Button>
+
+                    </Grid>
+
+
+                    <Button Name="addCakeImagesOption1Button"
+                            Click="addCakeImagesButton_Click"
+                            Visibility="Visible"
+                        Style="{StaticResource ImagePickerButton}"
+                        Background="{DynamicResource MyLightPink}"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left"
+                        Margin="0, 8, 0, 0"
+                            Grid.Row="1"
+                        Width="176"
+                        Height="176" 
+                        >
+
+                        <Image Width="60"
+                               Height="50"
+                               Source="{StaticResource IconAddImg}"/>
+                    </Button>
+
+                    <StackPanel Orientation="Horizontal"
+                                Grid.Row="1"
+                                Margin="2, 0, 2, 0">
+                        <!-- Collaped when no image, visible when image added-->
+                        <!-- Binding data -->
+                        <ListView Name="cakeImageListView"
+                            Height="180"
+                            Width="640"
+                            Visibility="Collapsed"
+                            ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                            Margin="0, 0, 0, 0"
+                            ItemContainerStyle="{StaticResource ImageStepListViewItem}">
+
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Name="relativeImageListItem">
+                                        <!-- Binding data -->
+                                        <Image Name="relativeStepImage"
+                                               Margin="0, 0, 0, 4"
+                                               Width="150"
+                                               Height="150"
+                                               Stretch="UniformToFill"
+                                               Source="{StaticResource TEST_IMG}"
+                                               RenderOptions.BitmapScalingMode="HighQuality"
+                                                   Visibility="{Binding Path=Is_Active, 
+                                            Converter={StaticResource isActiveConverter}}">
+                                            <!--<Image.Source>
+                                                <BitmapImage CacheOption="OnLoad"
+                                                 UriSource="{Binding ImageSource}"/>
+                                            </Image.Source>-->
+
+                                        </Image>
+
+                                        <Button Name="deleteRelativeImageInListButton"
+ 
+                                                Tag="{Binding ImageIndex}"
+                                                HorizontalAlignment="Right"
+                                                VerticalAlignment="Top"
+                                                Style="{StaticResource StepButton}"
+                                                Background="{StaticResource MyLightPink}"
+                                                Width="20"
+                                                Height="20"
+                                                Margin="0, -4, -4, 0"
+                                                materialDesign:ButtonAssist.CornerRadius="14"
+                                                    Visibility="{Binding Path=Is_Active, 
+                                            Converter={StaticResource isActiveConverter}}">
+
+                                            <Image Width="8"
+                                                   Height="8"
+                                                   RenderOptions.BitmapScalingMode="HighQuality"
+                                                   Source="{StaticResource IconWhiteClose}"/>
+                                        </Button>
+                                    </Grid>
+
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+
+                            <Grid></Grid>
+                            <Grid></Grid>
+                            <Grid></Grid>
+                            <Grid></Grid>
+                            <Grid></Grid>
+                        </ListView>
+                    </StackPanel>
+
+
+
+
+                </Grid>
+            </materialDesign:Card>
+
+        </Grid>
+
+
+        <materialDesign:ColorZone Mode="Custom"
+                                  VerticalAlignment="Top"
+                                  Padding="0, 20, 4, 0"
+                                  HorizontalAlignment="Right"
+                                  Grid.Column="1"
+                                  Grid.Row="3">
+
+            <materialDesign:ColorZone.Effect>
+                <DropShadowEffect BlurRadius="10" 
+                                          ShadowDepth="1" 
+                                          Color="#ffbc00" 
+                                          Opacity="0.4" 
+                                          RenderingBias="Performance" />
+            </materialDesign:ColorZone.Effect>
+
+            <StackPanel 
+                        Height="40"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+
+
+                <Button Name="cancelAddCakeButton"
+                        Width="32"
+                        Style="{StaticResource StepButton}"
+                        materialDesign:ButtonAssist.CornerRadius="16"
+                        Height="32"                        
+                        materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                    <Grid Width="32">
+
+
+                        <Image Width="12"
+                               Height="12"
+                               RenderOptions.BitmapScalingMode="HighQuality"
+                               Source="{DynamicResource IconWhiteClose}"/>
+
+                    </Grid>
+
+                </Button>
+
+                <Button Name="saveCakeButton"
+                        Width="142"
+                        Margin="18, 0, 0, 0"
+                        Style="{StaticResource StepButton}"
+                        materialDesign:ButtonAssist.CornerRadius="16"
+                        Height="32"                        
+                        materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                    <Grid Width="142">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1.1*"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+
+
+                        <Image Width="14"
+                               Height="14"
+                               RenderOptions.BitmapScalingMode="HighQuality"
+                               Source="{DynamicResource IconWhiteSave}"/>
+
+                        <TextBlock 
+                            HorizontalAlignment="Center"
+                            Grid.Column="1"
+                            Margin="0, 0, 22, 0"
+                           Style="{StaticResource RegularText}"
+                           Foreground="White"
+                           Text="SAVE CAKE"/>
+                    </Grid>
+
+                </Button>
+            </StackPanel>
+        </materialDesign:ColorZone>
     </Grid>
+    
+    
 </Page>

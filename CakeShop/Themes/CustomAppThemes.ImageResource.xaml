@@ -37,6 +37,8 @@
     <ImageSource x:Key="IconTotalReceivable">pack://application:,,,/Assets/Images/ic-total-receivable.png</ImageSource>
     <ImageSource x:Key="IconWhiteAbout">pack://application:,,,/Assets/Images/ic-white-about.png</ImageSource>
     <ImageSource x:Key="IconWhiteAdd">pack://application:,,,/Assets/Images/ic-white-add.png</ImageSource>
+    <ImageSource x:Key="IconWhiteClose">pack://application:,,,/Assets/Images/ic-white-close.png</ImageSource>
+    <ImageSource x:Key="IconWhiteSave">pack://application:,,,/Assets/Images/ic-white-save.png</ImageSource>
     <ImageSource x:Key="IconWhiteDashboard">pack://application:,,,/Assets/Images/ic-white-dashboard.png</ImageSource>
     <ImageSource x:Key="IconWhiteHelp">pack://application:,,,/Assets/Images/ic-white-help.png</ImageSource>
     <ImageSource x:Key="IconWhiteHome">pack://application:,,,/Assets/Images/ic-white-home.png</ImageSource>

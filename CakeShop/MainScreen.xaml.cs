@@ -32,7 +32,7 @@ namespace CakeShop
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
 			DashBoardPage dashBoardPage = new DashBoardPage();
-			//homePage.ShowJourneyDetailPage += MainScreen_ShowJourneyDetailPage;
+			
 			pageNavigation.NavigationService.Navigate(dashBoardPage);
 
 			_mainScreenButtons = new List<Tuple<Button, Image, string, string, TextBlock>>()
@@ -94,9 +94,8 @@ namespace CakeShop
 				iconHomePage.Source = (ImageSource)FindResource(_mainScreenButtons[1].Item4);
 				homePageName.Foreground = Brushes.White;
 				result = new HomePage();
-				//((HomePage)result).ViewAllJourney += MainScreen_ViewAllJourney;
-				//((HomePage)result).ShowJourneyDetailPage += MainScreen_ShowJourneyDetailPage;
-				//((HomePage)result).ShowJourneySearchPage += MainScreen_ShowJourneySearchPage;
+				((HomePage)result).ShowCakeDetailPage += MainScreen_ShowCakeDetailPage;
+				
 			}
 			else if (selectedButton.Name == addCakePageButton.Name)
 			{
@@ -126,6 +125,35 @@ namespace CakeShop
 			}
 
 			return result;
+		}
+
+		private void MainScreen_ShowCakeDetailPage(int cakeID)
+		{
+			CakeDetailPage cakeDetailPage = new CakeDetailPage(cakeID);
+			cakeDetailPage.UpdateCake += CakeDetailPage_UpdateCake;
+			pageNavigation.NavigationService.Navigate(cakeDetailPage);
+			cleaerDrawerButton();
+		}
+
+		private void CakeDetailPage_UpdateCake(int cakeID)
+		{
+			AddCakePage addCakePage = new AddCakePage(cakeID);
+			pageNavigation.NavigationService.Navigate(addCakePage);
+			cleaerDrawerButton();
+		}
+
+		private void cleaerDrawerButton()
+		{
+			foreach (var button in _mainScreenButtons)
+			{
+				
+					button.Item1.Background = Brushes.Transparent;
+					button.Item1.IsEnabled = true;
+
+					button.Item2.Source = (ImageSource)FindResource(button.Item3);
+					button.Item5.Foreground = (Brush)FindResource("MyBrown");
+				
+			}
 		}
 
 		private void Rectangle_MouseDown(object sender, MouseButtonEventArgs e)

@@ -20,9 +20,22 @@ namespace CakeShop.Pages
 	/// </summary>
 	public partial class CakeDetailPage : Page
 	{
+		public delegate void UpdateCakeHandler(int cakeID);
+		public event UpdateCakeHandler UpdateCake;
+
 		public CakeDetailPage()
 		{
 			InitializeComponent();
+		}
+
+		public CakeDetailPage(int cakeID)
+		{
+			InitializeComponent();
+		}
+
+		private void updateCakeButton_Click(object sender, RoutedEventArgs e)
+		{
+			UpdateCake?.Invoke(1);
 		}
 	}
 }
