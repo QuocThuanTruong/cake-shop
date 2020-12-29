@@ -43,7 +43,10 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
 
+            <!-- nếu là năm hiện tại thì hiện tổng bánh hiện tại
+            ngược lại hiện tổng nhập kho nếu chọn năm khác-->
             <materialDesign:Card
+                Name="currentCakeCard"
                 Grid.Row="1"
                 Width="282"
                 Height="130"
@@ -66,16 +69,6 @@
                                    Foreground="White"
                                    Style="{StaticResource SemiBoldBigText}"/>
 
-                            <TextBlock Text="/"
-                                       VerticalAlignment="Bottom"
-                                       Margin="0, 0, 2, 8"
-                                   Style="{StaticResource SemiBoldQuiteBigText}"/>
-                            
-                            <TextBlock Text="999"
-                                       VerticalAlignment="Bottom"
-                                       Margin="0, 0, 0, 6"
-                                   Style="{StaticResource SemiBoldQuiteBigText}"/>
-
                         </StackPanel>
                     </StackPanel>
 
@@ -90,6 +83,48 @@
 
                 </Grid>
                 
+            </materialDesign:Card>
+
+            <!-- năm khác thì hiện ẩn cái trên-->
+            <materialDesign:Card
+                Visibility="Collapsed"
+                Name="totalInventoryCard"
+                Grid.Row="1"
+                Width="282"
+                Height="130"
+                Background="{DynamicResource MyPurpleGradient}"
+                VerticalAlignment="Top"
+                UniformCornerRadius="15"
+                materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                HorizontalAlignment="Left">
+
+                <Grid Margin="20">
+                    <StackPanel>
+                        <TextBlock Text="Tổng bánh nhập kho"
+                                   Foreground="White"
+                                   Style="{StaticResource MediumLargeText}"/>
+
+                        <!-- binding -->
+                        <StackPanel Orientation="Horizontal"
+                                    VerticalAlignment="Top">
+                            <TextBlock Text="999"
+                                   Foreground="White"
+                                   Style="{StaticResource SemiBoldBigText}"/>
+
+                        </StackPanel>
+                    </StackPanel>
+
+                    <Image
+                        VerticalAlignment="Bottom"
+                        HorizontalAlignment="Right"
+                        Width="75"
+                        Height="75"
+                        Margin="0, 0, -10, -10"
+                        RenderOptions.BitmapScalingMode="HighQuality"
+                        Source="{DynamicResource IconTotalCake}"/>
+
+                </Grid>
+
             </materialDesign:Card>
 
             <materialDesign:Card
