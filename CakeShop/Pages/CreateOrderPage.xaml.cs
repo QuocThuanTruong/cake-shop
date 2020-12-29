@@ -24,5 +24,49 @@ namespace CakeShop.Pages
 		{
 			InitializeComponent();
 		}
+
+		public CreateOrderPage(Object dummy)
+		{
+			InitializeComponent();
+		}
+
+		private void shipToggleButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (addressTextBox.IsEnabled == false)
+			{
+				addressTextBox.IsEnabled = true;
+			} 
+			else
+			{
+				addressTextBox.IsEnabled = false;
+			}
+
+			if (phoneTextBox.IsEnabled == false)
+			{
+				phoneTextBox.IsEnabled = true;
+			}
+			else
+			{
+				phoneTextBox.IsEnabled = false;
+			}
+
+			if (shipipngFeeTextBox.IsEnabled == false)
+			{
+				shipipngFeeTextBox.IsEnabled = true;
+			}
+			else
+			{
+				shipipngFeeTextBox.IsEnabled = false;
+			}
+
+			if (shippingFreeGrid.Visibility == Visibility.Visible)
+			{
+				shippingFreeGrid.Visibility = Visibility.Collapsed;
+			}
+			else
+			{
+				shippingFreeGrid.Visibility = Visibility.Visible;
+			}
+		}
 	}
 }

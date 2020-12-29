@@ -109,7 +109,8 @@ namespace CakeShop
 				iconOrderPage.Source = (ImageSource)FindResource(_mainScreenButtons[3].Item4);
 				orderPageName.Foreground = Brushes.White;
 				result = new OrderPage();
-				//((AddRecipePage)result).BackToHome += MainScreen_BackToHome;
+				((OrderPage)result).CreateNewOrder += MainScreen_CreateNewOrder;
+				((OrderPage)result).CreateOrderWithCurrent += MainScreen_CreateOrderWithCurrent;
 			}
 			else if (selectedButton.Name == helpPageButton.Name)
 			{
@@ -125,6 +126,22 @@ namespace CakeShop
 			}
 
 			return result;
+		}
+
+		private void MainScreen_CreateOrderWithCurrent(Object dummy)
+		{
+			CreateOrderPage createOrderPage = new CreateOrderPage(dummy);
+			pageNavigation.NavigationService.Navigate(createOrderPage);
+
+			cleaerDrawerButton();
+		}
+
+		private void MainScreen_CreateNewOrder()
+		{
+			CreateOrderPage createOrderPage = new CreateOrderPage();
+			pageNavigation.NavigationService.Navigate(createOrderPage);
+
+			cleaerDrawerButton();
 		}
 
 		private void MainScreen_ShowCakeDetailPage(int cakeID)

@@ -20,9 +20,27 @@ namespace CakeShop.Pages
 	/// </summary>
 	public partial class OrderPage : Page
 	{
+		//Custom lại constructor
+		public delegate void CreateNewOrderHandler();
+		public event CreateNewOrderHandler CreateNewOrder;
+
+		public delegate void CreateOrderWithCurrentHandler(Object dummy);
+		public event CreateOrderWithCurrentHandler CreateOrderWithCurrent;
+
 		public OrderPage()
 		{
 			InitializeComponent();
+		}
+
+
+		private void createNewOrderButton_Click(object sender, RoutedEventArgs e)
+		{
+			CreateNewOrder?.Invoke();
+		}
+
+		private void createOrderWithCurrentButton_Click(object sender, RoutedEventArgs e)
+		{
+			CreateOrderWithCurrent?.Invoke(new Object());
 		}
 	}
 }
