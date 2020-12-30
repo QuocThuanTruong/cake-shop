@@ -11,6 +11,10 @@
      d:DesignHeight="728" d:DesignWidth="1042"
       Title="HomePage">
 
+    <Page.Resources>
+        <converter:AbsolutePathConverter x:Key="abosolutePathConverter"></converter:AbsolutePathConverter>
+    </Page.Resources>
+
     <Grid Name="mainContainer">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="40*"/>
@@ -126,6 +130,7 @@
 
                         <ComboBox Name="sortTypeComboBox"
                                   SelectedIndex="0"
+                                  SelectionChanged="sortTypeComboBox_SelectionChanged"
                                   Style="{StaticResource SearchBoxComboBox}"
                                   ItemContainerStyle="{StaticResource SearchBoxComboBoxItem}"
                                   Height="30"
@@ -151,7 +156,7 @@
                                            Source="{StaticResource IconDesc}"/>
 
                                     <TextBlock Name="titleDesDate"
-                                               Text="Date"
+                                               Text="Quantity"
                                                VerticalAlignment="Center"
                                                Margin="5, 0, 0, 0"
                                                Grid.Column="1"/>
@@ -172,7 +177,7 @@
                                            Source="{StaticResource IconAsc}"/>
 
                                     <TextBlock Name="titleAscDate"
-                                               Text="Date"
+                                               Text="Quantity"
                                                VerticalAlignment="Center"
                                                Margin="5, 0, 0, 0"
                                                Grid.Column="1"/>
@@ -503,11 +508,11 @@
                 <DataTemplate>
                     <!-- Binding tag as ID of recipe -->
                     <Grid Name="recipeCardContainer"
-                          Tag="10000"
+                          Tag="{Binding ID_Cake}"
                           Width="310"
                           Margin="0, 0, 0, 0"
                           Height="164">
-                        
+
 
                         <!--<Border 
                                 BorderBrush="White"
@@ -550,19 +555,19 @@
 
                                     <!-- binding -->
                                     <TextBlock Name="categoryTextBlock"
-                                               Text="Topping"
+                                               Text="{Binding Type_Cake}"
                                                Style="{StaticResource DetailTextBlock}"/>
                                 </StackPanel>
 
                                 <!-- binding -->
                                 <TextBlock Name="cakeNameTextBlock"
-                                           Text="Honeycomb Chocolate"
+                                           Text="{Binding NAME_FOR_BINDING}"
                                            Margin="0, 4, 0, 4"
                                            Style="{StaticResource BoldQuiteMediumText}"/>
 
                                 <!-- binding -->
                                 <TextBlock Name="priceTextBlock"
-                                           Text="123.000 đ"
+                                           Text="{Binding SELLING_PRICE_FOR_BINDING}"
                                            Foreground="{DynamicResource MyYellow}"
                                            Style="{StaticResource BoldMediumText}"/>
 
@@ -572,16 +577,16 @@
 
                         <!-- Binding data -->
                         <Image 
-                               Width="144"
-                               Height="144"
-                               VerticalAlignment="Top"
-                               HorizontalAlignment="Right"
-                               Stretch="UniformToFill"
+                            Width="144"
+                            Height="144"
+                            VerticalAlignment="Top"
+                            HorizontalAlignment="Right"
+                            Stretch="UniformToFill"
                             Margin="0, -10, -10, 0"
                             Cursor="Hand"
-                               RenderOptions.BitmapScalingMode="HighQuality"
-                               Source="{DynamicResource TEST_AVT}"/>
-                        
+                            RenderOptions.BitmapScalingMode="HighQuality"
+                            Source="{Binding Link_Avt, Converter={StaticResource abosolutePathConverter}}"/>
+
                         <Image Width="120"
                                Height="34"
                                Opacity="0.6"
@@ -595,14 +600,6 @@
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
-
-            <Grid Tag="1"></Grid>
-            <Grid Tag="2"></Grid>
-            <Grid Tag="3"></Grid>
-            <Grid Tag="4"></Grid>
-            <Grid Tag="5"></Grid>
-            <Grid Tag="6"></Grid>
-            <Grid Tag="7"></Grid>
         </ListView>
 
         <!-- Main list - small list view -->
@@ -627,7 +624,7 @@
                 <DataTemplate>
                     <!-- Binding tag as ID of recipe -->
                     <Grid Name="recipeCardContainer"
-                          Tag="10000"
+                          Tag="{Binding ID_Cake}"
                           Width="290"
                           Margin="0, 0, 0, 0"
                           Height="250">
@@ -675,23 +672,22 @@
 
                                     <!-- binding -->
                                     <TextBlock Name="categoryTextBlock"
-                                               Text="Topping"
+                                               Text="{Binding Type_Cake}"
                                                Style="{StaticResource DetailTextBlock}"/>
                                 </StackPanel>
 
-                                
+
 
                                 <!-- binding -->
                                 <TextBlock Name="priceTextBlock"
-                                           Text="123.000 đ"
+                                           Text="{Binding SELLING_PRICE_FOR_BINDING}"
                                            Margin="0, 24, 0, 4"
                                            Foreground="{DynamicResource MyYellow}"
                                            Style="{StaticResource BoldMediumText}"/>
 
                                 <!-- binding -->
                                 <TextBlock Name="cakeNameTextBlock"
-                                           Text="Honeycomb Chocolate"
-                                           
+                                           Text="{Binding NAME_FOR_BINDING}"
                                            Style="{StaticResource BoldQuiteMediumText}"/>
 
                             </StackPanel>
@@ -708,7 +704,7 @@
                             Cursor="Hand"
                             Margin="0, -8, 0, 0"
                                RenderOptions.BitmapScalingMode="HighQuality"
-                               Source="{DynamicResource TEST_AVT}"/>
+                               Source="{Binding Link_Avt, Converter={StaticResource abosolutePathConverter}}"/>
 
                         <Image Width="200"
                                Height="60"
@@ -723,13 +719,6 @@
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
-
-            <Grid Tag="1"></Grid>
-            <Grid Tag="2"></Grid>
-            <Grid Tag="3"></Grid>
-            <Grid Tag="4"></Grid>
-            <Grid Tag="5"></Grid>
-   
         </ListView>
 
         <Grid Name="pageContainer"
@@ -743,7 +732,7 @@
 
                 <Button Name="lastPageButton"
                         ToolTip="Last page"
-                        
+                        Click="lastPageButton_Click"
                         Width="27"
                         Height="40"
                         materialDesign:ButtonAssist.CornerRadius="0"
@@ -758,7 +747,7 @@
 
                 <Button Name="nextPageButton"
                         ToolTip="Next page"
-                        
+                        Click="nextPageButton_Click"
                         Width="27"
                         Height="40"
                         materialDesign:ButtonAssist.CornerRadius="0"
@@ -805,7 +794,7 @@
 
                 <Button Name="prevPageButton"
                         ToolTip="Previous page"
-                       
+                        Click="prevPageButton_Click"           
                         Width="27"
                         Height="40"
                         materialDesign:ButtonAssist.CornerRadius="0"
@@ -820,7 +809,7 @@
 
                 <Button Name="firstPageButton"
                         ToolTip="First page"
-                        
+                        Click="firstPageButton_Click"
                         Width="27"
                         Height="40"
                         materialDesign:ButtonAssist.CornerRadius="0"
