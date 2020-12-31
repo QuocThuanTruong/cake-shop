@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +21,25 @@ namespace CakeShop.Pages
 	/// </summary>
 	public partial class HelpPage : Page
 	{
+		private ObservableCollection<Tuple<string, string>> _howToUsePages = new ObservableCollection<Tuple<string, string>>();
+
 		public HelpPage()
 		{
 			InitializeComponent();
+
+			_howToUsePages.Add(new Tuple<string, string>(Properties.Resources.home_page_upper, Properties.Resources.text_help_home));
+			_howToUsePages.Add(new Tuple<string, string>(Properties.Resources.add_journey_page_upper, Properties.Resources.text_help_add_journey));
+			_howToUsePages.Add(new Tuple<string, string>(Properties.Resources.add_site_page_upper, Properties.Resources.text_help_add_site));
+			_howToUsePages.Add(new Tuple<string, string>(Properties.Resources.help_page_upper, Properties.Resources.text_help_help));
+			_howToUsePages.Add(new Tuple<string, string>(Properties.Resources.about_page_upper, Properties.Resources.text_help_about));
+
+			helpDetailListView.ItemsSource = _howToUsePages;
+
+		}
+
+		private void linkVideoTextBlock_MouseDown(object sender, MouseButtonEventArgs e)
+		{
+			System.Diagnostics.Process.Start(Properties.Resources.text_link_video_help);
 		}
 	}
 }

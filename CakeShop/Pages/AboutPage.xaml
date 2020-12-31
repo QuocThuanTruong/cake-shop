@@ -4,11 +4,136 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CakeShop.Pages"
+       xmlns:loc="clr-namespace:CakeShop.Properties"
+         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="728" d:DesignWidth="1042"
       Title="AboutPage">
 
-    <Grid>
-        
+    <Grid Name="mainContainer">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="1086*"/>
+            <ColumnDefinition Width="40*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="690*"/>
+            <RowDefinition Height="40*"/>
+        </Grid.RowDefinitions>
+
+        <materialDesign:Card
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Margin="22, 0, 0, 0"
+            Background="#60ffffff"
+            UniformCornerRadius="10"
+            Padding="14"
+            materialDesign:ShadowAssist.ShadowDepth="Depth0"/>
+
+        <StackPanel Name="contentContainer"
+                    Margin="6, 20, 20, 20"
+                    Grid.Column="1"
+                    Grid.Row="0">
+
+            <TextBlock Name="aboutAppTitleTextBlock"
+                   VerticalAlignment="Center"
+                   Style="{StaticResource SmallRegularHeaderText}"
+                   Text="{x:Static loc:Resources.title_about_app}"/>
+
+            <TextBlock Name="aboutAppDetailTextBlock"
+                       Text="{x:Static loc:Resources.text_about_app}"
+                       FontSize="14"
+                       Margin="0, 0, 0, 10"
+                       Style="{StaticResource DetailTextBlock}"/>
+
+            <TextBlock Name="aboutUsTitleTextBlock"
+                   VerticalAlignment="Center"
+                   Style="{StaticResource SmallRegularHeaderText}"
+                   Text="{x:Static loc:Resources.title_about_us}"/>
+
+            <TextBlock Name="aboutUsDetailTextBlock"
+                       Text="{x:Static loc:Resources.text_about_us}"
+                       FontSize="14"
+                       Margin="0, 0, 0, 10"
+                       Style="{StaticResource DetailTextBlock}"/>
+
+            <ListView Name="membersListview"
+                      SelectionMode="Single"
+                      Width="400"
+                      HorizontalAlignment="Left"
+                      ItemContainerStyle="{StaticResource MemberListBoxItem}">
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Name="memberItemContainer"
+                              Margin="8 ,8, 0, 8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="0.5*"/>
+                                <ColumnDefinition Width="8*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Button Name="memberAvatar"
+                                    Tag="{Binding Item1}"
+                                    Click="memberAvatar_Click"
+                                    Style="{StaticResource MemberAvatarButton}">
+
+                                <TextBlock Name="textInAvtTextBlock"
+                                           Foreground="White"
+                                           Margin="0, 0, 0, 4"
+                                           Style="{StaticResource LargeHeaderText}"
+                                           Text="{Binding Item2}"/>
+                            </Button>
+
+                            <StackPanel Name="detailMemberContainer"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Grid.Column="2">
+
+                                <TextBlock Name="memberNameTextBlock"
+                                           Style="{StaticResource MemberLargeText}"
+                                           Text="{Binding Item3}"/>
+
+                                <TextBlock Name="memberIDTextBlock"
+                                           Margin="0, 8, 0, 0"
+                                           Style="{StaticResource MemberRegularText}"
+                                           Text="{Binding Item4}"/>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <TextBlock Name="sortMemberTitle"
+                       Text="{x:Static loc:Resources.text_about_sort}"
+                       Foreground="Gray"
+                       Margin="0, 6, 0, 10"
+                       Style="{StaticResource SmallText}"/>
+
+            <TextBlock Name="contactTitleTextBlock"
+                   VerticalAlignment="Center"
+                   Style="{StaticResource SmallRegularHeaderText}"
+                   Text="{x:Static loc:Resources.title_contact}"/>
+
+            <TextBlock Name="contactDetailTextBlock"
+                       Text="{x:Static loc:Resources.text_contact}"
+                       FontSize="14"
+                       Margin="0, 0, 0, 10"
+                       Style="{StaticResource DetailTextBlock}"/>
+
+            <TextBlock Name="openSourceTitleTextBlock"
+                   VerticalAlignment="Center"
+                   Style="{StaticResource SmallRegularHeaderText}"
+                   Text="{x:Static loc:Resources.title_open_source}"/>
+
+            <TextBlock Name="openSourceDetailTextBlock"
+                       MouseDown="openSourceDetailTextBlock_MouseDown"
+                       Text="{x:Static loc:Resources.text_github}"
+                       FontSize="14"
+                       Margin="0, 0, 0, 10"
+                       Style="{StaticResource LinkTextBlock}">
+            </TextBlock>
+        </StackPanel>
     </Grid>
 </Page>

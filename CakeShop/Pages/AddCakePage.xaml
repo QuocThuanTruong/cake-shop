@@ -233,21 +233,42 @@
                     <TextBlock Text="ẢNH ĐẠI DIỆN"
                                        Style="{StaticResource SmallRegularHeaderText}"/>
 
-                    <Button Name="addCakeAvatarButton"
-                        Style="{StaticResource ImagePickerButton}"
-                        Background="{DynamicResource MyLightPink}"
-                        VerticalAlignment="Top"
-                        HorizontalAlignment="Left"
-                        Margin="0, 8, 0, 0"
-                            Grid.Row="1"
-                        Width="176"
-                        Height="176" 
-                        >
 
-                        <Image Width="60"
-                               Height="50"
-                               Source="{StaticResource IconAddImg}"/>
-                    </Button>
+                    <Grid Name="imagePicker"
+                          Grid.Row="1"
+                  HorizontalAlignment="Left">
+
+                        <!-- Set data -->
+                        <Image Name="avatarImage"
+                       Width="176"
+                       Height="176"
+                       Stretch="UniformToFill"
+                       Source="{StaticResource TEST_AVT}"/>
+
+                        <!-- Click here to get avt-->
+                        <Button Name="avatarPickerFrameButton"
+                        
+                     
+                        Opacity="0"
+                        Style="{StaticResource ImagePickerFrameButton}"
+                        VerticalContentAlignment="Bottom"
+                                Width="176"
+                        Height="176">
+
+                            <Button Name="avatarImagePickerButton"
+                        Style="{StaticResource ImagePickerButton}"
+                        Background="{DynamicResource MyLightGray2}"
+                        Width="176"
+                        Height="44">
+
+                                <Image Name="iconPicker"
+                           Width="30"
+                           Height="20"
+                           Source="{StaticResource IconAddImg}"/>
+                            </Button>
+                        </Button>
+                    </Grid>
+
                 </Grid>
                 
             </materialDesign:Card>
