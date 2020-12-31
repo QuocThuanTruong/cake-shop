@@ -45,7 +45,7 @@ namespace CakeShop.Pages
 
 		private void updateCakeButton_Click(object sender, RoutedEventArgs e)
 		{
-			UpdateCake?.Invoke(1);
+			UpdateCake?.Invoke(_cake.ID_Cake);
 		}
 
         private void addToOrderButton_Click(object sender, RoutedEventArgs e)

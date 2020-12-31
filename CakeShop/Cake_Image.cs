@@ -11,8 +11,9 @@ namespace CakeShop
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class Cake_Image
+    using System.ComponentModel;
+
+    public partial class Cake_Image : INotifyPropertyChanged
     {
         public int ID_Cake { get; set; }
         public int Ordinal_Number { get; set; }
@@ -20,5 +21,12 @@ namespace CakeShop
         public Nullable<int> Is_Active { get; set; }
     
         public virtual Cake Cake { get; set; }
+
+        //For Coppy
+        public string ImageSource { get; set; }
+        public int ImageIndex { get; set; }
+
+        //For Update
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

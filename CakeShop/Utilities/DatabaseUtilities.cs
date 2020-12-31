@@ -114,6 +114,7 @@ namespace CakeShop.Utilities
             {
                 Cake_Image cake_Image = result.CAKE_IMAGE_FOR_BINDING[i];
                 result.CAKE_IMAGE_FOR_BINDING[i].Link_Image = $"Images/{cake.ID_Cake}/{cake_Image.Ordinal_Number}.{cake_Image.Link_Image}";
+                result.CAKE_IMAGE_FOR_BINDING[i].ImageIndex = i + 1;
             }
 
             return result;
@@ -496,6 +497,16 @@ namespace CakeShop.Utilities
                     result.Enqueue(2);
                 }
             }
+            return result;
+        }
+
+        public int GetMaxOrdinalNumberImage(int ID_Cake)
+        {
+            int result = _databaseCakeShop
+                .Database
+                .SqlQuery<int>($"Select Max(Ordinal_Number) From Cake_Image Where ID_Cake = {ID_Cake}")
+                .FirstOrDefault();
+
             return result;
         }
     }

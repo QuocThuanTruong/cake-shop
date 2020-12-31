@@ -8,7 +8,9 @@
          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="728" d:DesignWidth="1042"
-      Title="AddCakePage">
+      Title="AddCakePage"
+       Loaded="Page_Loaded">
+    
 
     <Grid Name="mainContainer">
 
@@ -91,7 +93,6 @@
 
                                 <ComboBox Name="cakeCategoryComboBox"
                                     HorizontalAlignment="Left"
-                              
                                     Style="{StaticResource AddRecipeComboBox}"
                                     ItemContainerStyle="{StaticResource SearchBoxComboBoxItem}"
                                     Height="30"
@@ -137,6 +138,7 @@
                         <TextBox Name="cakeDescriptionTextBox"
                              Margin="2, 8, 0 ,0"
                                  Height="124"
+                                 Text="{Binding Description}"
                                  TextWrapping="Wrap"
                              Style="{StaticResource AddRecipePageTextBox}"
                              materialDesign:HintAssist.Hint="Nhập mô tả của bánh"
@@ -246,17 +248,16 @@
                        Width="176"
                        Height="176"
                        Stretch="UniformToFill"
-                       Source="{StaticResource TEST_AVT}"/>
+                       Source="{Binding Link_Avt, Converter={StaticResource abosolutePathConverter}}"/>
 
                         <!-- Click here to get avt-->
                         <Button Name="avatarPickerFrameButton"
-                        
-                     
-                        Opacity="0"
-                        Style="{StaticResource ImagePickerFrameButton}"
-                        VerticalContentAlignment="Bottom"
+                                Click="avatarPickerFrameButton_Click"
+                                Opacity="0"
+                                Style="{StaticResource ImagePickerFrameButton}"
+                                VerticalContentAlignment="Bottom"
                                 Width="176"
-                        Height="176">
+                                Height="176">
 
                             <Button Name="avatarImagePickerButton"
                         Style="{StaticResource ImagePickerButton}"
@@ -389,7 +390,7 @@
                                         </Image>
 
                                         <Button Name="deleteRelativeImageInListButton"
- 
+                                                Click="deleteRelativeImageInListButton_Click"
                                                 Tag="{Binding ImageIndex}"
                                                 HorizontalAlignment="Right"
                                                 VerticalAlignment="Top"
@@ -399,7 +400,7 @@
                                                 Height="20"
                                                 Margin="0, -4, -4, 0"
                                                 materialDesign:ButtonAssist.CornerRadius="14"
-                                                    Visibility="{Binding Path=Is_Active, 
+                                                Visibility="{Binding Path=Is_Active, 
                                             Converter={StaticResource isActiveConverter}}">
 
                                             <Image Width="8"
@@ -463,6 +464,7 @@
                 </Button>
 
                 <Button Name="saveCakeButton"
+                        Click="saveCakeButton_Click"
                         Width="142"
                         Margin="18, 0, 0, 0"
                         Style="{StaticResource StepButton}"
