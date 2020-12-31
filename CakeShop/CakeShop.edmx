@@ -1,0 +1,802 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CakeShopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cake">
+          <Key>
+            <PropertyRef Name="ID_Cake" />
+          </Key>
+          <Property Name="ID_Cake" Type="int" Nullable="false" />
+          <Property Name="Name_Cake" Type="nvarchar" MaxLength="200" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Type_Cake" Type="nvarchar" MaxLength="200" />
+          <Property Name="Original_Price" Type="money" />
+          <Property Name="Selling_Price" Type="money" />
+          <Property Name="Current_Quantity" Type="int" />
+          <Property Name="Link_Avt" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Cake_Image">
+          <Key>
+            <PropertyRef Name="ID_Cake" />
+            <PropertyRef Name="Ordinal_Number" />
+          </Key>
+          <Property Name="ID_Cake" Type="int" Nullable="false" />
+          <Property Name="Ordinal_Number" Type="int" Nullable="false" />
+          <Property Name="Link_Image" Type="nvarchar(max)" />
+          <Property Name="Is_Active" Type="int" />
+        </EntityType>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="ID_Invoice" />
+          </Key>
+          <Property Name="ID_Invoice" Type="int" Nullable="false" />
+          <Property Name="Date_Created" Type="datetime" />
+          <Property Name="Customer_Name" Type="nvarchar" MaxLength="200" />
+          <Property Name="Customer_Address" Type="nvarchar" MaxLength="300" />
+          <Property Name="Customer_PhoneNum" Type="char" MaxLength="20" />
+          <Property Name="Shipping_Cost" Type="money" />
+          <Property Name="Total_Money" Type="money" />
+        </EntityType>
+        <EntityType Name="InvoiceDetail">
+          <Key>
+            <PropertyRef Name="ID_Invoice" />
+            <PropertyRef Name="Ordinal_Number" />
+          </Key>
+          <Property Name="ID_Invoice" Type="int" Nullable="false" />
+          <Property Name="Ordinal_Number" Type="int" Nullable="false" />
+          <Property Name="ID_Cake" Type="int" />
+          <Property Name="Quantity" Type="int" />
+        </EntityType>
+        <EntityType Name="StockReceiving">
+          <Key>
+            <PropertyRef Name="ID_Stock" />
+          </Key>
+          <Property Name="ID_Stock" Type="int" Nullable="false" />
+          <Property Name="ID_Cake" Type="int" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Date" Type="date" />
+        </EntityType>
+        <Association Name="FK_Cake_Image_Cake">
+          <End Role="Cake" Type="Self.Cake" Multiplicity="1" />
+          <End Role="Cake_Image" Type="Self.Cake_Image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cake">
+              <PropertyRef Name="ID_Cake" />
+            </Principal>
+            <Dependent Role="Cake_Image">
+              <PropertyRef Name="ID_Cake" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceDetail_Cake">
+          <End Role="Cake" Type="Self.Cake" Multiplicity="0..1" />
+          <End Role="InvoiceDetail" Type="Self.InvoiceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cake">
+              <PropertyRef Name="ID_Cake" />
+            </Principal>
+            <Dependent Role="InvoiceDetail">
+              <PropertyRef Name="ID_Cake" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceDetail_Invoice">
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
+          <End Role="InvoiceDetail" Type="Self.InvoiceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="ID_Invoice" />
+            </Principal>
+            <Dependent Role="InvoiceDetail">
+              <PropertyRef Name="ID_Invoice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockReceiving_Cake">
+          <End Role="Cake" Type="Self.Cake" Multiplicity="0..1" />
+          <End Role="StockReceiving" Type="Self.StockReceiving" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cake">
+              <PropertyRef Name="ID_Cake" />
+            </Principal>
+            <Dependent Role="StockReceiving">
+              <PropertyRef Name="ID_Cake" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="AddCake" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="nvarchar" Mode="In" />
+          <Parameter Name="des" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="type" Type="nvarchar" Mode="In" />
+          <Parameter Name="orPrice" Type="money" Mode="In" />
+          <Parameter Name="sellPrice" Type="money" Mode="In" />
+          <Parameter Name="quantity" Type="int" Mode="In" />
+          <Parameter Name="link" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="AddCakeImage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="orNum" Type="int" Mode="In" />
+          <Parameter Name="link" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="isActive" Type="int" Mode="In" />
+        </Function>
+        <Function Name="AddInvoice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="date" Type="datetime" Mode="In" />
+          <Parameter Name="name" Type="nvarchar" Mode="In" />
+          <Parameter Name="add" Type="nvarchar" Mode="In" />
+          <Parameter Name="phone" Type="char" Mode="In" />
+          <Parameter Name="ship" Type="money" Mode="In" />
+          <Parameter Name="total" Type="money" Mode="In" />
+        </Function>
+        <Function Name="AddInvoiceDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="orNum" Type="int" Mode="In" />
+          <Parameter Name="idCake" Type="int" Mode="In" />
+          <Parameter Name="quantity" Type="int" Mode="In" />
+        </Function>
+        <Function Name="AddStockReceiving" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="idCake" Type="int" Mode="In" />
+          <Parameter Name="quantity" Type="int" Mode="In" />
+          <Parameter Name="date" Type="date" Mode="In" />
+        </Function>
+        <Function Name="CalcSumInvoicesInYear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="year" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="SumInvoices" Type="int" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="CalcSumRevenueInYear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="year" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="SumRevenue" Type="money" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="CalcSumStockReceivingCakesInYear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="year" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="SumStockReceiving" Type="int" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="CalcSumStockReceivingMoneyInYear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="year" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="SumStockReveivingMoney" Type="money" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="CalcTotalCurrentCake" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="GetInfCakeByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ID_Cake" Type="int" Nullable="false" />
+                <Property Name="Name_Cake" Type="nvarchar" MaxLength="200" />
+                <Property Name="Description" Type="nvarchar(max)" />
+                <Property Name="Type_Cake" Type="nvarchar" MaxLength="200" />
+                <Property Name="Original_Price" Type="money" />
+                <Property Name="Selling_Price" Type="money" />
+                <Property Name="Link_Avt" Type="nvarchar(max)" />
+                <Property Name="Current_Quantity" Type="int" />
+                <Property Name="Quantity" Type="int" />
+                <Property Name="Date" Type="date" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="GetInfInvoiceByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ID_Invoice" Type="int" Nullable="false" />
+                <Property Name="Date_Created" Type="datetime" />
+                <Property Name="Customer_Name" Type="nvarchar" MaxLength="200" />
+                <Property Name="Customer_Address" Type="nvarchar" MaxLength="300" />
+                <Property Name="Customer_PhoneNum" Type="char" MaxLength="20" />
+                <Property Name="Shipping_Cost" Type="money" />
+                <Property Name="Total_Money" Type="money" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="GetInvoiceDetailsByIDInvoice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ID_Invoice" Type="int" Nullable="false" />
+                <Property Name="Ordinal_Number" Type="int" Nullable="false" />
+                <Property Name="Name_Cake" Type="nvarchar" MaxLength="200" />
+                <Property Name="Quantity" Type="int" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="SearchByName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="search_text" Type="nvarchar" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ID_Cake" Type="int" />
+                <Property Name="RANK" Type="int" />
+                <Property Name="Name_Cake" Type="nvarchar" MaxLength="200" />
+                <Property Name="Description" Type="nvarchar(max)" />
+                <Property Name="Type_Cake" Type="nvarchar" MaxLength="200" />
+                <Property Name="Original_Price" Type="money" />
+                <Property Name="Selling_Price" Type="money" />
+                <Property Name="Current_Quantity" Type="int" />
+                <Property Name="Link_Avt" Type="nvarchar(max)" />
+                <Property Name="Quantity" Type="int" />
+                <Property Name="Date" Type="date" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="SetIsActive" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="orNum" Type="int" Mode="In" />
+          <Parameter Name="isActive" Type="int" Mode="In" />
+        </Function>
+        <Function Name="StatisticByYear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="year" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="SumInvoices" Type="int" />
+                <Property Name="SumStockReceiving" Type="int" />
+                <Property Name="SumStockReveivingMoney" Type="money" />
+                <Property Name="SumRevenue" Type="money" />
+                <Property Name="SumProfit" Type="money" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="StatisticRevenueByMonthInYear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="mont" Type="int" Mode="In" />
+          <Parameter Name="year" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="SumRevenue" Type="money" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="StatisticRevenueByTypeOfCakeInYear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="year" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="TypeCake" Type="nvarchar" MaxLength="200" />
+                <Property Name="SumRevenue" Type="money" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <EntityContainer Name="CakeShopModelStoreContainer">
+          <EntitySet Name="Cake" EntityType="Self.Cake" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cake_Image" EntityType="Self.Cake_Image" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InvoiceDetail" EntityType="Self.InvoiceDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StockReceiving" EntityType="Self.StockReceiving" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Cake_Image_Cake" Association="Self.FK_Cake_Image_Cake">
+            <End Role="Cake" EntitySet="Cake" />
+            <End Role="Cake_Image" EntitySet="Cake_Image" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceDetail_Cake" Association="Self.FK_InvoiceDetail_Cake">
+            <End Role="Cake" EntitySet="Cake" />
+            <End Role="InvoiceDetail" EntitySet="InvoiceDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceDetail_Invoice" Association="Self.FK_InvoiceDetail_Invoice">
+            <End Role="Invoice" EntitySet="Invoice" />
+            <End Role="InvoiceDetail" EntitySet="InvoiceDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockReceiving_Cake" Association="Self.FK_StockReceiving_Cake">
+            <End Role="Cake" EntitySet="Cake" />
+            <End Role="StockReceiving" EntitySet="StockReceiving" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CakeShopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <ComplexType Name="CalcSumInvoicesInYear_Result">
+          <Property Name="SumInvoices" Type="Int32" />
+        </ComplexType>
+        <ComplexType Name="CalcSumRevenueInYear_Result">
+          <Property Name="SumRevenue" Type="Decimal" Precision="19" Scale="4" />
+        </ComplexType>
+        <ComplexType Name="CalcSumStockReceivingCakesInYear_Result">
+          <Property Name="SumStockReceiving" Type="Int32" />
+        </ComplexType>
+        <ComplexType Name="CalcSumStockReceivingMoneyInYear_Result">
+          <Property Name="SumStockReveivingMoney" Type="Decimal" Precision="19" Scale="4" />
+        </ComplexType>
+        <ComplexType Name="GetInfCakeByID_Result">
+          <Property Name="ID_Cake" Type="Int32" Nullable="false" />
+          <Property Name="Name_Cake" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Type_Cake" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Original_Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Selling_Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Link_Avt" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Current_Quantity" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Date" Type="DateTime" />
+        </ComplexType>
+        <ComplexType Name="GetInfInvoiceByID_Result">
+          <Property Name="ID_Invoice" Type="Int32" Nullable="false" />
+          <Property Name="Date_Created" Type="DateTime" />
+          <Property Name="Customer_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Customer_Address" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Customer_PhoneNum" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="Shipping_Cost" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Total_Money" Type="Decimal" Precision="19" Scale="4" />
+        </ComplexType>
+        <ComplexType Name="GetInvoiceDetailsByIDInvoice_Result">
+          <Property Name="ID_Invoice" Type="Int32" Nullable="false" />
+          <Property Name="Ordinal_Number" Type="Int32" Nullable="false" />
+          <Property Name="Name_Cake" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="Int32" />
+        </ComplexType>
+        <ComplexType Name="SearchByName_Result">
+          <Property Name="ID_Cake" Type="Int32" />
+          <Property Name="RANK" Type="Int32" />
+          <Property Name="Name_Cake" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Type_Cake" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Original_Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Selling_Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Current_Quantity" Type="Int32" />
+          <Property Name="Link_Avt" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Date" Type="DateTime" />
+        </ComplexType>
+        <ComplexType Name="StatisticByYear_Result">
+          <Property Name="SumInvoices" Type="Int32" />
+          <Property Name="SumStockReceiving" Type="Int32" />
+          <Property Name="SumStockReveivingMoney" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SumRevenue" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SumProfit" Type="Decimal" Precision="19" Scale="4" />
+        </ComplexType>
+        <ComplexType Name="StatisticRevenueByMonthInYear_Result">
+          <Property Name="SumRevenue" Type="Decimal" Precision="19" Scale="4" />
+        </ComplexType>
+        <ComplexType Name="StatisticRevenueByTypeOfCakeInYear_Result">
+          <Property Name="TypeCake" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SumRevenue" Type="Decimal" Precision="19" Scale="4" />
+        </ComplexType>
+        <EntityType Name="Cake">
+          <Key>
+            <PropertyRef Name="ID_Cake" />
+          </Key>
+          <Property Name="ID_Cake" Type="Int32" Nullable="false" />
+          <Property Name="Name_Cake" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Type_Cake" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Original_Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Selling_Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Current_Quantity" Type="Int32" />
+          <Property Name="Link_Avt" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Cake_Image" Relationship="Self.FK_Cake_Image_Cake" FromRole="Cake" ToRole="Cake_Image" />
+          <NavigationProperty Name="InvoiceDetails" Relationship="Self.FK_InvoiceDetail_Cake" FromRole="Cake" ToRole="InvoiceDetail" />
+          <NavigationProperty Name="StockReceivings" Relationship="Self.FK_StockReceiving_Cake" FromRole="Cake" ToRole="StockReceiving" />
+        </EntityType>
+        <EntityType Name="Cake_Image">
+          <Key>
+            <PropertyRef Name="ID_Cake" />
+            <PropertyRef Name="Ordinal_Number" />
+          </Key>
+          <Property Name="ID_Cake" Type="Int32" Nullable="false" />
+          <Property Name="Ordinal_Number" Type="Int32" Nullable="false" />
+          <Property Name="Link_Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Is_Active" Type="Int32" />
+          <NavigationProperty Name="Cake" Relationship="Self.FK_Cake_Image_Cake" FromRole="Cake_Image" ToRole="Cake" />
+        </EntityType>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="ID_Invoice" />
+          </Key>
+          <Property Name="ID_Invoice" Type="Int32" Nullable="false" />
+          <Property Name="Date_Created" Type="DateTime" Precision="3" />
+          <Property Name="Customer_Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Customer_Address" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Customer_PhoneNum" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="Shipping_Cost" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Total_Money" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="InvoiceDetails" Relationship="Self.FK_InvoiceDetail_Invoice" FromRole="Invoice" ToRole="InvoiceDetail" />
+        </EntityType>
+        <EntityType Name="InvoiceDetail">
+          <Key>
+            <PropertyRef Name="ID_Invoice" />
+            <PropertyRef Name="Ordinal_Number" />
+          </Key>
+          <Property Name="ID_Invoice" Type="Int32" Nullable="false" />
+          <Property Name="Ordinal_Number" Type="Int32" Nullable="false" />
+          <Property Name="ID_Cake" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <NavigationProperty Name="Cake" Relationship="Self.FK_InvoiceDetail_Cake" FromRole="InvoiceDetail" ToRole="Cake" />
+          <NavigationProperty Name="Invoice" Relationship="Self.FK_InvoiceDetail_Invoice" FromRole="InvoiceDetail" ToRole="Invoice" />
+        </EntityType>
+        <EntityType Name="StockReceiving">
+          <Key>
+            <PropertyRef Name="ID_Stock" />
+          </Key>
+          <Property Name="ID_Stock" Type="Int32" Nullable="false" />
+          <Property Name="ID_Cake" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Cake" Relationship="Self.FK_StockReceiving_Cake" FromRole="StockReceiving" ToRole="Cake" />
+        </EntityType>
+        <Association Name="FK_Cake_Image_Cake">
+          <End Role="Cake" Type="Self.Cake" Multiplicity="1" />
+          <End Role="Cake_Image" Type="Self.Cake_Image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cake">
+              <PropertyRef Name="ID_Cake" />
+            </Principal>
+            <Dependent Role="Cake_Image">
+              <PropertyRef Name="ID_Cake" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceDetail_Cake">
+          <End Role="Cake" Type="Self.Cake" Multiplicity="0..1" />
+          <End Role="InvoiceDetail" Type="Self.InvoiceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cake">
+              <PropertyRef Name="ID_Cake" />
+            </Principal>
+            <Dependent Role="InvoiceDetail">
+              <PropertyRef Name="ID_Cake" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockReceiving_Cake">
+          <End Role="Cake" Type="Self.Cake" Multiplicity="0..1" />
+          <End Role="StockReceiving" Type="Self.StockReceiving" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cake">
+              <PropertyRef Name="ID_Cake" />
+            </Principal>
+            <Dependent Role="StockReceiving">
+              <PropertyRef Name="ID_Cake" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceDetail_Invoice">
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
+          <End Role="InvoiceDetail" Type="Self.InvoiceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="ID_Invoice" />
+            </Principal>
+            <Dependent Role="InvoiceDetail">
+              <PropertyRef Name="ID_Invoice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CakeShopEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cakes" EntityType="Self.Cake" />
+          <EntitySet Name="Cake_Image" EntityType="Self.Cake_Image" />
+          <EntitySet Name="Invoices" EntityType="Self.Invoice" />
+          <EntitySet Name="InvoiceDetails" EntityType="Self.InvoiceDetail" />
+          <EntitySet Name="StockReceivings" EntityType="Self.StockReceiving" />
+          <AssociationSet Name="FK_Cake_Image_Cake" Association="Self.FK_Cake_Image_Cake">
+            <End Role="Cake" EntitySet="Cakes" />
+            <End Role="Cake_Image" EntitySet="Cake_Image" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceDetail_Cake" Association="Self.FK_InvoiceDetail_Cake">
+            <End Role="Cake" EntitySet="Cakes" />
+            <End Role="InvoiceDetail" EntitySet="InvoiceDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockReceiving_Cake" Association="Self.FK_StockReceiving_Cake">
+            <End Role="Cake" EntitySet="Cakes" />
+            <End Role="StockReceiving" EntitySet="StockReceivings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceDetail_Invoice" Association="Self.FK_InvoiceDetail_Invoice">
+            <End Role="Invoice" EntitySet="Invoices" />
+            <End Role="InvoiceDetail" EntitySet="InvoiceDetails" />
+          </AssociationSet>
+          <FunctionImport Name="CalcSumInvoicesInYear" IsComposable="true" ReturnType="Collection(CakeShopModel.CalcSumInvoicesInYear_Result)">
+            <Parameter Name="year" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="CalcSumRevenueInYear" IsComposable="true" ReturnType="Collection(CakeShopModel.CalcSumRevenueInYear_Result)">
+            <Parameter Name="year" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="CalcSumStockReceivingCakesInYear" IsComposable="true" ReturnType="Collection(CakeShopModel.CalcSumStockReceivingCakesInYear_Result)">
+            <Parameter Name="year" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="CalcSumStockReceivingMoneyInYear" IsComposable="true" ReturnType="Collection(CakeShopModel.CalcSumStockReceivingMoneyInYear_Result)">
+            <Parameter Name="year" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetInfCakeByID" IsComposable="true" ReturnType="Collection(CakeShopModel.GetInfCakeByID_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetInfInvoiceByID" IsComposable="true" ReturnType="Collection(CakeShopModel.GetInfInvoiceByID_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetInvoiceDetailsByIDInvoice" IsComposable="true" ReturnType="Collection(CakeShopModel.GetInvoiceDetailsByIDInvoice_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SearchByName" IsComposable="true" ReturnType="Collection(CakeShopModel.SearchByName_Result)">
+            <Parameter Name="search_text" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="StatisticByYear" IsComposable="true" ReturnType="Collection(CakeShopModel.StatisticByYear_Result)">
+            <Parameter Name="year" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="StatisticRevenueByMonthInYear" IsComposable="true" ReturnType="Collection(CakeShopModel.StatisticRevenueByMonthInYear_Result)">
+            <Parameter Name="mont" Mode="In" Type="Int32" />
+            <Parameter Name="year" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="StatisticRevenueByTypeOfCakeInYear" IsComposable="true" ReturnType="Collection(CakeShopModel.StatisticRevenueByTypeOfCakeInYear_Result)">
+            <Parameter Name="year" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="AddCake">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="des" Mode="In" Type="String" />
+            <Parameter Name="type" Mode="In" Type="String" />
+            <Parameter Name="orPrice" Mode="In" Type="Decimal" />
+            <Parameter Name="sellPrice" Mode="In" Type="Decimal" />
+            <Parameter Name="quantity" Mode="In" Type="Int32" />
+            <Parameter Name="link" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="AddCakeImage">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="orNum" Mode="In" Type="Int32" />
+            <Parameter Name="link" Mode="In" Type="String" />
+            <Parameter Name="isActive" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="AddInvoice">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="date" Mode="In" Type="DateTime" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="add" Mode="In" Type="String" />
+            <Parameter Name="phone" Mode="In" Type="String" />
+            <Parameter Name="ship" Mode="In" Type="Decimal" />
+            <Parameter Name="total" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="AddInvoiceDetail">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="orNum" Mode="In" Type="Int32" />
+            <Parameter Name="idCake" Mode="In" Type="Int32" />
+            <Parameter Name="quantity" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="AddStockReceiving">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="idCake" Mode="In" Type="Int32" />
+            <Parameter Name="quantity" Mode="In" Type="Int32" />
+            <Parameter Name="date" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="SetIsActive">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="orNum" Mode="In" Type="Int32" />
+            <Parameter Name="isActive" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CakeShopModelStoreContainer" CdmEntityContainer="CakeShopEntities">
+          <EntitySetMapping Name="Cakes">
+            <EntityTypeMapping TypeName="CakeShopModel.Cake">
+              <MappingFragment StoreEntitySet="Cake">
+                <ScalarProperty Name="ID_Cake" ColumnName="ID_Cake" />
+                <ScalarProperty Name="Name_Cake" ColumnName="Name_Cake" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Type_Cake" ColumnName="Type_Cake" />
+                <ScalarProperty Name="Original_Price" ColumnName="Original_Price" />
+                <ScalarProperty Name="Selling_Price" ColumnName="Selling_Price" />
+                <ScalarProperty Name="Current_Quantity" ColumnName="Current_Quantity" />
+                <ScalarProperty Name="Link_Avt" ColumnName="Link_Avt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cake_Image">
+            <EntityTypeMapping TypeName="CakeShopModel.Cake_Image">
+              <MappingFragment StoreEntitySet="Cake_Image">
+                <ScalarProperty Name="ID_Cake" ColumnName="ID_Cake" />
+                <ScalarProperty Name="Ordinal_Number" ColumnName="Ordinal_Number" />
+                <ScalarProperty Name="Link_Image" ColumnName="Link_Image" />
+                <ScalarProperty Name="Is_Active" ColumnName="Is_Active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Invoices">
+            <EntityTypeMapping TypeName="CakeShopModel.Invoice">
+              <MappingFragment StoreEntitySet="Invoice">
+                <ScalarProperty Name="ID_Invoice" ColumnName="ID_Invoice" />
+                <ScalarProperty Name="Date_Created" ColumnName="Date_Created" />
+                <ScalarProperty Name="Customer_Name" ColumnName="Customer_Name" />
+                <ScalarProperty Name="Customer_Address" ColumnName="Customer_Address" />
+                <ScalarProperty Name="Customer_PhoneNum" ColumnName="Customer_PhoneNum" />
+                <ScalarProperty Name="Shipping_Cost" ColumnName="Shipping_Cost" />
+                <ScalarProperty Name="Total_Money" ColumnName="Total_Money" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InvoiceDetails">
+            <EntityTypeMapping TypeName="CakeShopModel.InvoiceDetail">
+              <MappingFragment StoreEntitySet="InvoiceDetail">
+                <ScalarProperty Name="ID_Invoice" ColumnName="ID_Invoice" />
+                <ScalarProperty Name="Ordinal_Number" ColumnName="Ordinal_Number" />
+                <ScalarProperty Name="ID_Cake" ColumnName="ID_Cake" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StockReceivings">
+            <EntityTypeMapping TypeName="CakeShopModel.StockReceiving">
+              <MappingFragment StoreEntitySet="StockReceiving">
+                <ScalarProperty Name="ID_Stock" ColumnName="ID_Stock" />
+                <ScalarProperty Name="ID_Cake" ColumnName="ID_Cake" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionName="CakeShopModel.Store.CalcSumInvoicesInYear" FunctionImportName="CalcSumInvoicesInYear">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CakeShopModel.CalcSumInvoicesInYear_Result">
+                <ScalarProperty Name="SumInvoices" ColumnName="SumInvoices" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="CakeShopModel.Store.CalcSumRevenueInYear" FunctionImportName="CalcSumRevenueInYear">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CakeShopModel.CalcSumRevenueInYear_Result">
+                <ScalarProperty Name="SumRevenue" ColumnName="SumRevenue" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="CakeShopModel.Store.CalcSumStockReceivingCakesInYear" FunctionImportName="CalcSumStockReceivingCakesInYear">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CakeShopModel.CalcSumStockReceivingCakesInYear_Result">
+                <ScalarProperty Name="SumStockReceiving" ColumnName="SumStockReceiving" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="CakeShopModel.Store.CalcSumStockReceivingMoneyInYear" FunctionImportName="CalcSumStockReceivingMoneyInYear">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CakeShopModel.CalcSumStockReceivingMoneyInYear_Result">
+                <ScalarProperty Name="SumStockReveivingMoney" ColumnName="SumStockReveivingMoney" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="CakeShopModel.Store.GetInfCakeByID" FunctionImportName="GetInfCakeByID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CakeShopModel.GetInfCakeByID_Result">
+                <ScalarProperty Name="ID_Cake" ColumnName="ID_Cake" />
+                <ScalarProperty Name="Name_Cake" ColumnName="Name_Cake" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Type_Cake" ColumnName="Type_Cake" />
+                <ScalarProperty Name="Original_Price" ColumnName="Original_Price" />
+                <ScalarProperty Name="Selling_Price" ColumnName="Selling_Price" />
+                <ScalarProperty Name="Link_Avt" ColumnName="Link_Avt" />
+                <ScalarProperty Name="Current_Quantity" ColumnName="Current_Quantity" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="CakeShopModel.Store.GetInfInvoiceByID" FunctionImportName="GetInfInvoiceByID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CakeShopModel.GetInfInvoiceByID_Result">
+                <ScalarProperty Name="ID_Invoice" ColumnName="ID_Invoice" />
+                <ScalarProperty Name="Date_Created" ColumnName="Date_Created" />
+                <ScalarProperty Name="Customer_Name" ColumnName="Customer_Name" />
+                <ScalarProperty Name="Customer_Address" ColumnName="Customer_Address" />
+                <ScalarProperty Name="Customer_PhoneNum" ColumnName="Customer_PhoneNum" />
+                <ScalarProperty Name="Shipping_Cost" ColumnName="Shipping_Cost" />
+                <ScalarProperty Name="Total_Money" ColumnName="Total_Money" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="CakeShopModel.Store.GetInvoiceDetailsByIDInvoice" FunctionImportName="GetInvoiceDetailsByIDInvoice">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CakeShopModel.GetInvoiceDetailsByIDInvoice_Result">
+                <ScalarProperty Name="ID_Invoice" ColumnName="ID_Invoice" />
+                <ScalarProperty Name="Ordinal_Number" ColumnName="Ordinal_Number" />
+                <ScalarProperty Name="Name_Cake" ColumnName="Name_Cake" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="CakeShopModel.Store.SearchByName" FunctionImportName="SearchByName">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CakeShopModel.SearchByName_Result">
+                <ScalarProperty Name="ID_Cake" ColumnName="ID_Cake" />
+                <ScalarProperty Name="RANK" ColumnName="RANK" />
+                <ScalarProperty Name="Name_Cake" ColumnName="Name_Cake" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Type_Cake" ColumnName="Type_Cake" />
+                <ScalarProperty Name="Original_Price" ColumnName="Original_Price" />
+                <ScalarProperty Name="Selling_Price" ColumnName="Selling_Price" />
+                <ScalarProperty Name="Current_Quantity" ColumnName="Current_Quantity" />
+                <ScalarProperty Name="Link_Avt" ColumnName="Link_Avt" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="CakeShopModel.Store.StatisticByYear" FunctionImportName="StatisticByYear">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CakeShopModel.StatisticByYear_Result">
+                <ScalarProperty Name="SumInvoices" ColumnName="SumInvoices" />
+                <ScalarProperty Name="SumStockReceiving" ColumnName="SumStockReceiving" />
+                <ScalarProperty Name="SumStockReveivingMoney" ColumnName="SumStockReveivingMoney" />
+                <ScalarProperty Name="SumRevenue" ColumnName="SumRevenue" />
+                <ScalarProperty Name="SumProfit" ColumnName="SumProfit" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="CakeShopModel.Store.StatisticRevenueByMonthInYear" FunctionImportName="StatisticRevenueByMonthInYear">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CakeShopModel.StatisticRevenueByMonthInYear_Result">
+                <ScalarProperty Name="SumRevenue" ColumnName="SumRevenue" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="CakeShopModel.Store.StatisticRevenueByTypeOfCakeInYear" FunctionImportName="StatisticRevenueByTypeOfCakeInYear">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CakeShopModel.StatisticRevenueByTypeOfCakeInYear_Result">
+                <ScalarProperty Name="TypeCake" ColumnName="TypeCake" />
+                <ScalarProperty Name="SumRevenue" ColumnName="SumRevenue" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="AddCake" FunctionName="CakeShopModel.Store.AddCake" />
+          <FunctionImportMapping FunctionImportName="AddCakeImage" FunctionName="CakeShopModel.Store.AddCakeImage" />
+          <FunctionImportMapping FunctionImportName="AddInvoice" FunctionName="CakeShopModel.Store.AddInvoice" />
+          <FunctionImportMapping FunctionImportName="AddInvoiceDetail" FunctionName="CakeShopModel.Store.AddInvoiceDetail" />
+          <FunctionImportMapping FunctionImportName="AddStockReceiving" FunctionName="CakeShopModel.Store.AddStockReceiving" />
+          <FunctionImportMapping FunctionImportName="SetIsActive" FunctionName="CakeShopModel.Store.SetIsActive" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

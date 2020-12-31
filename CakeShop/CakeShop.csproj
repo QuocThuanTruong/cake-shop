@@ -38,6 +38,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
       <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
     </Reference>
@@ -54,8 +60,11 @@
       <HintPath>..\packages\PropertyChanged.Fody.3.3.1\lib\net40\PropertyChanged.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -74,10 +83,58 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Cake.cs">
+      <DependentUpon>CakeShop.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CakeShop.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CakeShop.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CakeShop.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CakeShop.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CakeShop.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CakeShop.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Cake_Image.cs">
+      <DependentUpon>CakeShop.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CalcSumInvoicesInYear_Result.cs">
+      <DependentUpon>CakeShop.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CalcSumRevenueInYear_Result.cs">
+      <DependentUpon>CakeShop.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CalcSumStockReceivingCakesInYear_Result.cs">
+      <DependentUpon>CakeShop.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CalcSumStockReceivingMoneyInYear_Result.cs">
+      <DependentUpon>CakeShop.tt</DependentUpon>
+    </Compile>
     <Compile Include="Converter\AbsolutePathConverter.cs" />
     <Compile Include="Converter\BrushOpacityConverter.cs" />
     <Compile Include="Converter\IsActiveViewConverter.cs" />
     <Compile Include="CustomView\ListBoxExtension.cs" />
+    <Compile Include="GetInfCakeByID_Result.cs">
+      <DependentUpon>CakeShop.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetInfInvoiceByID_Result.cs">
+      <DependentUpon>CakeShop.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetInvoiceDetailsByIDInvoice_Result.cs">
+      <DependentUpon>CakeShop.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Invoice.cs">
+      <DependentUpon>CakeShop.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InvoiceDetail.cs">
+      <DependentUpon>CakeShop.tt</DependentUpon>
+    </Compile>
     <Compile Include="Pages\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
@@ -102,9 +159,26 @@
     <Compile Include="Pages\OrderPage.xaml.cs">
       <DependentUpon>OrderPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SearchByName_Result.cs">
+      <DependentUpon>CakeShop.tt</DependentUpon>
+    </Compile>
     <Compile Include="SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StatisticByYear_Result.cs">
+      <DependentUpon>CakeShop.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StatisticRevenueByMonthInYear_Result.cs">
+      <DependentUpon>CakeShop.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StatisticRevenueByTypeOfCakeInYear_Result.cs">
+      <DependentUpon>CakeShop.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StockReceiving.cs">
+      <DependentUpon>CakeShop.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\ApplicationUtilities.cs" />
+    <Compile Include="Utilities\DatabaseUtilities.cs" />
     <Page Include="MainScreen.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -202,6 +276,16 @@
     <Content Include="Assets\Images\vertical-ribbon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="CakeShop.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CakeShop.Context.cs</LastGenOutput>
+      <DependentUpon>CakeShop.edmx</DependentUpon>
+    </Content>
+    <Content Include="CakeShop.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CakeShop.edmx</DependentUpon>
+      <LastGenOutput>CakeShop.cs</LastGenOutput>
+    </Content>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -242,6 +326,13 @@
     <Content Include="Assets\Fonts\SVN-Gilroy Thin.otf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EntityDeploy Include="CakeShop.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CakeShop.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="CakeShop.edmx.diagram">
+      <DependentUpon>CakeShop.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -251,7 +342,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Images\app-logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="426f2ec6522546338a08bbe1a2b2bb1e" Name="Diagram1">
+        <EntityTypeShape EntityType="CakeShopModel.Cake" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CakeShopModel.Cake_Image" Width="1.5" PointX="3.5" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="CakeShopModel.Invoice" Width="1.5" PointX="5.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CakeShopModel.InvoiceDetail" Width="1.5" PointX="8.375" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CakeShopModel.StockReceiving" Width="1.5" PointX="3.75" PointY="8" IsExpanded="true" />
+        <AssociationConnector Association="CakeShopModel.FK_Cake_Image_Cake" ManuallyRouted="false" />
+        <AssociationConnector Association="CakeShopModel.FK_InvoiceDetail_Cake" ManuallyRouted="false" />
+        <AssociationConnector Association="CakeShopModel.FK_StockReceiving_Cake" ManuallyRouted="false" />
+        <AssociationConnector Association="CakeShopModel.FK_InvoiceDetail_Invoice" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
