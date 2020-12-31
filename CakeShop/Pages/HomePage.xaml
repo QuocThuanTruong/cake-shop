@@ -86,6 +86,7 @@
 
                         <!-- Search text box -->
                         <TextBox Name="searchTextBox"
+                                 TextChanged="searchTextBox_TextChanged"
                                  Margin="0, 8, 10, 0"
                                  Style="{StaticResource SearchTextBox}"
                                  materialDesign:HintAssist.Hint="Search your cake here..."

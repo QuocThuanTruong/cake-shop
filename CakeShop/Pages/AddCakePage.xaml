@@ -64,6 +64,7 @@
 
                             <TextBox Name="cakeNameTextBox"
                              Margin="2, 8, 0 ,0"
+                             Text="{Binding Name_Cake}"
                              Style="{StaticResource AddRecipePageTextBox}"
                              materialDesign:HintAssist.Hint="Nhập tên bánh"
                              Grid.Column="1"
@@ -89,20 +90,19 @@
                                 </Border>
 
                                 <ComboBox Name="cakeCategoryComboBox"
-                              HorizontalAlignment="Left"
+                                    HorizontalAlignment="Left"
                               
-                              Style="{StaticResource AddRecipeComboBox}"
-                              ItemContainerStyle="{StaticResource SearchBoxComboBoxItem}"
-                              Height="30"
-                              SelectedIndex="0"
-                              HorizontalContentAlignment="Left"
-                              BorderBrush="{DynamicResource MyBlack}"
-                               
-                              BorderThickness="0"
-                              materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
-                              Margin="12, 0, 0, 2"
-                              OverridesDefaultStyle="True"
-                              Width="170">
+                                    Style="{StaticResource AddRecipeComboBox}"
+                                    ItemContainerStyle="{StaticResource SearchBoxComboBoxItem}"
+                                    Height="30"
+                                    SelectedIndex="0"
+                                    HorizontalContentAlignment="Left"
+                                    BorderBrush="{DynamicResource MyBlack}"
+                                    BorderThickness="0"
+                                    materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
+                                    Margin="12, 0, 0, 2"
+                                    OverridesDefaultStyle="True"
+                                    Width="170">  
 
                                     <ComboBoxItem Name="toppingCategory">
                                         <TextBlock
@@ -155,6 +155,7 @@
                         
                         <TextBox Name="originPriceTextBox"
                                  Padding="-5, -5, 16, -5"
+                                 Text="{Binding ORIGINAL_PRICE_INT_FOR_BINDING}"
                              Margin="2, 8, 0 ,0"
                              Style="{StaticResource AddRecipePageTextBox}"
                              materialDesign:HintAssist.Hint="Giá gốc"
@@ -180,6 +181,7 @@
                         <TextBox Name="salePriceTextBox"
                                   Padding="-5, -5, 16, -5"
                              Margin="2, 8, 0 ,0"
+                             Text="{Binding SELLING_PRICE_INT_FOR_BINDING}"
                              Style="{StaticResource AddRecipePageTextBox}"
                              materialDesign:HintAssist.Hint="Giá bán"
                              Grid.Column="1"
@@ -198,6 +200,7 @@
 
                     <TextBox Name="importQuantityTextBox"
                              Margin="2, 8, 0 ,0"
+                             Text="{Binding Quantity}"
                              Style="{StaticResource AddRecipePageTextBox}"
                              materialDesign:HintAssist.Hint="Số lượng bánh nhập kho"
                              Grid.Column="1"
@@ -335,7 +338,8 @@
                             Visibility="Collapsed"
                             ScrollViewer.VerticalScrollBarVisibility="Disabled"
                             Margin="0, 0, 0, 0"
-                            ItemContainerStyle="{StaticResource ImageStepListViewItem}">
+                            ItemContainerStyle="{StaticResource ImageStepListViewItem}"
+                                  ItemsSource="{Binding CAKE_IMAGE_FOR_BINDING}">
 
                             <ListView.ItemsPanel>
                                 <ItemsPanelTemplate>
@@ -352,7 +356,7 @@
                                                Width="150"
                                                Height="150"
                                                Stretch="UniformToFill"
-                                               Source="{StaticResource TEST_IMG}"
+                                               Source="{Binding Link_Image, Converter={StaticResource abosolutePathConverter}}"
                                                RenderOptions.BitmapScalingMode="HighQuality"
                                                    Visibility="{Binding Path=Is_Active, 
                                             Converter={StaticResource isActiveConverter}}">
@@ -386,12 +390,6 @@
 
                                 </DataTemplate>
                             </ListView.ItemTemplate>
-
-                            <Grid></Grid>
-                            <Grid></Grid>
-                            <Grid></Grid>
-                            <Grid></Grid>
-                            <Grid></Grid>
                         </ListView>
                     </StackPanel>
 

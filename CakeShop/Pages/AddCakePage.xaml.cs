@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CakeShop.Utilities;
 
 namespace CakeShop.Pages
 {
@@ -21,6 +22,10 @@ namespace CakeShop.Pages
 	public partial class AddCakePage : Page
 	{
 		private bool isUpdate = false;
+
+		private DatabaseUtilities _databaseUtilities = DatabaseUtilities.GetDatabaseInstance();
+		private Cake _cake = new Cake();
+
 		public AddCakePage()
 		{
 			InitializeComponent();
@@ -34,6 +39,10 @@ namespace CakeShop.Pages
 
 			updateTextBlock.Visibility = Visibility.Visible;
 			this.isUpdate = true;
+
+			_cake = _databaseUtilities.getCakeById(cakeID);
+
+			DataContext = this._cake;
 		}
 
 		private void addCakeImagesOption1Button_Click(object sender, RoutedEventArgs e)

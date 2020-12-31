@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -32,12 +33,22 @@ namespace CakeShop.Pages
 
 		private DatabaseUtilities _databaseUtilities = DatabaseUtilities.GetDatabaseInstance();
 
+		private Timer _loadingTmer;
+		private int _timeCounter = 0;
+
+		private const int TIME_LOAD_UNIT = 100;
+		private const int TOTAL_TIME_LOAD_IN_SECOND = 5;
+
 		private int _sortedBy = 0;
 		private int _currentPage = 1;
 		private int totalCakePerPage = 9;
 		private bool _isSearching = false;
-		private string _prevCondition = "";
+		private bool _canSearchRequest = false;
 		private int _maxPage = 0;
+		private string _search_text = "";
+		private string _condition = "";
+		private bool _isFirstSearch = true;
+		private string _prevCondition = "init";
 		private (string column, string type)[] _conditionSortedBy = {("Current_Quantity", "DESC"), ("Current_Quantity", "ASC"),
 																	 ("Name_Cake", "ASC"), ("Name_Cake", "DESC"),
 																	 ("Selling_Price", "DESC"), ("Selling_Price", "ASC") };
@@ -52,6 +63,10 @@ namespace CakeShop.Pages
 				new Tuple<Button, TextBlock>(fillingGroupButton, fillingTextBlock)
 			};
 
+			_loadingTmer = new Timer(TIME_LOAD_UNIT);
+			_loadingTmer.Elapsed += LoadingTmer_Elapsed;
+			_loadingTmer.Start();
+
 			_configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
 			_sortedBy = int.Parse(ConfigurationManager.AppSettings["SortedByHomePage"]);
@@ -59,6 +74,30 @@ namespace CakeShop.Pages
 
 			loadCakes();
 		}
+
+		private void LoadingTmer_Elapsed(object sender, ElapsedEventArgs e)
+		{
+			Dispatcher.Invoke(() =>
+			{
+				if (_isSearching)
+				{
+					++_timeCounter;
+
+					if (_timeCounter % TOTAL_TIME_LOAD_IN_SECOND == 0 && _canSearchRequest)
+					{
+						_timeCounter = 0;
+
+						loadCakesSearch();
+					}
+				}
+				else
+				{
+					_timeCounter = 0;
+				}
+
+			});
+		}
+
 
 		private void groupButton_Click(object sender, RoutedEventArgs e)
 		{
@@ -93,7 +132,7 @@ namespace CakeShop.Pages
 			{
 				if (_isSearching)
 				{
-					//loadRecipesSearch();
+					loadCakesSearch();
 				}
 				else
 				{
@@ -129,7 +168,7 @@ namespace CakeShop.Pages
 			{
 				if (_isSearching)
 				{
-					//loadRecipesSearch();
+					loadCakesSearch();
 				}
 				else
 				{
@@ -157,7 +196,7 @@ namespace CakeShop.Pages
 
 			if (_isSearching)
 			{
-				//loadRecipesSearch();
+				loadCakesSearch();
 			}
 			else
 			{
@@ -188,12 +227,16 @@ namespace CakeShop.Pages
 
 			if (selectedItemIndex != -1)
 			{
-				//selectedID = ((Recipe)recipesListView.SelectedItem).ID_RECIPE;
-				selectedID = int.Parse(((Grid)listView.SelectedItem).Tag.ToString());
-				Debug.WriteLine(selectedID);
+				//selectedID = ((Cake)CakesListView.SelectedItem).ID_Cake;
+				//selectedID = int.Parse(((Grid)listView.SelectedItem).Tag.ToString());
+				//Debug.WriteLine(selectedID);
 
-				ShowCakeDetailPage?.Invoke(selectedID);
+				//ShowCakeDetailPage?.Invoke(selectedID);
+
+				selectedID = ((Cake)listView.SelectedItem).ID_Cake;
 			}
+
+			ShowCakeDetailPage?.Invoke(selectedID);
 		}
 
 		private void sortTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -275,7 +318,6 @@ namespace CakeShop.Pages
 
 				_maxPage = getMaxPage(resultQuery.totalCakeResult);
 
-
 				if (_maxPage == 0)
 				{
 					_maxPage = 1;
@@ -284,25 +326,62 @@ namespace CakeShop.Pages
 
 				currentPageTextBlock.Text = $"{_currentPage} of {(_maxPage)}";
 
-
-				currentResultTextBlock.Text = $"Hiển thị {cakes.Count} Trong tổng số {resultQuery.totalCakeResult} chuyến đi";
+				currentResultTextBlock.Text = $"Hiển thị {cakes.Count} Trong tổng số {resultQuery.totalCakeResult} kết quả";
 
 				largeCakesListView.ItemsSource = cakes;
 				smallCakesListView.ItemsSource = cakes;
 			}
 			else
 			{
-
+				searchTextBox_TextChanged(null, null);
 			}
 		}
 
-        private void firstPageButton_Click(object sender, RoutedEventArgs e)
+		private void loadCakesSearch()
+		{
+			(List<Cake> Cakes, int totalCakeResult) CakesSearchResults = _databaseUtilities.GetCakesSearchResult(_search_text, _condition, _conditionSortedBy[_sortedBy], _currentPage, totalCakePerPage);
+
+			_maxPage = getMaxPage(CakesSearchResults.totalCakeResult);
+			if (_maxPage == 0)
+			{
+				_maxPage = 1;
+				_currentPage = 1;
+
+				messageNotFoundContainer.Visibility = Visibility.Visible;
+			}
+			else
+			{
+				messageNotFoundContainer.Visibility = Visibility.Hidden;
+			}
+
+			currentPageTextBlock.Text = $"{_currentPage} of {(_maxPage)}";
+
+			List<Cake> Cakes = CakesSearchResults.Cakes;
+			if (Cakes.Count > 0)
+			{
+				largeCakesListView.ItemsSource = Cakes;
+				smallCakesListView.ItemsSource = Cakes;
+
+				currentResultTextBlock.Text = $"Hiển thị {Cakes.Count} trong tổng số {CakesSearchResults.totalCakeResult} kết quả";
+			}
+			else
+			{
+				largeCakesListView.ItemsSource = null;
+				smallCakesListView.ItemsSource = null;
+
+				currentResultTextBlock.Text = "Không tìm loại bánh thỏa yêu cầu";
+			}
+
+			_canSearchRequest = false;
+		}
+
+		private void firstPageButton_Click(object sender, RoutedEventArgs e)
         {
 			_currentPage = 1;
 
 			if (_isSearching)
 			{
-				//loadRecipesSearch();
+				loadCakesSearch();
 			}
 			else
 			{
@@ -319,7 +398,7 @@ namespace CakeShop.Pages
 
 			if (_isSearching)
 			{
-				//loadRecipesSearch();
+				loadCakesSearch();
 			}
 			else
 			{
@@ -336,7 +415,7 @@ namespace CakeShop.Pages
 
 			if (_isSearching)
 			{
-				//loadRecipesSearch();
+				loadCakesSearch();
 			}
 			else
 			{
@@ -350,10 +429,54 @@ namespace CakeShop.Pages
 
 			if (_isSearching)
 			{
-				//loadRecipesSearch();
+				loadCakesSearch();
 			}
 			else
 			{
+				loadCakes();
+			}
+		}
+
+        private void searchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+			string search_text = searchTextBox.Text;
+
+			if (search_text.Length != 0)
+			{
+				_isSearching = true;
+
+				if (_isFirstSearch)
+				{
+					_currentPage = 1;
+					_isFirstSearch = false;
+				}
+
+				string condition = getConditionInQuery();
+
+				if (_search_text != search_text || _condition != condition)
+				{
+					_search_text = search_text;
+					_condition = condition;
+
+					_canSearchRequest = true;
+				}
+
+				_condition = condition;
+
+				if (_prevCondition != condition)
+				{
+					_currentPage = 1;
+					_prevCondition = condition;
+				}
+				else
+				{
+					//Do Nothing
+				}
+			}
+			else
+			{
+				_isSearching = false;
+
 				loadCakes();
 			}
 		}
