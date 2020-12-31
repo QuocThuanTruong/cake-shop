@@ -20,17 +20,20 @@ namespace CakeShop
             this.Cake_Image = new HashSet<Cake_Image>();
             this.InvoiceDetails = new HashSet<InvoiceDetail>();
             this.StockReceivings = new HashSet<StockReceiving>();
+            this.CAKE_IMAGE_FOR_BINDING = new List<Cake_Image>();
         }
-    
+
         public int ID_Cake { get; set; }
         public string Name_Cake { get; set; }
         public string Description { get; set; }
         public string Type_Cake { get; set; }
         public Nullable<decimal> Original_Price { get; set; }
         public Nullable<decimal> Selling_Price { get; set; }
-        public Nullable<int> Current_Quantity { get; set; }
         public string Link_Avt { get; set; }
-    
+        public Nullable<int> Current_Quantity { get; set; }
+        public Nullable<int> Quantity { get; set; }
+        public Nullable<System.DateTime> Date { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cake_Image> Cake_Image { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -42,6 +45,10 @@ namespace CakeShop
         public string NAME_FOR_BINDING { get; set; }
         public string ORIGINAL_PRICE_FOR_BINDING { get; set; }
         public string SELLING_PRICE_FOR_BINDING { get; set; }
+        public string STOCK_RECEIVING_FOR_BINDING { get; set; }
+        public List<Cake_Image> CAKE_IMAGE_FOR_BINDING { get; set; }
+        public int SELLING_PRICE_INT_FOR_BINDING { get; set; }
+        public int ORIGINAL_PRICE_INT_FOR_BINDING { get; set; }
        
     }
 }

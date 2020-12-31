@@ -11,17 +11,8 @@ namespace CakeShop
 {
     using System;
     
-    public partial class GetInfCakeByID_Result
+    public partial class GetInfCakeByID_Result : Cake
     {
-        public int ID_Cake { get; set; }
-        public string Name_Cake { get; set; }
-        public string Description { get; set; }
-        public string Type_Cake { get; set; }
-        public Nullable<decimal> Original_Price { get; set; }
-        public Nullable<decimal> Selling_Price { get; set; }
-        public string Link_Avt { get; set; }
-        public Nullable<int> Current_Quantity { get; set; }
-        public Nullable<int> Quantity { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
+
     }
 }

@@ -287,7 +287,7 @@
                     <RowDefinition Height="152*"/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Text="HÓA ĐƠN HIỆN TẠI"
+                <TextBlock Text="DANH SÁCH HÓA ĐƠN"
                                        Style="{StaticResource SmallRegularHeaderText}"/>
 
                 <materialDesign:Card Background="{DynamicResource MyPinkGradient}"

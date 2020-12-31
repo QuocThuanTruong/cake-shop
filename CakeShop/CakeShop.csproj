@@ -129,6 +129,7 @@
     <Compile Include="GetInvoiceDetailsByIDInvoice_Result.cs">
       <DependentUpon>CakeShop.tt</DependentUpon>
     </Compile>
+    <Compile Include="Global.cs" />
     <Compile Include="Invoice.cs">
       <DependentUpon>CakeShop.tt</DependentUpon>
     </Compile>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CakeShop.Utilities;
 
 namespace CakeShop.Pages
 {
@@ -23,6 +25,10 @@ namespace CakeShop.Pages
 		public delegate void UpdateCakeHandler(int cakeID);
 		public event UpdateCakeHandler UpdateCake;
 
+		private DatabaseUtilities _databaseUtilities = DatabaseUtilities.GetDatabaseInstance();
+
+		private Cake _cake = new Cake();
+
 		public CakeDetailPage()
 		{
 			InitializeComponent();
@@ -31,11 +37,25 @@ namespace CakeShop.Pages
 		public CakeDetailPage(int cakeID)
 		{
 			InitializeComponent();
+
+			_cake = _databaseUtilities.getCakeById(cakeID);
+
+			DataContext = this._cake;
 		}
 
 		private void updateCakeButton_Click(object sender, RoutedEventArgs e)
 		{
 			UpdateCake?.Invoke(1);
 		}
-	}
+
+        private void addToOrderButton_Click(object sender, RoutedEventArgs e)
+        {
+			Global.Global.cakesOrder.Add(_cake);
+
+			foreach(var cake in Global.Global.cakesOrder)
+            {
+				Debug.WriteLine(cake.ID_Cake);
+            }
+        }
+    }
 }
