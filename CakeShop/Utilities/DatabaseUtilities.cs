@@ -509,5 +509,92 @@ namespace CakeShop.Utilities
 
             return result;
         }
+
+        public int GetMaxIDCake()
+        {
+            int result = _databaseCakeShop
+                .Database
+                .SqlQuery<int>($"Select Max(ID_Cake) From Cake")
+                .FirstOrDefault();
+
+            return result;
+        }
+        public int GetMaxIDStock()
+        {
+            int result = _databaseCakeShop
+                .Database
+                .SqlQuery<int>($"Select Max(ID_Stock) From StockReceiving")
+                .FirstOrDefault();
+
+            return result;
+        }
+
+        public int AddCake(Nullable<int> id, string name, string des, string type, Nullable<decimal> orPrice, Nullable<decimal> sellPrice, Nullable<int> quantity, string link)
+        {
+            try
+            {
+                _databaseCakeShop.AddCake(id, name, des, type, orPrice, sellPrice, quantity, link);
+
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
+
+            return 0;
+        }
+
+        public int UpdateCake(int ID_Cake, string name, string des, string type, Nullable<decimal> orPrice, Nullable<decimal> sellPrice, Nullable<int> quantity, string link)
+        {
+            try
+            {
+                _databaseCakeShop
+                .Database
+                .ExecuteSqlCommand($"UPDATE Cake SET Name_Cake = N'{name}', Description = N'{des}', Type_Cake = N'{type}', Original_Price = {orPrice}, Selling_Price = {sellPrice}, Current_Quantity = {quantity}, Link_Avt = N'{link}' WHERE ID_CAKE = {ID_Cake}");
+
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
+
+            return 0;
+        }
+        
+        public void UpdateImage(int ID_Cake, int ordinal_number, string link_image, int is_active)
+        {
+            var checkExist = _databaseCakeShop
+                .Database
+                .SqlQuery<Cake_Image>($"Select * from Cake_Image where Ordinal_Number = {ordinal_number} and ID_Cake = {ID_Cake}")
+                .FirstOrDefault();
+
+            if (checkExist != null)
+            {
+                _databaseCakeShop
+               .Database
+               .ExecuteSqlCommand($"Update Cake_Image Set Link_Image = N'{link_image}', Is_Active = {is_active} Where Ordinal_Number = {ordinal_number} And ID_Cake = {ID_Cake}");
+            }
+            else
+            {
+                AddCakeImage(ID_Cake, ordinal_number, link_image, is_active);
+            }
+        }
+
+        public void AddCakeImage(int ID_Cake, int ordinal_number, string link_image, int is_active)
+        {
+            _databaseCakeShop
+               .Database
+               .ExecuteSqlCommand($"INSERT [dbo].[Cake_Image]([ID_Cake], [Ordinal_Number], [Link_Image], [Is_Active]) VALUES({ID_Cake}, {ordinal_number}, N'{link_image}', {is_active})");
+
+        }
+
+        public int AddStock(int ID_Stock, int ID_Cake, int quantity, DateTime date)
+        {
+            _databaseCakeShop
+                .Database
+                .ExecuteSqlCommand($"INSERT [dbo].[StockReceiving]([ID_Stock], [ID_Cake], [Quantity], [Date]) VALUES({ID_Stock}, {ID_Cake}, {quantity}, '{date}')");
+
+            return 1;
+        }
     }
 }

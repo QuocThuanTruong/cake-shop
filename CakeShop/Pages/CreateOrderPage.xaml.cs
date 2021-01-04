@@ -68,5 +68,11 @@ namespace CakeShop.Pages
 				shippingFreeGrid.Visibility = Visibility.Visible;
 			}
 		}
-	}
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+			orderedCakeListView.ItemsSource = Global.Global.cakesOrder;
+			orderPreviewListView.ItemsSource = Global.Global.cakesOrder;
+        }
+    }
 }

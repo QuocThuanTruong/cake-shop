@@ -8,7 +8,8 @@
          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="728" d:DesignWidth="1042"
-      Title="CreateOrderPage">
+      Title="CreateOrderPage"
+      Loaded="Page_Loaded">
 
     <Grid Name="mainContainer">
         <Grid.ColumnDefinitions>
@@ -159,7 +160,7 @@
                                 Margin="6, 0, 0, 0"
                                 Grid.Column="0"
                                 HorizontalAlignment="Left"
-                                Text="Rosewater Mist"
+                                Text="{Binding Name_Cake}"
                                 VerticalAlignment="Center"
                                 Style="{StaticResource RegularText}"/>
 
@@ -167,21 +168,13 @@
                                     <TextBlock 
                                 Grid.Column="2"
                                 HorizontalAlignment="Left"
-                                Text="17.000 đ"
+                                Text="{Binding Order_Quantity}"
                                 VerticalAlignment="Center"
                                 Style="{StaticResource RegularText}"/>
 
                                 </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>
-
-                        <Grid></Grid>
-                        <Grid></Grid>
-                        <Grid></Grid>
-                        <Grid></Grid>
-                        <Grid></Grid>
-                        <Grid></Grid>
-                        <Grid></Grid>
 
                     </ListView>
 
@@ -401,7 +394,7 @@
                                 Margin="0, 0, 0, 0"
                                 Grid.Column="1"
                                 HorizontalAlignment="Left"
-                                Text="Rosewater Mist"
+                                Text="{Binding Name_Cake}"
                                 VerticalAlignment="Center"
                                 Style="{StaticResource RegularText}"/>
 
@@ -409,7 +402,7 @@
                                 <TextBlock 
                                 Grid.Column="3"
                                 HorizontalAlignment="Left"
-                                Text="17.000 đ"
+                                Text="{Binding SELLING_PRICE_FOR_BINDING}"
                                 VerticalAlignment="Center"
                                 Style="{StaticResource RegularText}"/>
 
@@ -417,7 +410,7 @@
                                 <TextBlock 
                                 Grid.Column="5"
                                 HorizontalAlignment="Left"
-                                Text="2"
+                                Text="{Binding Order_Quantity}"
                                 VerticalAlignment="Center"
                                 Style="{StaticResource RegularText}"/>
 
@@ -426,19 +419,11 @@
                                 Grid.Column="7"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Text="34.000 đ"
+                                Text="{Binding Total_Price}"
                                 Style="{StaticResource RegularText}"/>
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
-
-                    <Grid></Grid>
-                    <Grid></Grid>
-                    <Grid></Grid>
-                    <Grid></Grid>
-                    <Grid></Grid>
-                    <Grid></Grid>
-                    <Grid></Grid>
 
                 </ListView>
             </materialDesign:Card>

@@ -50,6 +50,8 @@ namespace CakeShop.Pages
 
         private void addToOrderButton_Click(object sender, RoutedEventArgs e)
         {
+			_cake.Order_Quantity = 1;
+			_cake.Total_Price = _cake.SELLING_PRICE_INT_FOR_BINDING * _cake.Order_Quantity;
 			Global.Global.cakesOrder.Add(_cake);
 
 			foreach(var cake in Global.Global.cakesOrder)

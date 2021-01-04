@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CakeShop.Global;
 
 namespace CakeShop.Pages
 {
@@ -30,8 +31,14 @@ namespace CakeShop.Pages
 		public OrderPage()
 		{
 			InitializeComponent();
+
 		}
 
+		private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+			currentOrdersListView.ItemsSource = Global.Global.cakesOrder;
+
+		}
 
 		private void createNewOrderButton_Click(object sender, RoutedEventArgs e)
 		{

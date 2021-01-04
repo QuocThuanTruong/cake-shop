@@ -49,6 +49,8 @@ namespace CakeShop
         public List<Cake_Image> CAKE_IMAGE_FOR_BINDING { get; set; }
         public int SELLING_PRICE_INT_FOR_BINDING { get; set; }
         public int ORIGINAL_PRICE_INT_FOR_BINDING { get; set; }
+        public int Order_Quantity { get; set; }
+        public int Total_Price { get; set; }
        
     }
 }

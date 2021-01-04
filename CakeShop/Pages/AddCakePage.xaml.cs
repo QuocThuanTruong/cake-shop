@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using CakeShop.Utilities;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace CakeShop.Pages
 {
@@ -26,6 +28,7 @@ namespace CakeShop.Pages
 		private bool isUpdate = false;
 
 		private DatabaseUtilities _databaseUtilities = DatabaseUtilities.GetDatabaseInstance();
+		private ApplicationUtilities _applicationUtilities = ApplicationUtilities.GetAppInstance();
 		private Cake _cake = new Cake();
 
 		public List<Cake_Image> Images_For_Binding;
@@ -76,7 +79,10 @@ namespace CakeShop.Pages
 				cakeImageListView.Visibility = Visibility.Visible;
 			}
 
-			_ordinal_number_image = _databaseUtilities.GetMaxOrdinalNumberImage(_cake.ID_Cake);
+			if (isUpdate)
+            {
+				_ordinal_number_image = _databaseUtilities.GetMaxOrdinalNumberImage(_cake.ID_Cake);
+			}
 		}
 
 		private void addCakeImagesButton_Click(object sender, RoutedEventArgs e)
@@ -181,7 +187,121 @@ namespace CakeShop.Pages
 			string[] typeCakes = { "Topping", "Glazed", "Filling" };
 			_cake.Type_Cake = typeCakes[cakeCategoryComboBox.SelectedIndex];
 
+			_cake.Description = cakeDescriptionTextBox.Text;
+			if (_cake.Description.Length == 0)
+			{
+				//notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống tên chuyến đi", "OK", () => { });
+				return;
+			}
 
+			if (originPriceTextBox.Text.Length == 0)
+			{
+				//notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống tiền thu", "OK", () => { });
+				return;
+			}
+
+			_cake.Original_Price = decimal.Parse(originPriceTextBox.Text, NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands | NumberStyles.AllowCurrencySymbol | NumberStyles.Currency, new CultureInfo("en-US"));
+
+			if (salePriceTextBox.Text.Length == 0)
+			{
+				//notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống tiền thu", "OK", () => { });
+				return;
+			}
+
+			_cake.Selling_Price = decimal.Parse(salePriceTextBox.Text, NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands | NumberStyles.AllowCurrencySymbol | NumberStyles.Currency, new CultureInfo("en-US"));
+
+			if (importQuantityTextBox.Text.Length == 0)
+			{
+				//notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống tiền thu", "OK", () => { });
+				return;
+			}
+
+			_cake.Current_Quantity = int.Parse(importQuantityTextBox.Text);
+
+            //Check empty Avatar
+
+            if (avatarImage.Source.ToString() == "" /*link avatar mặc định*/)
+            {
+                //notiMessageSnackbar.MessageQueue.Enqueue("Không được bỏ trống hình đại diện", "Cancel", () => { });
+                return;
+            }
+
+            var srcAvatar = avatarImage.Source.ToString();
+			_cake.Link_Avt = _applicationUtilities.getTypeOfImage(srcAvatar);
+
+			if (!isUpdate)
+            {
+				_cake.ID_Cake = _databaseUtilities.GetMaxIDCake() + 1;
+				_databaseUtilities.AddCake(_cake.ID_Cake, _cake.Name_Cake, _cake.Description, _cake.Type_Cake, _cake.Original_Price, _cake.Selling_Price, _cake.Current_Quantity, _cake.Link_Avt);
+
+				_applicationUtilities.createIDDirectory(_cake.ID_Cake);
+				_applicationUtilities.copyImageToIDDirectory(_cake.ID_Cake, srcAvatar, "avatar");
+
+				foreach (var image in Images_For_Binding)
+                {
+					_databaseUtilities.AddCakeImage(_cake.ID_Cake, image.Ordinal_Number, _applicationUtilities.getTypeOfImage(image.Link_Image), image.Is_Active ?? 0);
+					_applicationUtilities.copyImageToIDDirectory(_cake.ID_Cake, image.Link_Image, $"{image.Ordinal_Number}");
+				}
+			} 
+			else
+            {
+				_databaseUtilities.UpdateCake(_cake.ID_Cake, _cake.Name_Cake, _cake.Description, _cake.Type_Cake, _cake.Original_Price, _cake.Selling_Price, _cake.Current_Quantity, _cake.Link_Avt);
+				_applicationUtilities.copyImageToIDDirectory(_cake.ID_Cake, srcAvatar, "avatar");
+
+				foreach (var image in Images_For_Binding)
+				{
+					_databaseUtilities.UpdateImage(_cake.ID_Cake, image.Ordinal_Number, _applicationUtilities.getTypeOfImage(image.Link_Image), image.Is_Active ?? 0);
+					_applicationUtilities.copyImageToIDDirectory(_cake.ID_Cake, image.Link_Image, $"{image.Ordinal_Number}");
+				}
+			}
+
+			var today = DateTime.Now;
+			var ID_Stock = _databaseUtilities.GetMaxIDStock() + 1;
+			_databaseUtilities.AddStock(ID_Stock, _cake.ID_Cake, _cake.Current_Quantity ?? 0, today);
+
+			//reset
+			cakeNameTextBox.Text = "";
+			cakeDescriptionTextBox.Text = "";
+			originPriceTextBox.Text = "";
+			salePriceTextBox.Text = "";
+			importQuantityTextBox.Text = "";
+
+			Images_For_Binding = new List<Cake_Image>();
+			addCakeImagesOption1Button.Visibility = Visibility.Visible;
+			addCakeImagesOption2Button.Visibility = Visibility.Collapsed;
+			cakeImageListView.Visibility = Visibility.Collapsed;
+			cakeImageListView.ItemsSource = null;
+
+		}
+
+        private void originPriceTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+			//Regex meaning: not match any number digit zero or many times
+			var pattern = "[^0-9]+";
+			var regex = new Regex(pattern);
+
+			//if true -> input event has handled (skiped this character)
+			e.Handled = regex.IsMatch(e.Text);
+		}
+
+        private void salePriceTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+			//Regex meaning: not match any number digit zero or many times
+			var pattern = "[^0-9]+";
+			var regex = new Regex(pattern);
+
+			//if true -> input event has handled (skiped this character)
+			e.Handled = regex.IsMatch(e.Text);
+		}
+
+        private void importQuantityTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+			//Regex meaning: not match any number digit zero or many times
+			var pattern = "[^0-9]+";
+			var regex = new Regex(pattern);
+
+			//if true -> input event has handled (skiped this character)
+			e.Handled = regex.IsMatch(e.Text);
 		}
     }
 }

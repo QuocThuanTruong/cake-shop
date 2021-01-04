@@ -157,6 +157,7 @@
                         
                         <TextBox Name="originPriceTextBox"
                                  Padding="-5, -5, 16, -5"
+                                 PreviewTextInput="originPriceTextBox_PreviewTextInput"
                                  Text="{Binding ORIGINAL_PRICE_INT_FOR_BINDING}"
                              Margin="2, 8, 0 ,0"
                              Style="{StaticResource AddRecipePageTextBox}"
@@ -187,7 +188,8 @@
                              Style="{StaticResource AddRecipePageTextBox}"
                              materialDesign:HintAssist.Hint="Giá bán"
                              Grid.Column="1"
-                             Grid.Row="1"/>
+                             Grid.Row="1"
+                                 PreviewTextInput="salePriceTextBox_PreviewTextInput"/>
 
                         <TextBlock Text="đ"
                                            Margin="0, 9, 12, 2"
@@ -206,7 +208,8 @@
                              Style="{StaticResource AddRecipePageTextBox}"
                              materialDesign:HintAssist.Hint="Số lượng bánh nhập kho"
                              Grid.Column="1"
-                             Grid.Row="1"/>
+                             Grid.Row="1"
+                             PreviewTextInput="importQuantityTextBox_PreviewTextInput"/>
                 </StackPanel>
 
             </Grid>

@@ -586,7 +586,8 @@
                             Margin="0, -10, -10, 0"
                             Cursor="Hand"
                             RenderOptions.BitmapScalingMode="HighQuality"
-                            Source="{Binding Link_Avt, Converter={StaticResource abosolutePathConverter}}"/>
+                            Source="{Binding Link_Avt, Converter={StaticResource abosolutePathConverter}}">
+                        </Image>
 
                         <Image Width="120"
                                Height="34"
