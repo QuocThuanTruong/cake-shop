@@ -19,7 +19,7 @@ namespace CakeShop
         public int Ordinal_Number { get; set; }
         public string Link_Image { get; set; }
         public Nullable<int> Is_Active { get; set; }
-    
+
         public virtual Cake Cake { get; set; }
 
         //For Coppy

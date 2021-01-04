@@ -181,7 +181,7 @@
                                 Grid.Column="7"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Text="{Binding Total_Price}"
+                                Text="{Binding Total_Price_FOR_BINDING}"
                                 Style="{StaticResource RegularText}"/>
                             </Grid>
                         </DataTemplate>
@@ -215,7 +215,8 @@
                         Style="{StaticResource StepButton}"
                         materialDesign:ButtonAssist.CornerRadius="16"
                         Height="32"                        
-                        materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                        materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                                Click="clearCurrentOrderButton_Click">
                             <Grid Width="32">
 
 
@@ -363,7 +364,7 @@
                                 Margin="0, 0, 0, 0"
                                 Grid.Column="1"
                                 HorizontalAlignment="Left"
-                                Text="CS-1707"
+                                Text="{Binding ID_FOR_BINDING}"
                                 VerticalAlignment="Center"
                                 Style="{StaticResource RegularText}"/>
 
@@ -371,7 +372,7 @@
                                 <TextBlock 
                                 Grid.Column="3"
                                 HorizontalAlignment="Left"
-                                Text="30/10/2000	16:57:00 PM"
+                                Text="{Binding Date_Created}"
                                 VerticalAlignment="Center"
                                 Style="{StaticResource RegularText}"/>
 
@@ -379,7 +380,7 @@
                                 <TextBlock 
                                 Grid.Column="5"
                                 HorizontalAlignment="Left"
-                                Text="Quốc Thuận Trương"
+                                Text="{Binding Customer_Name}"
                                 VerticalAlignment="Center"
                                 Style="{StaticResource RegularText}"/>
 
@@ -388,16 +389,11 @@
                                 Grid.Column="7"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Text="34.000 đ"
+                                Text="{Binding TOTAL_COST_FOR_BINDING}"
                                 Style="{StaticResource RegularText}"/>
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
-
-                    <Grid></Grid>
-                    <Grid></Grid>
-                    <Grid></Grid>
-                    <Grid></Grid>
 
                 </ListView>
 

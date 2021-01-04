@@ -121,6 +121,9 @@
     <Compile Include="Converter\BrushOpacityConverter.cs" />
     <Compile Include="Converter\IsActiveViewConverter.cs" />
     <Compile Include="CustomView\ListBoxExtension.cs" />
+    <Compile Include="getAllInvoices_Result.cs">
+      <DependentUpon>CakeShop.tt</DependentUpon>
+    </Compile>
     <Compile Include="GetInfCakeByID_Result.cs">
       <DependentUpon>CakeShop.tt</DependentUpon>
     </Compile>

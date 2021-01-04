@@ -89,13 +89,6 @@ namespace CakeShop.Utilities
             result.CAKE_IMAGE_FOR_BINDING = cake_Images;
             result = getCakeForBinding(result);
 
-            var test  = _databaseCakeShop
-               .Database
-               .SqlQuery<GetInfCakeByID_Result>($"Select * from GetInfCakeByID({ID})")
-               .FirstOrDefault();
-
-            Debug.WriteLine(test);
-
             return result;
         }
 
@@ -595,6 +588,62 @@ namespace CakeShop.Utilities
                 .ExecuteSqlCommand($"INSERT [dbo].[StockReceiving]([ID_Stock], [ID_Cake], [Quantity], [Date]) VALUES({ID_Stock}, {ID_Cake}, {quantity}, '{date}')");
 
             return 1;
+        }
+
+        public List<Invoice> GetAllInvoice()
+        {
+            List<Invoice> result = _databaseCakeShop
+                .Database
+                .SqlQuery<Invoice>("Select * From Invoice")
+                .ToList();
+
+            for (int i = 0; i < result.Count; ++i)
+            {
+                result[i].ID_FOR_BINDING = $"CS-{result[i].ID_Invoice}";
+                result[i].TOTAL_COST_FOR_BINDING = _applicationUtilities.GetMoneyForBinding(decimal.ToInt32(result[i].Total_Money ?? 0));
+            }
+
+            return result;
+        }
+
+        public List<Cake> GetAllCake()
+        {
+            List<Cake> result = _databaseCakeShop
+                .Database
+                .SqlQuery<Cake>("Select * from Cake where Current_Quantity > 0")
+                .ToList();
+
+            for (int i = 0; i < result.Count; ++i)
+            {
+                result[i].SELLING_PRICE_INT_FOR_BINDING = decimal.ToInt32(result[i].Selling_Price ?? 0) ;
+                result[i].SELLING_PRICE_FOR_BINDING = _applicationUtilities.GetMoneyForBinding(result[i].SELLING_PRICE_INT_FOR_BINDING);
+                result[i].ORIGINAL_PRICE_INT_FOR_BINDING = decimal.ToInt32(result[i].Original_Price ?? 0);
+                result[i].ORIGINAL_PRICE_FOR_BINDING = _applicationUtilities.GetMoneyForBinding(result[i].ORIGINAL_PRICE_INT_FOR_BINDING);
+            }
+
+            return result;
+        }
+
+        public void AddInvoice(Nullable<int> id, Nullable<System.DateTime> date, string name, string add, string phone, Nullable<decimal> ship, Nullable<decimal> total)
+        {
+   
+            _databaseCakeShop.AddInvoice(id, date, name, add, phone, ship, total);
+
+        }
+
+        public void AddInvoiceDetail(Nullable<int> id, Nullable<int> orNum, Nullable<int> idCake, Nullable<int> quantity)
+        {
+            _databaseCakeShop.AddInvoiceDetail(id, orNum, idCake, quantity);
+        }
+
+        public int GetMaxIDInvoice()
+        {
+            int result = _databaseCakeShop
+                .Database
+                .SqlQuery<int>($"Select Max(ID_Invoice) From Invoice")
+                .FirstOrDefault();
+
+            return result;
         }
     }
 }

@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CakeShop.Converter;
 using CakeShop.Utilities;
 
 namespace CakeShop.Pages
@@ -32,6 +33,7 @@ namespace CakeShop.Pages
 		private Configuration _configuration;
 
 		private DatabaseUtilities _databaseUtilities = DatabaseUtilities.GetDatabaseInstance();
+		private AbsolutePathConverter _absolutePathConverter = new AbsolutePathConverter();
 
 		private Timer _loadingTmer;
 		private int _timeCounter = 0;
@@ -328,6 +330,9 @@ namespace CakeShop.Pages
 
 				currentResultTextBlock.Text = $"Hiển thị {cakes.Count} Trong tổng số {resultQuery.totalCakeResult} kết quả";
 
+				largeCakesListView.ItemsSource = null;
+				smallCakesListView.ItemsSource = null;
+
 				largeCakesListView.ItemsSource = cakes;
 				smallCakesListView.ItemsSource = cakes;
 			}
@@ -357,6 +362,10 @@ namespace CakeShop.Pages
 			currentPageTextBlock.Text = $"{_currentPage} of {(_maxPage)}";
 
 			List<Cake> Cakes = CakesSearchResults.Cakes;
+
+			largeCakesListView.ItemsSource = null;
+			smallCakesListView.ItemsSource = null;
+
 			if (Cakes.Count > 0)
 			{
 				largeCakesListView.ItemsSource = Cakes;

@@ -44,14 +44,16 @@ namespace CakeShop.Pages
 
 		public AddCakePage(int cakeID)
 		{
-			InitializeComponent();
-
-			updateTextBlock.Visibility = Visibility.Visible;
 			this.isUpdate = true;
 
 			_cake = _databaseUtilities.getCakeById(cakeID);
 
 			DataContext = this._cake;
+
+			InitializeComponent();
+
+			updateTextBlock.Visibility = Visibility.Visible;
+			
 		}
 
 		private void Page_Loaded(object sender, RoutedEventArgs e)

@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using CakeShop.Global;
+using CakeShop.Utilities;
 
 namespace CakeShop.Pages
 {
@@ -28,6 +29,10 @@ namespace CakeShop.Pages
 		public delegate void CreateOrderWithCurrentHandler(Object dummy);
 		public event CreateOrderWithCurrentHandler CreateOrderWithCurrent;
 
+		private DatabaseUtilities _databaseUtilities = DatabaseUtilities.GetDatabaseInstance();
+		private ApplicationUtilities _applicationUtilities = ApplicationUtilities.GetAppInstance();
+
+		private List<Invoice> _invoices = new List<Invoice>();
 		public OrderPage()
 		{
 			InitializeComponent();
@@ -36,8 +41,10 @@ namespace CakeShop.Pages
 
 		private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-			currentOrdersListView.ItemsSource = Global.Global.cakesOrder;
+			_invoices = _databaseUtilities.GetAllInvoice();
 
+			currentOrdersListView.ItemsSource = Global.Global.cakesOrder;
+			ordersListView.ItemsSource = _invoices;
 		}
 
 		private void createNewOrderButton_Click(object sender, RoutedEventArgs e)
@@ -49,5 +56,12 @@ namespace CakeShop.Pages
 		{
 			CreateOrderWithCurrent?.Invoke(new Object());
 		}
-	}
+
+        private void clearCurrentOrderButton_Click(object sender, RoutedEventArgs e)
+        {
+			Global.Global.clearGlobal();
+			currentOrdersListView.ItemsSource = null;
+
+		}
+    }
 }

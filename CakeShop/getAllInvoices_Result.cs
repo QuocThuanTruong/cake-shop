@@ -10,16 +10,9 @@
 namespace CakeShop
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Invoice
+    public partial class getAllInvoices_Result
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Invoice()
-        {
-            this.InvoiceDetails = new HashSet<InvoiceDetail>();
-        }
-    
         public int ID_Invoice { get; set; }
         public Nullable<System.DateTime> Date_Created { get; set; }
         public string Customer_Name { get; set; }
@@ -27,13 +20,5 @@ namespace CakeShop
         public string Customer_PhoneNum { get; set; }
         public Nullable<decimal> Shipping_Cost { get; set; }
         public Nullable<decimal> Total_Money { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<InvoiceDetail> InvoiceDetails { get; set; }
-
-        //For Binding
-        public string ID_FOR_BINDING { get; set; }
-        public string TOTAL_COST_FOR_BINDING { get; set; }
-
     }
 }

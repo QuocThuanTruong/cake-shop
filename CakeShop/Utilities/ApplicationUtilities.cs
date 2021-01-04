@@ -61,7 +61,16 @@ namespace CakeShop.Utilities
         public void copyImageToIDDirectory(int ID, string srcPath, string nameFile)
         {
             var destPath = (string)_absolutePathConverter.Convert($"Images\\{ID}\\{nameFile}.{getTypeOfImage(srcPath)}", null, null, null);
-            
+
+            try
+            {
+                File.Delete(destPath);
+            }
+            catch (Exception e)
+            {
+
+            }
+
             try
             {
                 File.Copy(srcPath, destPath, true);

@@ -250,8 +250,13 @@
                         <Image Name="avatarImage"
                        Width="176"
                        Height="176"
-                       Stretch="UniformToFill"
-                       Source="{Binding Link_Avt, Converter={StaticResource abosolutePathConverter}}"/>
+                       Stretch="UniformToFill">
+                            <Image.Source>
+                                <BitmapImage CacheOption="OnDemand"
+                                             UriSource="{Binding Link_Avt, Converter={StaticResource abosolutePathConverter}}">
+                                </BitmapImage>
+                            </Image.Source>
+                        </Image>
 
                         <!-- Click here to get avt-->
                         <Button Name="avatarPickerFrameButton"

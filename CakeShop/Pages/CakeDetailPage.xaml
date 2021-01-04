@@ -9,7 +9,8 @@
          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="728" d:DesignWidth="1042"
-      Title="CakeDetailPage">
+      Title="CakeDetailPage"
+      Loaded="Page_Loaded">
 
     <Grid Name="mainContainer">
 
@@ -33,9 +34,15 @@
                Grid.RowSpan="2"
                Margin="0, 10, 0, 0"
                VerticalAlignment="Top"
-               Source="{Binding Link_Avt, Converter={StaticResource abosolutePathConverter}}"
                Width="422"
-               Height="422"/>
+               Height="422"
+               RenderOptions.BitmapScalingMode="HighQuality">
+            <Image.Source>
+                <BitmapImage CacheOption="OnDemand"
+                             UriSource="{Binding Link_Avt, Converter={StaticResource abosolutePathConverter}}">
+                </BitmapImage>
+            </Image.Source>
+        </Image>
 
         <!-- ItemsSource="{Binding IMAGES_LIST_FOR_BINDING}" -->
         <!-- Image cake list view -->
@@ -74,6 +81,7 @@
                                 </Style.Triggers>
                             </Style>
                         </Image.Style>
+                        
                     </Image>
                 </DataTemplate>
             </ListView.ItemTemplate>
