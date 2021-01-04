@@ -645,5 +645,43 @@ namespace CakeShop.Utilities
 
             return result;
         }
+
+        public int CalcTotalCurrentCake()
+        {
+            int result = _databaseCakeShop
+                .Database
+                .SqlQuery<int>("Select Sum(Current_Quantity) From Cake")
+                .FirstOrDefault();
+
+            return result;
+        }
+
+        public StatisticByYear_Result StatisticByYear(Nullable<int> year)
+        {
+            var result = _databaseCakeShop
+                .StatisticByYear(year)
+                .FirstOrDefault();
+
+            result.SumStockReveivingMoney_FOR_BINDING = _applicationUtilities.GetMoneyForBinding(decimal.ToInt32(result.SumStockReveivingMoney ?? 0));
+            result.SumRevenue_FOR_BINDING = _applicationUtilities.GetMoneyForBinding(decimal.ToInt32(result.SumRevenue ?? 0));
+            result.SumProfit_FOR_BINDING = _applicationUtilities.GetMoneyForBinding(decimal.ToInt32(result.SumProfit ?? 0));
+
+
+            return result;
+        }
+
+        public double GetRevenueByMonthInYear(int month, int year)
+        {
+            var result = _databaseCakeShop
+                .StatisticRevenueByMonthInYear(month, year)
+                .FirstOrDefault();
+
+            return decimal.ToDouble(result.SumRevenue ?? 0);
+        }
+
+        public List<StatisticRevenueByTypeOfCakeInYear_Result> statisticRevenueByTypeOfCakeInYear_Results(int year)
+        {
+            return _databaseCakeShop.StatisticRevenueByTypeOfCakeInYear(year).ToList();
+        }
     }
 }

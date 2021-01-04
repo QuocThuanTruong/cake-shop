@@ -120,6 +120,13 @@ namespace CakeShop.Pages
 			Cake cake = (Cake)cakeComboBox.SelectedItem;
 			cake.Order_Quantity = int.Parse(importQuantityTextBox.Text);
 
+			if (cake.Order_Quantity > cake.Current_Quantity)
+            {
+				//Chi con toi da cake.Current_Quantity
+				return;
+            }
+
+			cake.Current_Quantity -= cake.Order_Quantity;
 			cake.Total_Price = cake.SELLING_PRICE_INT_FOR_BINDING * cake.Order_Quantity;
 			cake.Total_Price_FOR_BINDING = _applicationUtilities.GetMoneyForBinding(cake.Total_Price);
 
@@ -206,6 +213,8 @@ namespace CakeShop.Pages
             {
                 Cake cake = Global.Global.cakesOrder[i];
                 _databaseUtilities.AddInvoiceDetail(ID_Invoice, i + 1, cake.ID_Cake, cake.Order_Quantity);
+				_databaseUtilities.UpdateCake(cake.ID_Cake, cake.Name_Cake, cake.Description, cake.Type_Cake, cake.Original_Price, cake.Selling_Price, cake.Current_Quantity, cake.Link_Avt);
+				
             }
 
 			cancelOrderButton_Click(null, null);
@@ -263,6 +272,11 @@ namespace CakeShop.Pages
 
 			orderedCakeListView.ItemsSource = Global.Global.cakesOrder;
 			orderPreviewListView.ItemsSource = Global.Global.cakesOrder;
+
+			cakeComboBox.ItemsSource = null;
+
+			cakes = _databaseUtilities.GetAllCake();
+			cakeComboBox.ItemsSource = cakes;
 
 			cakeComboBox.SelectedIndex = -1;
 		}
