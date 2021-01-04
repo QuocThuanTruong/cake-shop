@@ -30,5 +30,10 @@ namespace CakeShop
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InvoiceDetail> InvoiceDetails { get; set; }
+
+        //For Binding
+        public string ID_FOR_BINDING { get; set; }
+        public string TOTAL_COST_FOR_BINDING { get; set; }
+
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CakeShopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CakeShopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Cake">
           <Key>
             <PropertyRef Name="ID_Cake" />
@@ -185,6 +185,21 @@
           </ReturnType>
         </Function>
         <Function Name="CalcTotalCurrentCake" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="getAllInvoices" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="ID_Invoice" Type="int" Nullable="false" />
+                <Property Name="Date_Created" Type="datetime" />
+                <Property Name="Customer_Name" Type="nvarchar" MaxLength="200" />
+                <Property Name="Customer_Address" Type="nvarchar" MaxLength="300" />
+                <Property Name="Customer_PhoneNum" Type="char" MaxLength="20" />
+                <Property Name="Shipping_Cost" Type="money" />
+                <Property Name="Total_Money" Type="money" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
         <Function Name="GetInfCakeByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <ReturnType>
@@ -317,8 +332,7 @@
             <End Role="StockReceiving" EntitySet="StockReceiving" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CakeShopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -521,38 +535,38 @@
             <End Role="InvoiceDetail" EntitySet="InvoiceDetails" />
           </AssociationSet>
           <FunctionImport Name="CalcSumInvoicesInYear" IsComposable="true" ReturnType="Collection(CakeShopModel.CalcSumInvoicesInYear_Result)">
-            <Parameter Name="year" Mode="In" Type="Int32" />
+          <Parameter Name="year" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="CalcSumRevenueInYear" IsComposable="true" ReturnType="Collection(CakeShopModel.CalcSumRevenueInYear_Result)">
-            <Parameter Name="year" Mode="In" Type="Int32" />
+          <Parameter Name="year" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="CalcSumStockReceivingCakesInYear" IsComposable="true" ReturnType="Collection(CakeShopModel.CalcSumStockReceivingCakesInYear_Result)">
-            <Parameter Name="year" Mode="In" Type="Int32" />
+          <Parameter Name="year" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="CalcSumStockReceivingMoneyInYear" IsComposable="true" ReturnType="Collection(CakeShopModel.CalcSumStockReceivingMoneyInYear_Result)">
-            <Parameter Name="year" Mode="In" Type="Int32" />
+          <Parameter Name="year" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetInfCakeByID" IsComposable="true" ReturnType="Collection(CakeShopModel.GetInfCakeByID_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetInfInvoiceByID" IsComposable="true" ReturnType="Collection(CakeShopModel.GetInfInvoiceByID_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetInvoiceDetailsByIDInvoice" IsComposable="true" ReturnType="Collection(CakeShopModel.GetInvoiceDetailsByIDInvoice_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SearchByName" IsComposable="true" ReturnType="Collection(CakeShopModel.SearchByName_Result)">
-            <Parameter Name="search_text" Mode="In" Type="String" />
+          <Parameter Name="search_text" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="StatisticByYear" IsComposable="true" ReturnType="Collection(CakeShopModel.StatisticByYear_Result)">
-            <Parameter Name="year" Mode="In" Type="Int32" />
+          <Parameter Name="year" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="StatisticRevenueByMonthInYear" IsComposable="true" ReturnType="Collection(CakeShopModel.StatisticRevenueByMonthInYear_Result)">
             <Parameter Name="mont" Mode="In" Type="Int32" />
             <Parameter Name="year" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="StatisticRevenueByTypeOfCakeInYear" IsComposable="true" ReturnType="Collection(CakeShopModel.StatisticRevenueByTypeOfCakeInYear_Result)">
-            <Parameter Name="year" Mode="In" Type="Int32" />
+          <Parameter Name="year" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="AddCake">
             <Parameter Name="id" Mode="In" Type="Int32" />
@@ -596,7 +610,17 @@
             <Parameter Name="orNum" Mode="In" Type="Int32" />
             <Parameter Name="isActive" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="getAllInvoices" IsComposable="true" ReturnType="Collection(CakeShopModel.getAllInvoices_Result)" />
         </EntityContainer>
+        <ComplexType Name="getAllInvoices_Result">
+          <Property Type="Int32" Name="ID_Invoice" Nullable="false" />
+          <Property Type="DateTime" Name="Date_Created" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Customer_Name" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Customer_Address" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="Customer_PhoneNum" Nullable="true" MaxLength="20" />
+          <Property Type="Decimal" Name="Shipping_Cost" Nullable="true" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="Total_Money" Nullable="true" Precision="19" Scale="4" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -776,6 +800,19 @@
           <FunctionImportMapping FunctionImportName="AddInvoiceDetail" FunctionName="CakeShopModel.Store.AddInvoiceDetail" />
           <FunctionImportMapping FunctionImportName="AddStockReceiving" FunctionName="CakeShopModel.Store.AddStockReceiving" />
           <FunctionImportMapping FunctionImportName="SetIsActive" FunctionName="CakeShopModel.Store.SetIsActive" />
+          <FunctionImportMapping FunctionImportName="getAllInvoices" FunctionName="CakeShopModel.Store.getAllInvoices">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CakeShopModel.getAllInvoices_Result">
+                <ScalarProperty Name="ID_Invoice" ColumnName="ID_Invoice" />
+                <ScalarProperty Name="Date_Created" ColumnName="Date_Created" />
+                <ScalarProperty Name="Customer_Name" ColumnName="Customer_Name" />
+                <ScalarProperty Name="Customer_Address" ColumnName="Customer_Address" />
+                <ScalarProperty Name="Customer_PhoneNum" ColumnName="Customer_PhoneNum" />
+                <ScalarProperty Name="Shipping_Cost" ColumnName="Shipping_Cost" />
+                <ScalarProperty Name="Total_Money" ColumnName="Total_Money" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

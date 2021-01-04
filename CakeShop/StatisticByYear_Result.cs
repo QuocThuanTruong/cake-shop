@@ -18,5 +18,10 @@ namespace CakeShop
         public Nullable<decimal> SumStockReveivingMoney { get; set; }
         public Nullable<decimal> SumRevenue { get; set; }
         public Nullable<decimal> SumProfit { get; set; }
+
+        //For Binding
+        public string SumStockReveivingMoney_FOR_BINDING { get; set; }
+        public string SumRevenue_FOR_BINDING { get; set; }
+        public string SumProfit_FOR_BINDING { get; set; }
     }
 }

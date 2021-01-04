@@ -89,13 +89,6 @@ namespace CakeShop.Utilities
             result.CAKE_IMAGE_FOR_BINDING = cake_Images;
             result = getCakeForBinding(result);
 
-            var test  = _databaseCakeShop
-               .Database
-               .SqlQuery<GetInfCakeByID_Result>($"Select * from GetInfCakeByID({ID})")
-               .FirstOrDefault();
-
-            Debug.WriteLine(test);
-
             return result;
         }
 
@@ -114,6 +107,7 @@ namespace CakeShop.Utilities
             {
                 Cake_Image cake_Image = result.CAKE_IMAGE_FOR_BINDING[i];
                 result.CAKE_IMAGE_FOR_BINDING[i].Link_Image = $"Images/{cake.ID_Cake}/{cake_Image.Ordinal_Number}.{cake_Image.Link_Image}";
+                result.CAKE_IMAGE_FOR_BINDING[i].ImageIndex = i + 1;
             }
 
             return result;
@@ -497,6 +491,197 @@ namespace CakeShop.Utilities
                 }
             }
             return result;
+        }
+
+        public int GetMaxOrdinalNumberImage(int ID_Cake)
+        {
+            int result = _databaseCakeShop
+                .Database
+                .SqlQuery<int>($"Select Max(Ordinal_Number) From Cake_Image Where ID_Cake = {ID_Cake}")
+                .FirstOrDefault();
+
+            return result;
+        }
+
+        public int GetMaxIDCake()
+        {
+            int result = _databaseCakeShop
+                .Database
+                .SqlQuery<int>($"Select Max(ID_Cake) From Cake")
+                .FirstOrDefault();
+
+            return result;
+        }
+        public int GetMaxIDStock()
+        {
+            int result = _databaseCakeShop
+                .Database
+                .SqlQuery<int>($"Select Max(ID_Stock) From StockReceiving")
+                .FirstOrDefault();
+
+            return result;
+        }
+
+        public int AddCake(Nullable<int> id, string name, string des, string type, Nullable<decimal> orPrice, Nullable<decimal> sellPrice, Nullable<int> quantity, string link)
+        {
+            try
+            {
+                _databaseCakeShop.AddCake(id, name, des, type, orPrice, sellPrice, quantity, link);
+
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
+
+            return 0;
+        }
+
+        public int UpdateCake(int ID_Cake, string name, string des, string type, Nullable<decimal> orPrice, Nullable<decimal> sellPrice, Nullable<int> quantity, string link)
+        {
+            try
+            {
+                _databaseCakeShop
+                .Database
+                .ExecuteSqlCommand($"UPDATE Cake SET Name_Cake = N'{name}', Description = N'{des}', Type_Cake = N'{type}', Original_Price = {orPrice}, Selling_Price = {sellPrice}, Current_Quantity = {quantity}, Link_Avt = N'{link}' WHERE ID_CAKE = {ID_Cake}");
+
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
+
+            return 0;
+        }
+        
+        public void UpdateImage(int ID_Cake, int ordinal_number, string link_image, int is_active)
+        {
+            var checkExist = _databaseCakeShop
+                .Database
+                .SqlQuery<Cake_Image>($"Select * from Cake_Image where Ordinal_Number = {ordinal_number} and ID_Cake = {ID_Cake}")
+                .FirstOrDefault();
+
+            if (checkExist != null)
+            {
+                _databaseCakeShop
+               .Database
+               .ExecuteSqlCommand($"Update Cake_Image Set Link_Image = N'{link_image}', Is_Active = {is_active} Where Ordinal_Number = {ordinal_number} And ID_Cake = {ID_Cake}");
+            }
+            else
+            {
+                AddCakeImage(ID_Cake, ordinal_number, link_image, is_active);
+            }
+        }
+
+        public void AddCakeImage(int ID_Cake, int ordinal_number, string link_image, int is_active)
+        {
+            _databaseCakeShop
+               .Database
+               .ExecuteSqlCommand($"INSERT [dbo].[Cake_Image]([ID_Cake], [Ordinal_Number], [Link_Image], [Is_Active]) VALUES({ID_Cake}, {ordinal_number}, N'{link_image}', {is_active})");
+
+        }
+
+        public int AddStock(int ID_Stock, int ID_Cake, int quantity, DateTime date)
+        {
+            _databaseCakeShop
+                .Database
+                .ExecuteSqlCommand($"INSERT [dbo].[StockReceiving]([ID_Stock], [ID_Cake], [Quantity], [Date]) VALUES({ID_Stock}, {ID_Cake}, {quantity}, '{date}')");
+
+            return 1;
+        }
+
+        public List<Invoice> GetAllInvoice()
+        {
+            List<Invoice> result = _databaseCakeShop
+                .Database
+                .SqlQuery<Invoice>("Select * From Invoice")
+                .ToList();
+
+            for (int i = 0; i < result.Count; ++i)
+            {
+                result[i].ID_FOR_BINDING = $"CS-{result[i].ID_Invoice}";
+                result[i].TOTAL_COST_FOR_BINDING = _applicationUtilities.GetMoneyForBinding(decimal.ToInt32(result[i].Total_Money ?? 0));
+            }
+
+            return result;
+        }
+
+        public List<Cake> GetAllCake()
+        {
+            List<Cake> result = _databaseCakeShop
+                .Database
+                .SqlQuery<Cake>("Select * from Cake where Current_Quantity > 0")
+                .ToList();
+
+            for (int i = 0; i < result.Count; ++i)
+            {
+                result[i].SELLING_PRICE_INT_FOR_BINDING = decimal.ToInt32(result[i].Selling_Price ?? 0) ;
+                result[i].SELLING_PRICE_FOR_BINDING = _applicationUtilities.GetMoneyForBinding(result[i].SELLING_PRICE_INT_FOR_BINDING);
+                result[i].ORIGINAL_PRICE_INT_FOR_BINDING = decimal.ToInt32(result[i].Original_Price ?? 0);
+                result[i].ORIGINAL_PRICE_FOR_BINDING = _applicationUtilities.GetMoneyForBinding(result[i].ORIGINAL_PRICE_INT_FOR_BINDING);
+            }
+
+            return result;
+        }
+
+        public void AddInvoice(Nullable<int> id, Nullable<System.DateTime> date, string name, string add, string phone, Nullable<decimal> ship, Nullable<decimal> total)
+        {
+   
+            _databaseCakeShop.AddInvoice(id, date, name, add, phone, ship, total);
+
+        }
+
+        public void AddInvoiceDetail(Nullable<int> id, Nullable<int> orNum, Nullable<int> idCake, Nullable<int> quantity)
+        {
+            _databaseCakeShop.AddInvoiceDetail(id, orNum, idCake, quantity);
+        }
+
+        public int GetMaxIDInvoice()
+        {
+            int result = _databaseCakeShop
+                .Database
+                .SqlQuery<int>($"Select Max(ID_Invoice) From Invoice")
+                .FirstOrDefault();
+
+            return result;
+        }
+
+        public int CalcTotalCurrentCake()
+        {
+            int result = _databaseCakeShop
+                .Database
+                .SqlQuery<int>("Select Sum(Current_Quantity) From Cake")
+                .FirstOrDefault();
+
+            return result;
+        }
+
+        public StatisticByYear_Result StatisticByYear(Nullable<int> year)
+        {
+            var result = _databaseCakeShop
+                .StatisticByYear(year)
+                .FirstOrDefault();
+
+            result.SumStockReveivingMoney_FOR_BINDING = _applicationUtilities.GetMoneyForBinding(decimal.ToInt32(result.SumStockReveivingMoney ?? 0));
+            result.SumRevenue_FOR_BINDING = _applicationUtilities.GetMoneyForBinding(decimal.ToInt32(result.SumRevenue ?? 0));
+            result.SumProfit_FOR_BINDING = _applicationUtilities.GetMoneyForBinding(decimal.ToInt32(result.SumProfit ?? 0));
+
+
+            return result;
+        }
+
+        public double GetRevenueByMonthInYear(int month, int year)
+        {
+            var result = _databaseCakeShop
+                .StatisticRevenueByMonthInYear(month, year)
+                .FirstOrDefault();
+
+            return decimal.ToDouble(result.SumRevenue ?? 0);
+        }
+
+        public List<StatisticRevenueByTypeOfCakeInYear_Result> statisticRevenueByTypeOfCakeInYear_Results(int year)
+        {
+            return _databaseCakeShop.StatisticRevenueByTypeOfCakeInYear(year).ToList();
         }
     }
 }

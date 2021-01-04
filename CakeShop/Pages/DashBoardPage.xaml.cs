@@ -1,4 +1,5 @@
-﻿using LiveCharts;
+﻿using CakeShop.Utilities;
+using LiveCharts;
 using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
@@ -23,35 +24,78 @@ namespace CakeShop.Pages
 	public partial class DashBoardPage : Page
 	{
 		private string[] _labels { get; set; } = new[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" };
+		private string[] _years = { "2019", "2020", "2021" };
+		private string _year = "2020";
+		private DatabaseUtilities _databaseUtilities = DatabaseUtilities.GetDatabaseInstance();
+		private ApplicationUtilities _applicationUtilities = ApplicationUtilities.GetAppInstance();
 
 		public DashBoardPage()
 		{
 			InitializeComponent();
 
-			DataContext = this;
+			
 		}
 
 		private void Page_Loaded(object sender, RoutedEventArgs e)
 		{
-			SeriesCollection revenueByMonth = new SeriesCollection
-			{
-				new ColumnSeries
-				{
-					Values = new ChartValues<double> { 10, 50, 39, 50 , 60, 10, 20, 30, 40, 50, 60, 70}
-				}
-
-			};
-
-
-			revenueByMonthChart.Series = revenueByMonth;
-			revenueByMonthChartAxisX.Labels = _labels;
-
-
+			loadDashboard();
 		}
 
 		private void yearCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
+        {
+			if (this.IsLoaded)
+            {
+				
+				loadDashboard();
+			}
+    
+        }
 
+		private void loadDashboard()
+        {
+			_year = _years[yearCombobox.SelectedIndex];
+
+			int year = int.Parse(_year);
+			
+			var result = _databaseUtilities.StatisticByYear(year);
+
+			if (year == DateTime.Now.Year)
+            {
+				result.SumStockReceiving = _databaseUtilities.CalcTotalCurrentCake();
+            }
+
+			SumStockReceiving.Text = result.SumStockReceiving.ToString();
+			SumInvoices.Text = result.SumInvoices.ToString();
+			SumStockReveivingMoney.Text = result.SumStockReveivingMoney_FOR_BINDING;
+			SumRevenue.Text = result.SumRevenue_FOR_BINDING;
+			SumProfit.Text = result.SumProfit_FOR_BINDING;
+
+			var revenueByMonthInYearCollection = new SeriesCollection();
+			for (int i = 1; i <= 12; ++i)
+			{
+				revenueByMonthInYearCollection.Add(new ColumnSeries
+				{
+					Title = $"Tháng {i}",
+					Values = new ChartValues<double> { _databaseUtilities.GetRevenueByMonthInYear(i, year) }
+				});
+			}
+
+			revenueByMonthChart.Series = revenueByMonthInYearCollection;
+			revenueByMonthChartAxisX.Labels = _labels;
+
+
+			var revenueByTypeOfCakeResult = _databaseUtilities.statisticRevenueByTypeOfCakeInYear_Results(year);
+			var revenueByTypeOfCakeInYearCollection = new SeriesCollection();
+			foreach (var revenue in revenueByTypeOfCakeResult)
+			{
+				revenueByTypeOfCakeInYearCollection.Add(new PieSeries
+				{
+					Title = revenue.TypeCake,
+					Values = new ChartValues<double> { decimal.ToDouble(revenue.SumRevenue ?? 0) }
+				});
+			}
+
+			revenueByCategoryChart.Series = revenueByTypeOfCakeInYearCollection;
 		}
 	}
 }

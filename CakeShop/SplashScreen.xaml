@@ -52,12 +52,16 @@
 
             <!-- binding -->
             <Image Name="cakeAvatar"
-                   Source="{StaticResource TEST_AVT}"
                    Grid.Column="3"
                    Grid.ColumnSpan="1"
                    RenderOptions.BitmapScalingMode="HighQuality"
                    Grid.Row="2"
-                   Grid.RowSpan="2"/>
+                   Grid.RowSpan="2">
+                <Image.Source>
+                    <BitmapImage CacheOption="OnLoad"
+                                 UriSource="{Binding Link_Avt, Converter={StaticResource abosolutePathConverter}}"></BitmapImage>
+                </Image.Source>
+            </Image>
 
             <Image Name="cakeShadow"
                    Width="300"
@@ -99,7 +103,7 @@
 
                 <!--Binding-->
                 <TextBlock Name="cakeNameTextBlock"
-                   Text="Peach and Raspberry Twist "
+                   Text="{Binding Name_Cake}"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left"
                    Style="{StaticResource LargeHeaderText}"/>
@@ -111,9 +115,8 @@
                     <!--Binding-->
                     <ScrollViewer Margin="0, 16, 0, 0">
                         <TextBlock Name="siteDescriptionTextBlock"          
-                               Text="Chúng mình sẽ phong tặng đây là chiếc bánh bí ẩn nhất trong dàn bánh nhà DOSH. Từ ngoài vào trong, là vị ngọt thanh của socola trắng và vụn bánh red velvet; là lớp phủ đường đào độc đáo mà có lẽ là lần đầu tiên bạn thử; và kiệt tác chính là phần bên trong với kem trứng vị đào hoà cùng vụn trái phúc bồn tử. Bạn sẽ phải gật gù mà cảm nhận từng hương vị được kết hợp trong chiếc donut ball này. "
                                Style="{StaticResource RegularText}"
-                                   
+                                 Text="{Binding Description}"  
                                TextAlignment="Justify" 
                                Margin="0, 0, 12, 0"
                                ScrollViewer.VerticalScrollBarVisibility="Auto"/>

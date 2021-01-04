@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using CakeShop.Utilities;
-
+using CakeShop.Converter;
 namespace CakeShop.Pages
 {
 	/// <summary>
@@ -26,6 +26,8 @@ namespace CakeShop.Pages
 		public event UpdateCakeHandler UpdateCake;
 
 		private DatabaseUtilities _databaseUtilities = DatabaseUtilities.GetDatabaseInstance();
+		private ApplicationUtilities _applicationUtilities = ApplicationUtilities.GetAppInstance();
+		private AbsolutePathConverter _absolutePathConverter = new AbsolutePathConverter();
 
 		private Cake _cake = new Cake();
 
@@ -36,20 +38,23 @@ namespace CakeShop.Pages
 
 		public CakeDetailPage(int cakeID)
 		{
+			_cake = _databaseUtilities.getCakeById(cakeID);
+			DataContext = this._cake;
+
 			InitializeComponent();
 
-			_cake = _databaseUtilities.getCakeById(cakeID);
-
-			DataContext = this._cake;
 		}
 
 		private void updateCakeButton_Click(object sender, RoutedEventArgs e)
 		{
-			UpdateCake?.Invoke(1);
+			UpdateCake?.Invoke(_cake.ID_Cake);
 		}
 
         private void addToOrderButton_Click(object sender, RoutedEventArgs e)
         {
+			_cake.Order_Quantity = 1;
+			_cake.Total_Price = _cake.SELLING_PRICE_INT_FOR_BINDING * _cake.Order_Quantity;
+			_cake.Total_Price_FOR_BINDING = _applicationUtilities.GetMoneyForBinding(_cake.Total_Price);
 			Global.Global.cakesOrder.Add(_cake);
 
 			foreach(var cake in Global.Global.cakesOrder)
@@ -57,5 +62,11 @@ namespace CakeShop.Pages
 				Debug.WriteLine(cake.ID_Cake);
             }
         }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+
+
+		}
     }
 }

@@ -8,7 +8,8 @@
          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="728" d:DesignWidth="1042"
-      Title="CreateOrderPage">
+      Title="CreateOrderPage"
+      Loaded="Page_Loaded">
 
     <Grid Name="mainContainer">
         <Grid.ColumnDefinitions>
@@ -74,29 +75,23 @@
                               Style="{StaticResource AddRecipeComboBox}"
                               ItemContainerStyle="{StaticResource SearchBoxComboBoxItem}"
                               Height="30"
-                              SelectedIndex="0"
-                              IsEditable="True"
+                              SelectedIndex="-1"
+                              IsEditable="False"
                               HorizontalContentAlignment="Left"
                               BorderBrush="{DynamicResource MyBlack}"
                               BorderThickness="0"
                               materialDesign:TextFieldAssist.UnderlineBrush="Transparent"
                               Margin="12, 0, 12, 2"
                               OverridesDefaultStyle="True"
-                              Width="260">
+                              Width="260"
+                              SelectionChanged="cakeComboBox_SelectionChanged">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name_Cake}"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
 
-
-                                <ComboBoxItem>
-                                    <TextBlock
-                                            Text="Rosewater Mist"
-                                            />
-                                </ComboBoxItem>
-
-                                <ComboBoxItem>
-                                    <TextBlock
-                                            Text="Abc def"
-                                            />
-                                </ComboBoxItem>
-
+                             
                             </ComboBox>
                         </Grid>
 
@@ -109,11 +104,12 @@
                              Style="{StaticResource AddRecipePageTextBox}"
                              materialDesign:HintAssist.Hint="Số lượng"
                              Grid.Column="1"
-                             Grid.Row="1"/>
+                             Grid.Row="1"
+                                     PreviewTextInput="importQuantityTextBox_PreviewTextInput"/>
                         </Grid>
 
                         <Button Name="addCakeButton"
-                                    
+                                    Click="addCakeButton_Click"
                                     Margin="19,0,0,0"
                                     VerticalAlignment="Center"
                                     Width="34"
@@ -159,7 +155,7 @@
                                 Margin="6, 0, 0, 0"
                                 Grid.Column="0"
                                 HorizontalAlignment="Left"
-                                Text="Rosewater Mist"
+                                Text="{Binding Name_Cake}"
                                 VerticalAlignment="Center"
                                 Style="{StaticResource RegularText}"/>
 
@@ -167,21 +163,13 @@
                                     <TextBlock 
                                 Grid.Column="2"
                                 HorizontalAlignment="Left"
-                                Text="17.000 đ"
+                                Text="{Binding Order_Quantity}"
                                 VerticalAlignment="Center"
                                 Style="{StaticResource RegularText}"/>
 
                                 </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>
-
-                        <Grid></Grid>
-                        <Grid></Grid>
-                        <Grid></Grid>
-                        <Grid></Grid>
-                        <Grid></Grid>
-                        <Grid></Grid>
-                        <Grid></Grid>
 
                     </ListView>
 
@@ -277,7 +265,8 @@
                                  Width="226"
                              Style="{StaticResource AddRecipePageTextBox}"
                              materialDesign:HintAssist.Hint="Số điện thoại"
-                             Grid.Column="0"/>
+                             Grid.Column="0"
+                                 PreviewTextInput="phoneTextBox_PreviewTextInput"/>
 
                         <TextBox Name="shipipngFeeTextBox"
                                   IsEnabled="False"
@@ -287,7 +276,8 @@
                              Margin="2, 0, 0 ,0"
                              Style="{StaticResource AddRecipePageTextBox}"
                              materialDesign:HintAssist.Hint="Phí ship"
-                             />
+                             PreviewTextInput="phoneTextBox_PreviewTextInput"
+                               LostFocus="shipipngFeeTextBox_LostFocus" />
 
                         <TextBlock Text="đ"
                                    Name="shippingCurracyTextBlock"
@@ -401,7 +391,7 @@
                                 Margin="0, 0, 0, 0"
                                 Grid.Column="1"
                                 HorizontalAlignment="Left"
-                                Text="Rosewater Mist"
+                                Text="{Binding Name_Cake}"
                                 VerticalAlignment="Center"
                                 Style="{StaticResource RegularText}"/>
 
@@ -409,7 +399,7 @@
                                 <TextBlock 
                                 Grid.Column="3"
                                 HorizontalAlignment="Left"
-                                Text="17.000 đ"
+                                Text="{Binding SELLING_PRICE_FOR_BINDING}"
                                 VerticalAlignment="Center"
                                 Style="{StaticResource RegularText}"/>
 
@@ -417,7 +407,7 @@
                                 <TextBlock 
                                 Grid.Column="5"
                                 HorizontalAlignment="Left"
-                                Text="2"
+                                Text="{Binding Order_Quantity}"
                                 VerticalAlignment="Center"
                                 Style="{StaticResource RegularText}"/>
 
@@ -426,19 +416,11 @@
                                 Grid.Column="7"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                Text="34.000 đ"
+                                Text="{Binding Total_Price_FOR_BINDING}"
                                 Style="{StaticResource RegularText}"/>
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
-
-                    <Grid></Grid>
-                    <Grid></Grid>
-                    <Grid></Grid>
-                    <Grid></Grid>
-                    <Grid></Grid>
-                    <Grid></Grid>
-                    <Grid></Grid>
 
                 </ListView>
             </materialDesign:Card>
@@ -467,7 +449,7 @@
                     Grid.Column="1"
                      HorizontalAlignment="Left"
                      VerticalAlignment="Center"
-                     Text="500.000 đ"
+                     Text="0 đ"
                     FontFamily="{StaticResource GilroySemiBold}"
                     Foreground="{DynamicResource MyBlack}"
                      Style="{StaticResource BoldQuiteMediumText}"/>
@@ -495,7 +477,7 @@
                            Grid.Row="1"
                      HorizontalAlignment="Left"
                      VerticalAlignment="Center"
-                     Text="500.000 đ"
+                     Text="0 đ"
                     FontFamily="{StaticResource GilroySemiBold}"
                     Foreground="{DynamicResource MyBlack}"
                      Style="{StaticResource BoldQuiteMediumText}"/>
@@ -521,7 +503,7 @@
                            Grid.Row="1"
                      HorizontalAlignment="Left"
                      VerticalAlignment="Center"
-                     Text="500.000 đ"
+                     Text="0 đ"
                     Foreground="{DynamicResource MyBlack}"
                      Style="{StaticResource BoldMediumText}"/>
             </Grid>
@@ -542,7 +524,8 @@
                         Style="{StaticResource StepButton}"
                         materialDesign:ButtonAssist.CornerRadius="16"
                         Height="32"                        
-                        materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                        materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                    Click="cancelOrderButton_Click">
                 <Grid Width="32">
 
 
@@ -561,7 +544,8 @@
                         Style="{StaticResource StepButton}"
                         materialDesign:ButtonAssist.CornerRadius="16"
                         Height="32"                        
-                        materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                        materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                    Click="finishOrderButton_Click">
                 <Grid Width="162">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0.9*"/>

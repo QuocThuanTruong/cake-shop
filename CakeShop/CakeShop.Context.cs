@@ -296,5 +296,11 @@ namespace CakeShop
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SetIsActive", idParameter, orNumParameter, isActiveParameter);
         }
+    
+        [DbFunction("CakeShopEntities", "getAllInvoices")]
+        public virtual IQueryable<getAllInvoices_Result> getAllInvoices()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<getAllInvoices_Result>("[CakeShopEntities].[getAllInvoices]()");
+        }
     }
 }

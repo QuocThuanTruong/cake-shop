@@ -65,7 +65,8 @@
                         <!-- binding -->
                         <StackPanel Orientation="Horizontal"
                                     VerticalAlignment="Top">
-                            <TextBlock Text="999"
+                            <TextBlock x:Name="SumStockReceiving" 
+                                Text="{Binding SumStockReceiving}"
                                    Foreground="White"
                                    Style="{StaticResource SemiBoldBigText}"/>
 
@@ -147,7 +148,8 @@
                         <!-- binding -->
                         <StackPanel Orientation="Horizontal"
                                     VerticalAlignment="Top">
-                            <TextBlock Text="999"
+                            <TextBlock x:Name="SumInvoices" 
+                                Text="{Binding SumInvoices}"
                                    Foreground="White"
                                    Style="{StaticResource SemiBoldBigText}"/>
 
@@ -187,7 +189,8 @@
                         <!-- binding -->
                         <StackPanel Orientation="Horizontal"
                                     VerticalAlignment="Top">
-                            <TextBlock Text="999.999.999 đ"
+                            <TextBlock Name="SumStockReveivingMoney"
+                                Text="{Binding SumStockReveivingMoney_FOR_BINDING}"
                                    Foreground="White"
                                    Style="{StaticResource SemiBoldQuiteBigText}"/>
 
@@ -227,7 +230,8 @@
                         <!-- binding -->
                         <StackPanel Orientation="Horizontal"
                                     VerticalAlignment="Top">
-                            <TextBlock Text="999.999.999 đ"
+                            <TextBlock Name="SumRevenue"
+                                Text="{Binding SumRevenue_FOR_BINDING}"
                                    Foreground="White"
                                    Style="{StaticResource SemiBoldQuiteBigText}"/>
 
@@ -267,7 +271,8 @@
                         <!-- binding -->
                         <StackPanel Orientation="Horizontal"
                                     VerticalAlignment="Top">
-                            <TextBlock Text="999.999.999 đ"
+                            <TextBlock Name="SumProfit"
+                                Text="{Binding SumProfit_FOR_BINDING}"
                                    Foreground="White"
                                    Style="{StaticResource SemiBoldQuiteBigText}"/>
 
@@ -337,6 +342,12 @@
                                   OverridesDefaultStyle="True"
                                   Width="50">
 
+
+                            <ComboBoxItem Name="grid24">
+                                <TextBlock Name="titleGrid24"
+                                           Text="2019"/>
+                            </ComboBoxItem>
+
                             <ComboBoxItem Name="grid34">
                                 <TextBlock Name="titleGrid34"
                                            Text="2020"/>
@@ -398,11 +409,11 @@
 
                         <lvc:CartesianChart.AxisX>
                             <lvc:Axis Name="revenueByMonthChartAxisX" Title="Month">
-
                                 <lvc:Axis.Separator>
                                     <lvc:Separator Step="1"/>
                                 </lvc:Axis.Separator>
                             </lvc:Axis>
+                            
                         </lvc:CartesianChart.AxisX>
                         <lvc:CartesianChart.AxisY>
                             <lvc:Axis Title="Revenue"></lvc:Axis>
