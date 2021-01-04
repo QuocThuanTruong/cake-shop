@@ -683,5 +683,13 @@ namespace CakeShop.Utilities
         {
             return _databaseCakeShop.StatisticRevenueByTypeOfCakeInYear(year).ToList();
         }
+
+        public List<int> GetAllYear()
+        {
+            return _databaseCakeShop
+                .Database
+                .SqlQuery<int>("SELECT DISTINCT(YEAR(Date)) FROM dbo.[StockReceiving]")
+                .ToList();
+        }
     }
 }

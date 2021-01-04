@@ -342,22 +342,6 @@
                                   OverridesDefaultStyle="True"
                                   Width="50">
 
-
-                            <ComboBoxItem Name="grid24">
-                                <TextBlock Name="titleGrid24"
-                                           Text="2019"/>
-                            </ComboBoxItem>
-
-                            <ComboBoxItem Name="grid34">
-                                <TextBlock Name="titleGrid34"
-                                           Text="2020"/>
-                            </ComboBoxItem>
-
-                            <ComboBoxItem Name="grid44">
-                                <TextBlock Name="titleGrid44"
-                                           Text="2021"/>
-                            </ComboBoxItem>
-
                         </ComboBox>
                     </StackPanel>
                 </materialDesign:Card>
