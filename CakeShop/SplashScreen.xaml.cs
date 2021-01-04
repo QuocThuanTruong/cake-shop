@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CakeShop.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
@@ -32,9 +33,34 @@ namespace CakeShop
 		private const int TOTAL_TIME_LOAD_IN_SECOND = 5;
 		#endregion
 
+		private DatabaseUtilities _databaseUtilities = DatabaseUtilities.GetDatabaseInstance();
+		private Random _rng = new Random();
+
+		private bool _showSplashScreenFlag = true;
+
+		private ApplicationUtilities _appUtilities = ApplicationUtilities.GetAppInstance();
+
 		public SplashScreen()
 		{
+
+			int maxID = _databaseUtilities.GetMaxIDCake();
+
+			if (maxID > 0)
+			{
+				_showSplashScreenFlag = true;
+
+				int randomIndex = _rng.Next(maxID) + 1;
+
+				Cake cake = _databaseUtilities.getCakeById(randomIndex);
+
+				DataContext = cake;
+			}
+			else
+			{
+				_showSplashScreenFlag = false;
+			}
 			InitializeComponent();
+
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)

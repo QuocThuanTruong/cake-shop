@@ -62,13 +62,9 @@ namespace CakeShop.Utilities
         {
             var destPath = (string)_absolutePathConverter.Convert($"Images\\{ID}\\{nameFile}.{getTypeOfImage(srcPath)}", null, null, null);
 
-            try
+            if (srcPath.Contains("file:///"))
             {
-                File.Delete(destPath);
-            }
-            catch (Exception e)
-            {
-
+                srcPath = srcPath.Substring(8);
             }
 
             try

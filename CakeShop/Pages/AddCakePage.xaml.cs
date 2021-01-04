@@ -17,6 +17,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using CakeShop.Converter;
 
 namespace CakeShop.Pages
 {
@@ -29,6 +30,7 @@ namespace CakeShop.Pages
 
 		private DatabaseUtilities _databaseUtilities = DatabaseUtilities.GetDatabaseInstance();
 		private ApplicationUtilities _applicationUtilities = ApplicationUtilities.GetAppInstance();
+		private AbsolutePathConverter absolutePath = new AbsolutePathConverter();
 		private Cake _cake = new Cake();
 
 		public List<Cake_Image> Images_For_Binding;
@@ -37,6 +39,13 @@ namespace CakeShop.Pages
 
 		public AddCakePage()
 		{
+			_cake.Link_Avt = FindResource("TEST_AVT").ToString();
+			_cake.Link_Avt = _cake.Link_Avt.Substring(23);
+
+			_cake.Link_Avt = (string)(absolutePath.Convert(_cake.Link_Avt, null, null, null));
+
+			DataContext = this._cake;
+
 			InitializeComponent();
 			updateTextBlock.Visibility = Visibility.Collapsed;
 			this.isUpdate = false;
@@ -273,6 +282,19 @@ namespace CakeShop.Pages
 			addCakeImagesOption2Button.Visibility = Visibility.Collapsed;
 			cakeImageListView.Visibility = Visibility.Collapsed;
 			cakeImageListView.ItemsSource = null;
+
+			string avaPath = FindResource("TEST_AVT").ToString();
+			avaPath = avaPath.Substring(23);
+			avaPath = (string)(absolutePath.Convert(avaPath, null, null, null));
+
+			BitmapImage bitmap = new BitmapImage();
+
+			bitmap.BeginInit();
+			bitmap.CacheOption = BitmapCacheOption.OnLoad;
+			bitmap.UriSource = new Uri(avaPath, UriKind.Relative);
+			bitmap.EndInit();
+
+			avatarImage.Source = bitmap;
 
 		}
 
