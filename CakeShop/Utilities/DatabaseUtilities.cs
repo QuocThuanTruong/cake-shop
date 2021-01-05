@@ -675,10 +675,19 @@ namespace CakeShop.Utilities
 
         public int CalcTotalCurrentCake()
         {
-            int result = _databaseCakeShop
+            int result = 0;
+
+            try
+			{
+                result = _databaseCakeShop
                 .Database
                 .SqlQuery<int>("Select Sum(Current_Quantity) From Cake")
                 .FirstOrDefault();
+            }
+            catch (Exception e)
+			{
+
+			}            
 
             return result;
         }

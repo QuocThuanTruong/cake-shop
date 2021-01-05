@@ -55,7 +55,15 @@ namespace CakeShop.Pages
 
 		private void loadDashboard()
         {
-			_year = _years[yearCombobox.SelectedIndex];
+			if (_years.Count > 0)
+			{
+				_year = _years[yearCombobox.SelectedIndex];
+			}
+			else
+			{
+				_year = DateTime.Now.Year;
+			}
+
 			var result = _databaseUtilities.StatisticByYear(_year);
 
 			if (_year == DateTime.Now.Year)
