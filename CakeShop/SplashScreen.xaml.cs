@@ -42,7 +42,7 @@ namespace CakeShop
 
 		public SplashScreen()
 		{
-
+			InitializeComponent();
 			int maxID = _databaseUtilities.GetMaxIDCake();
 
 			if (maxID > 0)
@@ -59,7 +59,7 @@ namespace CakeShop
 			{
 				_showSplashScreenFlag = false;
 			}
-			InitializeComponent();
+
 
 		}
 

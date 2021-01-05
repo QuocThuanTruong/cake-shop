@@ -495,29 +495,56 @@ namespace CakeShop.Utilities
 
         public int GetMaxOrdinalNumberImage(int ID_Cake)
         {
-            int result = _databaseCakeShop
+            int result = 0;
+
+            try
+			{
+                result = _databaseCakeShop
                 .Database
                 .SqlQuery<int>($"Select Max(Ordinal_Number) From Cake_Image Where ID_Cake = {ID_Cake}")
                 .FirstOrDefault();
+            }
+            catch(Exception e)
+			{
+
+			}            
 
             return result;
         }
 
         public int GetMaxIDCake()
         {
-            int result = _databaseCakeShop
+            int result = 0;
+
+            try
+			{
+                result = _databaseCakeShop
                 .Database
                 .SqlQuery<int>($"Select Max(ID_Cake) From Cake")
                 .FirstOrDefault();
+            } 
+            catch (Exception e)
+			{
+
+			}
 
             return result;
         }
         public int GetMaxIDStock()
         {
-            int result = _databaseCakeShop
+            int result = 0;
+
+            try
+			{
+                result = _databaseCakeShop
                 .Database
                 .SqlQuery<int>($"Select Max(ID_Stock) From StockReceiving")
                 .FirstOrDefault();
+            }
+            catch (Exception e)
+			{
+
+			}            
 
             return result;
         }

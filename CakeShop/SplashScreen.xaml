@@ -56,12 +56,12 @@
                    Grid.ColumnSpan="1"
                    RenderOptions.BitmapScalingMode="HighQuality"
                    Grid.Row="2"
-                   Grid.RowSpan="2">
-                <Image.Source>
-                    <BitmapImage CacheOption="OnLoad"
-                                 UriSource="{Binding Link_Avt, Converter={StaticResource abosolutePathConverter}}"></BitmapImage>
-                </Image.Source>
-            </Image>
+                   Grid.RowSpan="2"
+               
+                   Source="{Binding Link_Avt, 
+                Converter={StaticResource abosolutePathConverter}}"
+               
+           />
 
             <Image Name="cakeShadow"
                    Width="300"
