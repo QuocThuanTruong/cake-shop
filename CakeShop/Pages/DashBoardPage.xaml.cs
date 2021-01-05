@@ -24,25 +24,27 @@ namespace CakeShop.Pages
 	public partial class DashBoardPage : Page
 	{
 		private string[] _labels { get; set; } = new[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" };
-		private string[] _years = { "2019", "2020", "2021" };
-		private string _year = "2020";
+		private List<int> _years = new List<int>();
+		private int _year = 2020;
 		private DatabaseUtilities _databaseUtilities = DatabaseUtilities.GetDatabaseInstance();
 		private ApplicationUtilities _applicationUtilities = ApplicationUtilities.GetAppInstance();
 
 		public DashBoardPage()
 		{
 			InitializeComponent();
-
-			
 		}
 
 		private void Page_Loaded(object sender, RoutedEventArgs e)
 		{
+			_years = _databaseUtilities.GetAllYear();
+			yearCombobox.ItemsSource = _years;
+			yearCombobox.SelectedIndex = 0;
 			loadDashboard();
 		}
 
 		private void yearCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+			
 			if (this.IsLoaded)
             {
 				
@@ -54,12 +56,9 @@ namespace CakeShop.Pages
 		private void loadDashboard()
         {
 			_year = _years[yearCombobox.SelectedIndex];
+			var result = _databaseUtilities.StatisticByYear(_year);
 
-			int year = int.Parse(_year);
-			
-			var result = _databaseUtilities.StatisticByYear(year);
-
-			if (year == DateTime.Now.Year)
+			if (_year == DateTime.Now.Year)
             {
 				result.SumStockReceiving = _databaseUtilities.CalcTotalCurrentCake();
             }
@@ -76,7 +75,7 @@ namespace CakeShop.Pages
 				revenueByMonthInYearCollection.Add(new ColumnSeries
 				{
 					Title = $"Tháng {i}",
-					Values = new ChartValues<double> { _databaseUtilities.GetRevenueByMonthInYear(i, year) }
+					Values = new ChartValues<double> { _databaseUtilities.GetRevenueByMonthInYear(i, _year) }
 				});
 			}
 
@@ -84,7 +83,7 @@ namespace CakeShop.Pages
 			revenueByMonthChartAxisX.Labels = _labels;
 
 
-			var revenueByTypeOfCakeResult = _databaseUtilities.statisticRevenueByTypeOfCakeInYear_Results(year);
+			var revenueByTypeOfCakeResult = _databaseUtilities.statisticRevenueByTypeOfCakeInYear_Results(_year);
 			var revenueByTypeOfCakeInYearCollection = new SeriesCollection();
 			foreach (var revenue in revenueByTypeOfCakeResult)
 			{
