@@ -665,10 +665,19 @@ namespace CakeShop.Utilities
 
         public int GetMaxIDInvoice()
         {
-            int result = _databaseCakeShop
-                .Database
-                .SqlQuery<int>($"Select Max(ID_Invoice) From Invoice")
-                .FirstOrDefault();
+            int result = 0;
+
+            try
+            {
+                result = _databaseCakeShop
+               .Database
+               .SqlQuery<int>($"Select Max(ID_Invoice) From Invoice")
+               .FirstOrDefault();
+            }
+            catch (Exception e)
+            {
+
+            }
 
             return result;
         }
