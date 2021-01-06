@@ -95,7 +95,7 @@ namespace CakeShop.Utilities
         {
             string result = string.Format("{0:n0}", money);
 
-            result += " VNĐ";
+            result += " đ";
 
             return result;
         }

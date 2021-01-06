@@ -8,6 +8,7 @@ namespace CakeShop.Global
 {
     class Global
     {
+
         public static List<Cake> cakesOrder = new List<Cake>();
         public static int totalCost = 0;
         public static void calcTotalCost()
@@ -15,7 +16,10 @@ namespace CakeShop.Global
             totalCost = 0;
             foreach (var cake in cakesOrder)
             {
-                totalCost += cake.SELLING_PRICE_INT_FOR_BINDING * cake.Order_Quantity;
+                if (cake.isActive == 1)
+                {
+                    totalCost += cake.SELLING_PRICE_INT_FOR_BINDING * cake.Order_Quantity;
+                }
             }
         }
 

@@ -65,7 +65,7 @@
                         <!-- binding -->
                         <StackPanel Orientation="Horizontal"
                                     VerticalAlignment="Top">
-                            <TextBlock x:Name="SumStockReceiving" 
+                            <TextBlock x:Name="SumCurrentStockReceiving" 
                                 Text="{Binding SumStockReceiving}"
                                    Foreground="White"
                                    Style="{StaticResource SemiBoldBigText}"/>
@@ -108,7 +108,8 @@
                         <!-- binding -->
                         <StackPanel Orientation="Horizontal"
                                     VerticalAlignment="Top">
-                            <TextBlock Text="999"
+                            <TextBlock Text="{Binding SumStockReceiving}"
+                                       x:Name="SumStockReceiving" 
                                    Foreground="White"
                                    Style="{StaticResource SemiBoldBigText}"/>
 
@@ -392,13 +393,13 @@
                         </lvc:CartesianChart.Series>
 
                         <lvc:CartesianChart.AxisX>
-                            <lvc:Axis Name="revenueByMonthChartAxisX" Title="Month">
+                            <lvc:Axis Name="revenueByMonthChartAxisX" Title="Month" Labels="{Binding Labels}">
                                 <lvc:Axis.Separator>
                                     <lvc:Separator Step="1"/>
                                 </lvc:Axis.Separator>
                             </lvc:Axis>
                             
-                        </lvc:CartesianChart.AxisX>
+                        </lvc:CartesianChart.AxisX >
                         <lvc:CartesianChart.AxisY>
                             <lvc:Axis Title="Revenue"></lvc:Axis>
                         </lvc:CartesianChart.AxisY>

@@ -53,5 +53,10 @@ namespace CakeShop
         public int Total_Price { get; set; }
         public string Total_Price_FOR_BINDING { get; set; }
 
+        public string Name_In_Large_Grid { get; set; }
+        public string Name_In_Small_Grid { get; set; }
+
+        public int isActive { get; set; } = 1;
+
     }
 }

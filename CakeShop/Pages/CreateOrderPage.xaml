@@ -72,11 +72,12 @@
 
                             <ComboBox Name="cakeComboBox"
                               HorizontalAlignment="Left"
+                                      TextSearch.TextPath="Name_Cake"
                               Style="{StaticResource AddRecipeComboBox}"
                               ItemContainerStyle="{StaticResource SearchBoxComboBoxItem}"
                               Height="30"
                               SelectedIndex="-1"
-                              IsEditable="False"
+                              IsEditable="True"
                               HorizontalContentAlignment="Left"
                               BorderBrush="{DynamicResource MyBlack}"
                               BorderThickness="0"
@@ -138,7 +139,8 @@
 
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <Grid 
+                                <Grid Visibility="{Binding Path=isActive, 
+                                            Converter={StaticResource isActiveConverter}}"
                               Margin="2, 0, 10, 0">
 
                                     <Grid.ColumnDefinitions>
@@ -167,15 +169,35 @@
                                 VerticalAlignment="Center"
                                 Style="{StaticResource RegularText}"/>
 
+                                    <Button Name="deleteCakeButton"
+                                            Click="deleteCakeButton_Click"
+                                            Tag="{Binding ID_Cake}"
+                                            Grid.Column="2"
+                                            HorizontalAlignment="Right"
+                                            Width="20"
+                                            Height="20"
+                                            Margin="0, 0, 25, 0"
+                                            materialDesign:ButtonAssist.CornerRadius="10"
+                                            Style="{StaticResource StepButton}">
+
+                                        <Image Width="8"
+                                               HorizontalAlignment="Center"
+                                               Height="12"                                               RenderOptions.BitmapScalingMode="HighQuality"
+                                               Source="{StaticResource IconWhiteTrash}"/>
+                                    </Button>
+
                                 </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>
+
 
                     </ListView>
 
 
                 </Grid>
             </materialDesign:Card>
+            <!--Text="{Binding Order_Quantity}"
+            Text="{Binding Name_Cake}"-->
 
             <materialDesign:Card
             Grid.Column="1"
@@ -277,6 +299,7 @@
                              Style="{StaticResource AddRecipePageTextBox}"
                              materialDesign:HintAssist.Hint="Phí ship"
                              PreviewTextInput="phoneTextBox_PreviewTextInput"
+                                 TextChanged="shipipngFeeTextBox_TextChanged"
                                LostFocus="shipipngFeeTextBox_LostFocus" />
 
                         <TextBlock Text="đ"
@@ -370,7 +393,8 @@
 
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Grid 
+                            <Grid Visibility="{Binding Path=isActive, 
+                                            Converter={StaticResource isActiveConverter}}"
                               Margin="2, 0, 10, 0">
 
                                 <Grid.ColumnDefinitions>
@@ -520,6 +544,7 @@
 
 
             <Button Name="cancelOrderButton"
+                    ToolTip="Cancel"
                         Width="32"
                         Style="{StaticResource StepButton}"
                         materialDesign:ButtonAssist.CornerRadius="16"
@@ -570,5 +595,17 @@
             </Button>
         </StackPanel>
 
+        <!-- Post mesage to notification to user here -->
+        <materialDesign:Snackbar Name="notiMessageSnackbar"
+                                 HorizontalAlignment="Left"
+                                 MessageQueue="{materialDesign:MessageQueue}"
+                                 Margin="24, 0, 0, 8"
+                                 MaxWidth="1000"
+                                 IsActive="False"
+                                 Grid.Column="1"
+                                 Grid.Row="4"
+                                 Grid.RowSpan="2">
+        </materialDesign:Snackbar>
+        
     </Grid>
 </Page>

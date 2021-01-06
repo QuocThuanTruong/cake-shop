@@ -94,7 +94,7 @@ namespace CakeShop
 				iconHomePage.Source = (ImageSource)FindResource(_mainScreenButtons[1].Item4);
 				homePageName.Foreground = Brushes.White;
 				result = new HomePage();
-				((HomePage)result).ShowCakeDetailPage += MainScreen_ShowCakeDetailPage;
+				((HomePage)result).ShowCakeDetailPage += MainScreen_ShowCakeDetailPage;			
 				
 			}
 			else if (selectedButton.Name == addCakePageButton.Name)
@@ -111,6 +111,8 @@ namespace CakeShop
 				result = new OrderPage();
 				((OrderPage)result).CreateNewOrder += MainScreen_CreateNewOrder;
 				((OrderPage)result).CreateOrderWithCurrent += MainScreen_CreateOrderWithCurrent;
+				((OrderPage)result).UpdateOrder += MainScreen_UpdateOrder;
+
 			}
 			else if (selectedButton.Name == helpPageButton.Name)
 			{
@@ -128,17 +130,36 @@ namespace CakeShop
 			return result;
 		}
 
+		private void MainScreen_UpdateOrder(int value)
+		{
+			CakeDetailPage_UpdateOrder(value);
+		}
+
 		private void MainScreen_CreateOrderWithCurrent(Object dummy)
 		{
 			CreateOrderPage createOrderPage = new CreateOrderPage(dummy);
+			createOrderPage.BackOrderPage += CreateOrderPage_BackOrderPage;
+			createOrderPage.UpdateOrder += CreateOrderPage_UpdateOrder;
 			pageNavigation.NavigationService.Navigate(createOrderPage);
 
 			cleaerDrawerButton();
 		}
 
+		private void CreateOrderPage_UpdateOrder(int value)
+		{
+			CakeDetailPage_UpdateOrder(value);
+		}
+
+		private void CreateOrderPage_BackOrderPage()
+		{
+			DrawerButton_Click(orderPageButton, null);
+		}
+
 		private void MainScreen_CreateNewOrder()
 		{
-			CreateOrderPage createOrderPage = new CreateOrderPage();
+			CreateOrderPage createOrderPage = new CreateOrderPage(); 
+			createOrderPage.BackOrderPage += CreateOrderPage_BackOrderPage;
+			createOrderPage.UpdateOrder += CreateOrderPage_UpdateOrder;
 			pageNavigation.NavigationService.Navigate(createOrderPage);
 
 			cleaerDrawerButton();
@@ -148,15 +169,43 @@ namespace CakeShop
 		{
 			CakeDetailPage cakeDetailPage = new CakeDetailPage(cakeID);
 			cakeDetailPage.UpdateCake += CakeDetailPage_UpdateCake;
+			cakeDetailPage.GoOrderPage += CakeDetailPage_GoOrderPage;
+			cakeDetailPage.UpdateOrder += CakeDetailPage_UpdateOrder;
+	
 			pageNavigation.NavigationService.Navigate(cakeDetailPage);
 			cleaerDrawerButton();
+		}
+
+		private void CakeDetailPage_UpdateOrder(int value)
+		{
+			if (value > 0)
+			{
+				badgeButton.Visibility = Visibility.Visible;
+				badgeTextBlock.Text = value.ToString();
+			} 
+			else
+			{
+				badgeButton.Visibility = Visibility.Collapsed;
+			}
+		}
+
+		private void CakeDetailPage_GoOrderPage()
+		{
+			CreateOrderPage_BackOrderPage();
 		}
 
 		private void CakeDetailPage_UpdateCake(int cakeID)
 		{
 			AddCakePage addCakePage = new AddCakePage(cakeID);
+			addCakePage.BackCakeDetail += AddCakePage_BackCakeDetail;
+
 			pageNavigation.NavigationService.Navigate(addCakePage);
 			cleaerDrawerButton();
+		}
+
+		private void AddCakePage_BackCakeDetail(int cakeID)
+		{
+			MainScreen_ShowCakeDetailPage(cakeID);
 		}
 
 		private void cleaerDrawerButton()

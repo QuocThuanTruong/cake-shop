@@ -330,6 +330,12 @@ namespace CakeShop.Pages
 
 				currentResultTextBlock.Text = $"Hiển thị {cakes.Count} Trong tổng số {resultQuery.totalCakeResult} kết quả";
 
+				for (int i = 0; i < cakes.Count; ++i)
+				{
+					cakes[i].Name_In_Small_Grid = ApplicationUtilities.GetAppInstance().getStandardName(cakes[i].Name_Cake, 18);
+					cakes[i].Name_In_Large_Grid = ApplicationUtilities.GetAppInstance().getStandardName(cakes[i].Name_Cake, 26);
+				}
+
 				largeCakesListView.ItemsSource = null;
 				smallCakesListView.ItemsSource = null;
 
@@ -361,6 +367,7 @@ namespace CakeShop.Pages
 
 			currentPageTextBlock.Text = $"{_currentPage} of {(_maxPage)}";
 
+
 			List<Cake> Cakes = CakesSearchResults.Cakes;
 
 			largeCakesListView.ItemsSource = null;
@@ -372,13 +379,19 @@ namespace CakeShop.Pages
 				smallCakesListView.ItemsSource = Cakes;
 
 				currentResultTextBlock.Text = $"Hiển thị {Cakes.Count} trong tổng số {CakesSearchResults.totalCakeResult} kết quả";
+
+				for (int i = 0; i < Cakes.Count; ++i)
+				{
+					Cakes[i].Name_In_Small_Grid = ApplicationUtilities.GetAppInstance().getStandardName(Cakes[i].Name_Cake, 18);
+					Cakes[i].Name_In_Large_Grid = ApplicationUtilities.GetAppInstance().getStandardName(Cakes[i].Name_Cake, 26);
+				}
 			}
 			else
 			{
 				largeCakesListView.ItemsSource = null;
 				smallCakesListView.ItemsSource = null;
 
-				currentResultTextBlock.Text = "Không tìm loại bánh thỏa yêu cầu";
+				currentResultTextBlock.Text = "Không tìm thấy bánh thỏa yêu cầu";
 			}
 
 			_canSearchRequest = false;
@@ -487,6 +500,7 @@ namespace CakeShop.Pages
 				_isSearching = false;
 
 				loadCakes();
+				messageNotFoundContainer.Visibility = Visibility.Collapsed;
 			}
 		}
     }

@@ -30,6 +30,12 @@ namespace CakeShop.Pages
 		private int _index;
 		private int _totalCost = 0;
 		private int _shippingFee = 0;
+
+		public delegate void BackOrderPageHandler();
+		public event BackOrderPageHandler BackOrderPage;
+
+		public delegate void UpdateOrderBadgeHanlder(int value);
+		public event UpdateOrderBadgeHanlder UpdateOrder;
 		public CreateOrderPage()
 		{
 			InitializeComponent();
@@ -79,6 +85,8 @@ namespace CakeShop.Pages
 			}
 		}
 
+
+
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
 			orderedCakeListView.ItemsSource = Global.Global.cakesOrder;
@@ -96,33 +104,38 @@ namespace CakeShop.Pages
 
         private void cakeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-			Cake cakeSelection = (Cake)cakeComboBox.SelectedItem;
+			Debug.WriteLine(cakeComboBox.SelectedIndex);
 
-			for (int i = 0; i < Global.Global.cakesOrder.Count; ++i)
-            {
-				if (cakeSelection.ID_Cake == Global.Global.cakesOrder[i].ID_Cake)
-                {
-					importQuantityTextBox.Text = $"{Global.Global.cakesOrder[i].Order_Quantity}";
-					_index = i;
-					break;
-                }
-            }
+			if (cakeComboBox.SelectedIndex > 0)
+			{
+				Cake cakeSelection = cakes[cakeComboBox.SelectedIndex];
+
+				for (int i = 0; i < Global.Global.cakesOrder.Count; ++i)
+				{
+					if (cakeSelection.ID_Cake == Global.Global.cakesOrder[i].ID_Cake)
+					{
+						importQuantityTextBox.Text = $"{Global.Global.cakesOrder[i].Order_Quantity}";
+						_index = i;
+						break;
+					}
+				}
+			}
         }
 
         private void addCakeButton_Click(object sender, RoutedEventArgs e)
         {
 			if (importQuantityTextBox.Text.Length == 0)
             {
-				//Khong duoc bo trong
+				notiMessageSnackbar.MessageQueue.Enqueue($"Số lượng bánh không được bỏ trống", "OK", () => {  });
 				return;
             }
 
-			Cake cake = (Cake)cakeComboBox.SelectedItem;
+			Cake cake = cakes[cakeComboBox.SelectedIndex];
 			cake.Order_Quantity = int.Parse(importQuantityTextBox.Text);
 
 			if (cake.Order_Quantity > cake.Current_Quantity)
             {
-				//Chi con toi da cake.Current_Quantity
+				notiMessageSnackbar.MessageQueue.Enqueue($"Số lượng hiện tại không đủ để đáp ứng", "OK", () => {  });
 				return;
             }
 
@@ -145,6 +158,18 @@ namespace CakeShop.Pages
 
 			//cakeComboBox.SelectedIndex = -1;
 			importQuantityTextBox.Text = "";
+
+			var numOfActive = 0;
+
+			foreach (var __cake in Global.Global.cakesOrder)
+			{
+				if (__cake.isActive == 1)
+				{
+					numOfActive++;
+				}
+			}
+
+			UpdateOrder?.Invoke(numOfActive);
 		}
 
         private void importQuantityTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -212,12 +237,18 @@ namespace CakeShop.Pages
             for (int i = 0; i < Global.Global.cakesOrder.Count; ++i)
             {
                 Cake cake = Global.Global.cakesOrder[i];
-                _databaseUtilities.AddInvoiceDetail(ID_Invoice, i + 1, cake.ID_Cake, cake.Order_Quantity);
-				_databaseUtilities.UpdateCake(cake.ID_Cake, cake.Name_Cake, cake.Description, cake.Type_Cake, cake.Original_Price, cake.Selling_Price, cake.Current_Quantity, cake.Link_Avt);
-				
+				if (cake.isActive == 1)
+				{
+					_databaseUtilities.AddInvoiceDetail(ID_Invoice, i + 1, cake.ID_Cake, cake.Order_Quantity);
+					cake.Current_Quantity -= cake.Order_Quantity;
+					cake.Current_Quantity = cake.Current_Quantity > 0 ? cake.Current_Quantity : 0;
+					_databaseUtilities.UpdateCakeWhenOrder(cake.ID_Cake, cake.Current_Quantity);
+				}
             }
 
-			cancelOrderButton_Click(null, null);
+			notiMessageSnackbar.MessageQueue.Enqueue($"Đã thêm thành công đơn hàng", "BACK", () => { BackOrderPage?.Invoke(); });
+
+			resetData();
 		}
 
         private void phoneTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -243,9 +274,9 @@ namespace CakeShop.Pages
             totalPriceTextBlock.Text = _applicationUtilities.GetMoneyForBinding(_totalCost);
         }
 
-        private void cancelOrderButton_Click(object sender, RoutedEventArgs e)
-        {
-			//Reset
+		private void resetData()
+		{
+			////Reset
 			_totalCost = 0;
 			_shippingFee = 0;
 			customerTextBox.Text = "";
@@ -279,6 +310,67 @@ namespace CakeShop.Pages
 			cakeComboBox.ItemsSource = cakes;
 
 			cakeComboBox.SelectedIndex = -1;
+
+			UpdateOrder?.Invoke(-1);
 		}
-    }
+
+
+		private void cancelOrderButton_Click(object sender, RoutedEventArgs e)
+        {
+			BackOrderPage?.Invoke();
+
+			
+		}
+
+		private void shipipngFeeTextBox_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			if (shipipngFeeTextBox.Text.Length == 0)
+			{
+				_shippingFee = 0;
+			}
+			else
+			{
+				_shippingFee = int.Parse(shipipngFeeTextBox.Text);
+			}
+			shippingFeeTextBlock.Text = _applicationUtilities.GetMoneyForBinding(_shippingFee);
+
+			_totalCost = Global.Global.totalCost + _shippingFee;
+			totalPriceTextBlock.Text = _applicationUtilities.GetMoneyForBinding(_totalCost);
+		}
+
+		private void deleteCakeButton_Click(object sender, RoutedEventArgs e)
+		{
+			var numOfActive = 0;
+			var selectedID = int.Parse(((Button)sender).Tag.ToString());
+
+			foreach (var cake in Global.Global.cakesOrder)
+			{
+				if (cake.ID_Cake == selectedID)
+				{
+					cake.isActive = 0;
+				}
+			}
+
+			orderedCakeListView.ItemsSource = null;
+			orderPreviewListView.ItemsSource = null;
+			orderedCakeListView.ItemsSource = Global.Global.cakesOrder;
+			orderPreviewListView.ItemsSource = Global.Global.cakesOrder;
+
+
+			Global.Global.calcTotalCost();
+			totalCakePriceTextBlock.Text = _applicationUtilities.GetMoneyForBinding(Global.Global.totalCost);
+			_totalCost = Global.Global.totalCost + _shippingFee;
+			totalPriceTextBlock.Text = _applicationUtilities.GetMoneyForBinding(_totalCost);
+
+			foreach (var cake in Global.Global.cakesOrder)
+			{
+				if (cake.isActive == 1)
+				{
+					numOfActive++;
+				}
+			}
+
+			UpdateOrder?.Invoke(numOfActive);
+		}
+	}
 }

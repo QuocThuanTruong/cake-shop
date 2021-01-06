@@ -70,20 +70,29 @@ namespace CakeShop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ADD JOURNEY.
+        ///   Looks up a localized string similar to ADD CAKE.
         /// </summary>
-        public static string add_journey_page_upper {
+        public static string add_cake {
             get {
-                return ResourceManager.GetString("add_journey_page_upper", resourceCulture);
+                return ResourceManager.GetString("add_cake", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ADD SITE.
+        ///   Looks up a localized string similar to ORDER.
         /// </summary>
-        public static string add_site_page_upper {
+        public static string add_order {
             get {
-                return ResourceManager.GetString("add_site_page_upper", resourceCulture);
+                return ResourceManager.GetString("add_order", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DASHBOARD.
+        /// </summary>
+        public static string dashboard_upper {
+            get {
+                return ResourceManager.GetString("dashboard_upper", resourceCulture);
             }
         }
         
@@ -115,7 +124,7 @@ namespace CakeShop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to We Split là một ứng dụng được viết bằng công nghệ WPF của Microsoft giúp bạn có thể dễ quản lí chuyến đi, bao gồm các công việc như xem tiến độ, hình ảnh, thống kê thu, chi và chia tiền giữa các thành viên..
+        ///   Looks up a localized string similar to Cake Shop là một ứng dụng được viết bằng công nghệ WPF của Microsoft giúp bạn có thể dễ quản lí việc bán bánh và theo dõi, thống kê lợi nhuận của cửa hàng..
         /// </summary>
         public static string text_about_app {
             get {
@@ -142,7 +151,7 @@ namespace CakeShop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mọi thắc mắc về ứng dụng xin vui lòng liên hệ wesplit.hcmus@gmail.com.
+        ///   Looks up a localized string similar to Mọi thắc mắc về ứng dụng xin vui lòng liên hệ cakeshop.hcmus@gmail.com.
         ///The MIT License (MIT).
         ///Copy right © 2020 Quoc Thuan Truong, Le Nhat Tuan, Hoang Thi Thuy Trang..
         /// </summary>
@@ -153,7 +162,7 @@ namespace CakeShop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://github.com/QuocThuanTruong/WeSplit.
+        ///   Looks up a localized string similar to https://github.com/QuocThuanTruong/CakeShop.
         /// </summary>
         public static string text_github {
             get {
@@ -162,7 +171,7 @@ namespace CakeShop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Chứa thông tin về ứng dụng dụng và các thành viên phát triển..
+        ///   Looks up a localized string similar to Chứa thông tin về ứng dụng và các thành viên phát triển..
         /// </summary>
         public static string text_help_about {
             get {
@@ -171,25 +180,25 @@ namespace CakeShop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bạn có thẻ thêm chuyến của mình vào danh sách bằng cách điền đầy đủ thông tin và hình ảnh vào trang này. Các thông tin đó bao gồm tên chuyến đi, điểm xuất phát, điểm đến, thông tin lộ trình ,danh sách thành viên và các chi phí cho chuyến đi..
+        ///   Looks up a localized string similar to Bạn có thẻ thêm bánh vào danh sách bằng cách điền đầy đủ thông tin và hình ảnh vào trang này. Các thông tin đó bao gồm tên bánh, mô tả, số lượng nhập kho, giá gốc, giá bán và các hình ảnh liên quan..
         /// </summary>
-        public static string text_help_add_journey {
+        public static string text_help_add_cake {
             get {
-                return ResourceManager.GetString("text_help_add_journey", resourceCulture);
+                return ResourceManager.GetString("text_help_add_cake", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nơi bạn có thể xem và thêm các địa danh du lịch bao gồm các thông tin như tên địa danh, địa chỉ, mô tả và ảnh đại diện..
+        ///   Looks up a localized string similar to Nơi bạn có thể xem thống kê và theo dõi lợi nhuận bán bánh của cửa hàng gồm thống kê tổng số bánh, tổng số hóa đơn, tổng tiền nhập kho, tiền thu được, lợi nhuận theo năm, theo tháng và theo từng loại bánh của cửa hàng..
         /// </summary>
-        public static string text_help_add_site {
+        public static string text_help_dashboard {
             get {
-                return ResourceManager.GetString("text_help_add_site", resourceCulture);
+                return ResourceManager.GetString("text_help_dashboard", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cung cấp thông tin về các trang và hướng dẫn bạn sử dụng We Split..
+        ///   Looks up a localized string similar to Cung cấp thông tin về các trang và hướng dẫn bạn sử dụng Cake Shop..
         /// </summary>
         public static string text_help_help {
             get {
@@ -198,13 +207,22 @@ namespace CakeShop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sử dụng thanh tìm kiếm để tìm chuyến đi mà bạn muốn theo tên chuyến đi, tên địa danh hoặc tên thành viên trong nhóm. Ngoài ra bạn có thể sử dụng các chế độ sắp xếp, chế độ hiển thị của danh sách món ăn và bộ lọc các món ăn theo nhóm để tìm kiếm nhanh hơn.
+        ///   Looks up a localized string similar to Sử dụng thanh tìm kiếm để tìm bánh mà bạn muốn theo tên bánh. Ngoài ra bạn có thể sử dụng các chế độ sắp xếp, chế độ hiển thị của danh sách món ăn và bộ lọc các loại bánh theo nhóm để tìm kiếm nhanh hơn.
         ///Mẹo tìm kiếm từ khóa: Bạn có thể sử dụng cú pháp “&lt;key_word_1&gt;” &lt;operator&gt; &lt;”key_word_2&gt;” với &lt;operator&gt; có thể là ‘and’, ‘or’ hoặc ‘and not’ để tìm kiếm.
-        ///Sau khi tìm được chuyến đi bạn có thể click vào để xem chi tiết chuyến đi đó. Bên trong mỗi chuyến  [rest of string was truncated]&quot;;.
+        ///Sau khi tìm được chuyến đi bạn có thể click vào để xem chi tiết thông tin của bánh đó đó. Bên trong mỗi bánh bạn có thể cập nhật lại các thông tin cho  [rest of string was truncated]&quot;;.
         /// </summary>
         public static string text_help_home {
             get {
                 return ResourceManager.GetString("text_help_home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nơi bạn có thể xem danh sách hóa đơn và tạo hóa đơn bán bánh cho khách hàng. Bạn có thể xem thông tin bánh và thêm bánh vào hóa đơn ở Trang chủ trước khi tiến hành hoàn tất hóa đơn..
+        /// </summary>
+        public static string text_help_order {
+            get {
+                return ResourceManager.GetString("text_help_order", resourceCulture);
             }
         }
         

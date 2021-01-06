@@ -104,6 +104,7 @@
                 <!--Binding-->
                 <TextBlock Name="cakeNameTextBlock"
                    Text="{Binding Name_Cake}"
+                           TextAlignment="Left"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left"
                    Style="{StaticResource LargeHeaderText}"/>

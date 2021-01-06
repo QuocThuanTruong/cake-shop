@@ -25,6 +25,12 @@ namespace CakeShop.Pages
 		public delegate void UpdateCakeHandler(int cakeID);
 		public event UpdateCakeHandler UpdateCake;
 
+		public delegate void GoOrderPageHandler();
+		public event GoOrderPageHandler GoOrderPage;
+
+		public delegate void UpdateOrderBadgeHanlder(int value);
+		public event UpdateOrderBadgeHanlder UpdateOrder;
+
 		private DatabaseUtilities _databaseUtilities = DatabaseUtilities.GetDatabaseInstance();
 		private ApplicationUtilities _applicationUtilities = ApplicationUtilities.GetAppInstance();
 		private AbsolutePathConverter _absolutePathConverter = new AbsolutePathConverter();
@@ -34,6 +40,7 @@ namespace CakeShop.Pages
 		public CakeDetailPage()
 		{
 			InitializeComponent();
+			carouselDialog.SetParent(mainContainer);
 		}
 
 		public CakeDetailPage(int cakeID)
@@ -42,6 +49,7 @@ namespace CakeShop.Pages
 			DataContext = this._cake;
 
 			InitializeComponent();
+			carouselDialog.SetParent(mainContainer);
 
 		}
 
@@ -55,18 +63,47 @@ namespace CakeShop.Pages
 			_cake.Order_Quantity = 1;
 			_cake.Total_Price = _cake.SELLING_PRICE_INT_FOR_BINDING * _cake.Order_Quantity;
 			_cake.Total_Price_FOR_BINDING = _applicationUtilities.GetMoneyForBinding(_cake.Total_Price);
-			Global.Global.cakesOrder.Add(_cake);
+
+			var isExist = false;
+
+			foreach (var cake in Global.Global.cakesOrder)
+			{
+				if (cake.Name_Cake == _cake.Name_Cake)
+				{
+					cake.Order_Quantity += 1;
+					cake.Total_Price = _cake.SELLING_PRICE_INT_FOR_BINDING * cake.Order_Quantity;
+					cake.Total_Price_FOR_BINDING = _applicationUtilities.GetMoneyForBinding(cake.Total_Price);
+
+					isExist = true;
+					break;
+				}
+			}
+
+			if (!isExist)
+			{
+				Global.Global.cakesOrder.Add(_cake);
+			}
+			
 
 			foreach(var cake in Global.Global.cakesOrder)
             {
 				Debug.WriteLine(cake.ID_Cake);
             }
-        }
+
+			notiMessageSnackbar.MessageQueue.Enqueue($"Đã thêm bánh {_cake.Name_Cake} vào hóa đơn hiện tại", "GO ORDER", () => { GoOrderPage?.Invoke();  });
+
+			UpdateOrder?.Invoke(Global.Global.cakesOrder.Count);
+		}
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
 
 
 		}
-    }
+
+		private void imageCakeListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			carouselDialog.ShowDialog(_cake.CAKE_IMAGE_FOR_BINDING, imageCakeListView.SelectedIndex);
+		}
+	}
 }

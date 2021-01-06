@@ -120,6 +120,10 @@
     <Compile Include="Converter\AbsolutePathConverter.cs" />
     <Compile Include="Converter\BrushOpacityConverter.cs" />
     <Compile Include="Converter\IsActiveViewConverter.cs" />
+    <Compile Include="CustomView\CarouselControl.cs" />
+    <Compile Include="CustomView\CarouselDialog.xaml.cs">
+      <DependentUpon>CarouselDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CustomView\ListBoxExtension.cs" />
     <Compile Include="getAllInvoices_Result.cs">
       <DependentUpon>CakeShop.tt</DependentUpon>
@@ -184,6 +188,10 @@
     </Compile>
     <Compile Include="Utilities\ApplicationUtilities.cs" />
     <Compile Include="Utilities\DatabaseUtilities.cs" />
+    <Page Include="CustomView\CarouselDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainScreen.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -269,13 +277,22 @@
     <Content Include="Assets\Images\ic-add-img.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Images\ic-pink-donut.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Images\ic-slim-add.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\ic-white-clear-all.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Images\ic-white-close.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Images\ic-white-save.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Images\ic-white-trash.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Images\vertical-ribbon.png">

@@ -248,19 +248,31 @@
 
                         <!-- Set data -->
                         <Image Name="avatarImage"
+                               Margin="0, 8, 0, 0"
                        Width="176"
                        Height="176"
-                       Stretch="UniformToFill">
-                            <Image.Source>
-                                <BitmapImage CacheOption="OnDemand"
-                                             UriSource="{Binding Link_Avt, Converter={StaticResource abosolutePathConverter}}">
-                                </BitmapImage>
-                            </Image.Source>
-                        </Image>
+                       Stretch="UniformToFill"/>
+
+                        <Button Name="avatarButton"
+                            Visibility="Visible"
+                        Style="{StaticResource ImagePickerButton}"
+                        Background="{DynamicResource MyLightPink}"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left"
+                        Margin="0, 8, 0, 0"
+                            Grid.Row="1"
+                        Width="176"
+                        Height="176" 
+                        >
+
+                            <Image Width="80"
+                               Height="80"
+                               Source="{StaticResource IconPinkDonut}"/>
+                        </Button>
 
                         <!-- Click here to get avt-->
                         <Button Name="avatarPickerFrameButton"
-                                Click="avatarPickerFrameButton_Click"
+                               Margin="0, 8, 0, 0"
                                 Opacity="0"
                                 Style="{StaticResource ImagePickerFrameButton}"
                                 VerticalContentAlignment="Bottom"
@@ -268,14 +280,16 @@
                                 Height="176">
 
                             <Button Name="avatarImagePickerButton"
+                                     Click="avatarPickerFrameButton_Click"
                         Style="{StaticResource ImagePickerButton}"
-                        Background="{DynamicResource MyLightGray2}"
+                      
+                        Background="{DynamicResource MyLightPink}"
                         Width="176"
-                        Height="44">
+                        Height="54">
 
                                 <Image Name="iconPicker"
-                           Width="30"
-                           Height="20"
+                           Width="35"
+                           Height="25"
                            Source="{StaticResource IconAddImg}"/>
                             </Button>
                         </Button>
@@ -454,6 +468,8 @@
 
 
                 <Button Name="cancelAddCakeButton"
+                        ToolTip="Clear all"
+                        Click="cancelAddCakeButton_Click"
                         Width="32"
                         Style="{StaticResource StepButton}"
                         materialDesign:ButtonAssist.CornerRadius="16"
@@ -462,10 +478,11 @@
                     <Grid Width="32">
 
 
-                        <Image Width="12"
-                               Height="12"
+                        <Image Width="14"
+                               Height="14"
+                                 Name="cancelImage"
                                RenderOptions.BitmapScalingMode="HighQuality"
-                               Source="{DynamicResource IconWhiteClose}"/>
+                               Source="{DynamicResource IconWhiteClearAll}"/>
 
                     </Grid>
 
@@ -488,6 +505,7 @@
 
                         <Image Width="14"
                                Height="14"
+                             
                                RenderOptions.BitmapScalingMode="HighQuality"
                                Source="{DynamicResource IconWhiteSave}"/>
 
@@ -503,6 +521,18 @@
                 </Button>
             </StackPanel>
         </materialDesign:ColorZone>
+
+        <!-- Post mesage to notification to user here -->
+        <materialDesign:Snackbar Name="notiMessageSnackbar"
+                                 HorizontalAlignment="Left"
+                                 MessageQueue="{materialDesign:MessageQueue}"
+                                 Margin="24, 0, 0, 8"
+                                 MaxWidth="1000"
+                                 IsActive="False"
+                                 Grid.Column="1"
+                                 Grid.Row="4"
+                                 Grid.RowSpan="2">
+        </materialDesign:Snackbar>
     </Grid>
     
     

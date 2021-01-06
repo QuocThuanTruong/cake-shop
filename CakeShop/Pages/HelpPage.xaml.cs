@@ -27,9 +27,10 @@ namespace CakeShop.Pages
 		{
 			InitializeComponent();
 
+			_howToUsePages.Add(new Tuple<string, string>(Properties.Resources.dashboard_upper, Properties.Resources.text_help_dashboard));
 			_howToUsePages.Add(new Tuple<string, string>(Properties.Resources.home_page_upper, Properties.Resources.text_help_home));
-			_howToUsePages.Add(new Tuple<string, string>(Properties.Resources.add_journey_page_upper, Properties.Resources.text_help_add_journey));
-			_howToUsePages.Add(new Tuple<string, string>(Properties.Resources.add_site_page_upper, Properties.Resources.text_help_add_site));
+			_howToUsePages.Add(new Tuple<string, string>(Properties.Resources.add_cake, Properties.Resources.text_help_add_cake));
+			_howToUsePages.Add(new Tuple<string, string>(Properties.Resources.add_order, Properties.Resources.text_help_order));
 			_howToUsePages.Add(new Tuple<string, string>(Properties.Resources.help_page_upper, Properties.Resources.text_help_help));
 			_howToUsePages.Add(new Tuple<string, string>(Properties.Resources.about_page_upper, Properties.Resources.text_help_about));
 

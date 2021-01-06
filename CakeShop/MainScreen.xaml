@@ -224,8 +224,30 @@
                                        Grid.ColumnSpan="2"
                                        Margin="60, 0, 0, 0"
                                        HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
                                        Style="{DynamicResource DrawerMediumText}"
                                        Text="Order"/>
+
+                            <Button Name="badgeButton"
+                                   Visibility="Collapsed"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="2"
+                                    Width="21"
+                                    Height="21"
+                                    Margin="25, 8, 0, 0"
+                                    BorderBrush="White"
+                                    BorderThickness="1.5"
+                                    VerticalContentAlignment="Center"
+                                    materialDesign:ButtonAssist.CornerRadius="11"
+                                    HorizontalAlignment="Left"
+                                    Style="{StaticResource StepButton}">
+                                
+                                <TextBlock Name="badgeTextBlock"
+                                           VerticalAlignment="Center"
+                                           Text="10"
+                                           FontSize="11"
+                                           Style="{StaticResource MediumLargeText}"/>
+                            </Button>
                         </Grid>
                     </Button>
                 </Grid>

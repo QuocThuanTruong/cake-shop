@@ -580,7 +580,24 @@ namespace CakeShop.Utilities
 
             return 0;
         }
-        
+
+        public int UpdateCakeWhenOrder(int ID_Cake, Nullable<int> quantity)
+        {
+            try
+            {
+                _databaseCakeShop
+                .Database
+                .ExecuteSqlCommand($"UPDATE Cake SET Current_Quantity = {quantity} WHERE ID_CAKE = {ID_Cake}");
+
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
+
+            return 0;
+        }
+
         public void UpdateImage(int ID_Cake, int ordinal_number, string link_image, int is_active)
         {
             var checkExist = _databaseCakeShop

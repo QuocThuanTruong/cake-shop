@@ -27,11 +27,14 @@ namespace CakeShop.Pages
 	public partial class AddCakePage : Page
 	{
 		private bool isUpdate = false;
-
+	
 		private DatabaseUtilities _databaseUtilities = DatabaseUtilities.GetDatabaseInstance();
 		private ApplicationUtilities _applicationUtilities = ApplicationUtilities.GetAppInstance();
 		private AbsolutePathConverter absolutePath = new AbsolutePathConverter();
 		private Cake _cake = new Cake();
+
+		public delegate void BackCakeDetailHandler(int cakeID);
+		public event BackCakeDetailHandler BackCakeDetail;
 
 		public List<Cake_Image> Images_For_Binding;
 
@@ -39,27 +42,29 @@ namespace CakeShop.Pages
 
 		public AddCakePage()
 		{
-			_cake.Link_Avt = FindResource("TEST_AVT").ToString();
-			_cake.Link_Avt = _cake.Link_Avt.Substring(23);
-
-			_cake.Link_Avt = (string)(absolutePath.Convert(_cake.Link_Avt, null, null, null));
+			InitializeComponent();
 
 			DataContext = this._cake;
 
-			InitializeComponent();
+			
+			cancelImage.Source = (ImageSource)FindResource("IconWhiteClose");
+
 			updateTextBlock.Visibility = Visibility.Collapsed;
 			this.isUpdate = false;
 		}
 
 		public AddCakePage(int cakeID)
 		{
+			InitializeComponent();
+
 			this.isUpdate = true;
+			cancelImage.Source = (ImageSource)FindResource("IconWhiteClearAll");
 
 			_cake = _databaseUtilities.getCakeById(cakeID);
 
 			DataContext = this._cake;
 
-			InitializeComponent();
+			
 
 			updateTextBlock.Visibility = Visibility.Visible;
 			
@@ -191,7 +196,7 @@ namespace CakeShop.Pages
 			_cake.Name_Cake = cakeNameTextBox.Text;
 			if (_cake.Name_Cake.Length == 0)
 			{
-				//notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống tên chuyến đi", "OK", () => { });
+				notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống tên bánh", "OK", () => { });
 				return;
 			}
 
@@ -201,13 +206,13 @@ namespace CakeShop.Pages
 			_cake.Description = cakeDescriptionTextBox.Text;
 			if (_cake.Description.Length == 0)
 			{
-				//notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống tên chuyến đi", "OK", () => { });
+				notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống mô tả bánh", "OK", () => { });
 				return;
 			}
 
 			if (originPriceTextBox.Text.Length == 0)
 			{
-				//notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống tiền thu", "OK", () => { });
+				notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống giá gốc", "OK", () => { });
 				return;
 			}
 
@@ -215,7 +220,7 @@ namespace CakeShop.Pages
 
 			if (salePriceTextBox.Text.Length == 0)
 			{
-				//notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống tiền thu", "OK", () => { });
+				notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống giá bán", "OK", () => { });
 				return;
 			}
 
@@ -223,7 +228,7 @@ namespace CakeShop.Pages
 
 			if (importQuantityTextBox.Text.Length == 0)
 			{
-				//notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống tiền thu", "OK", () => { });
+				notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống số lượng nhập", "OK", () => { });
 				return;
 			}
 
@@ -231,9 +236,9 @@ namespace CakeShop.Pages
 
             //Check empty Avatar
 
-            if (avatarImage.Source.ToString() == "" /*link avatar mặc định*/)
+            if (avatarImage.Source == null)
             {
-                //notiMessageSnackbar.MessageQueue.Enqueue("Không được bỏ trống hình đại diện", "Cancel", () => { });
+                notiMessageSnackbar.MessageQueue.Enqueue("Không được bỏ trống hình đại diện", "OK", () => { });
                 return;
             }
 
@@ -253,6 +258,9 @@ namespace CakeShop.Pages
 					_databaseUtilities.AddCakeImage(_cake.ID_Cake, image.Ordinal_Number, _applicationUtilities.getTypeOfImage(image.Link_Image), image.Is_Active ?? 0);
 					_applicationUtilities.copyImageToIDDirectory(_cake.ID_Cake, image.Link_Image, $"{image.Ordinal_Number}");
 				}
+
+
+				notiMessageSnackbar.MessageQueue.Enqueue($"Đã thêm thành công bánh {_cake.Name_Cake}", "BACK", () => { BackCakeDetail?.Invoke(_cake.ID_Cake); });
 			} 
 			else
             {
@@ -264,6 +272,8 @@ namespace CakeShop.Pages
 					_databaseUtilities.UpdateImage(_cake.ID_Cake, image.Ordinal_Number, _applicationUtilities.getTypeOfImage(image.Link_Image), image.Is_Active ?? 0);
 					_applicationUtilities.copyImageToIDDirectory(_cake.ID_Cake, image.Link_Image, $"{image.Ordinal_Number}");
 				}
+
+				notiMessageSnackbar.MessageQueue.Enqueue($"Đã cập nhật thành công bánh {_cake.Name_Cake}", "BACK", () => { BackCakeDetail?.Invoke(_cake.ID_Cake);  });
 			}
 
 			var today = DateTime.Now;
@@ -327,5 +337,24 @@ namespace CakeShop.Pages
 			//if true -> input event has handled (skiped this character)
 			e.Handled = regex.IsMatch(e.Text);
 		}
-    }
+
+		private void cancelAddCakeButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (_cake.ID_Cake > 0)
+			{
+				BackCakeDetail?.Invoke(_cake.ID_Cake);
+			} 
+			else
+			{
+				cakeNameTextBox.Text = "";
+				cakeCategoryComboBox.SelectedIndex = 0;
+				cakeDescriptionTextBox.Text = "";
+				originPriceTextBox.Text = "";
+				salePriceTextBox.Text = "";
+				importQuantityTextBox.Text = "";
+				avatarImage.Source = null;
+				cakeImageListView.ItemsSource = null;
+			}
+		}
+	}
 }

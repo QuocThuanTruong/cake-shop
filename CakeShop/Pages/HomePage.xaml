@@ -562,7 +562,7 @@
 
                                 <!-- binding -->
                                 <TextBlock Name="cakeNameTextBlock"
-                                           Text="{Binding NAME_FOR_BINDING}"
+                                           Text="{Binding Name_In_Small_Grid}"
                                            Margin="0, 4, 0, 4"
                                            Style="{StaticResource BoldQuiteMediumText}"/>
 
@@ -585,14 +585,9 @@
                             Stretch="UniformToFill"
                             Margin="0, -10, -10, 0"
                             Cursor="Hand"
-                            RenderOptions.BitmapScalingMode="HighQuality">
-                            <Image.Source>
-                                <BitmapImage CacheOption="OnLoad"
-                                             UriSource="{Binding Link_Avt, Converter={StaticResource abosolutePathConverter}}">
-                                   
-                                </BitmapImage>
-                            </Image.Source>
-                        </Image>
+                            RenderOptions.BitmapScalingMode="HighQuality"
+                            Source="{Binding Link_Avt, Converter={StaticResource abosolutePathConverter}}"
+                        />
 
                         <Image Width="120"
                                Height="34"
@@ -694,7 +689,7 @@
 
                                 <!-- binding -->
                                 <TextBlock Name="cakeNameTextBlock"
-                                           Text="{Binding NAME_FOR_BINDING}"
+                                           Text="{Binding Name_In_Large_Grid}"
                                            Style="{StaticResource BoldQuiteMediumText}"/>
 
                             </StackPanel>
@@ -844,6 +839,7 @@
                    VerticalAlignment="Center"
                    Text="Hiển thị 12 trong tổng số 72 bánh"
                    Foreground="{StaticResource MyLightBrown}"
+                   FontFamily="{StaticResource GilroyMedium}"
                    Style="{StaticResource RegularText}"/>
 
         <!-- List not found -->
@@ -852,7 +848,7 @@
               Grid.Column="1"
               Grid.Row="2">
 
-            <Border Background="{DynamicResource MyLightGray2}"/>
+            <Border Background="#50ffffff"/>
 
             <StackPanel Name="videoStatusContent"
                                 VerticalAlignment="Center">
@@ -861,14 +857,14 @@
                                Width="100"
                                Height="100"
                                RenderOptions.BitmapScalingMode="HighQuality"
-                               Source="{StaticResource AppLogo}"/>
+                               Source="{StaticResource IconPinkDonut}"/>
 
                 <TextBlock Name="videoStatusTextBlock"
                                    Margin="0, 12, 0, 0"
                                    HorizontalAlignment="Center"
                                    Text="Danh sách hiện chưa có"
                                    Style="{StaticResource RegularText}"
-                                   Foreground="{StaticResource MyLightGray4}"/>
+                                   Foreground="{StaticResource MyPink}"/>
 
             </StackPanel>
         </Grid>

@@ -20,10 +20,10 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
-            <RowDefinition Height="500*"/>
+            <RowDefinition Height="580*"/>
             <RowDefinition Height="40*"/>
-            <RowDefinition Height="108*"/>
-            <RowDefinition Height="40*"/>
+            <RowDefinition Height="32*"/>
+            <RowDefinition Height="30*"/>
         </Grid.RowDefinitions>
 
         <materialDesign:Card
@@ -43,6 +43,7 @@
                    Text="{x:Static loc:Resources.title_how_to_use}" Grid.ColumnSpan="2" Margin="0,4"/>
 
         <ListView Name="helpDetailListView"
+                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
                   Grid.Column="1"
                   ItemContainerStyle="{StaticResource MemberListBoxItem}"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"

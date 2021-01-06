@@ -29,6 +29,9 @@ namespace CakeShop.Pages
 		public delegate void CreateOrderWithCurrentHandler(Object dummy);
 		public event CreateOrderWithCurrentHandler CreateOrderWithCurrent;
 
+		public delegate void UpdateOrderBadgeHanlder(int value);
+		public event UpdateOrderBadgeHanlder UpdateOrder;
+
 		private DatabaseUtilities _databaseUtilities = DatabaseUtilities.GetDatabaseInstance();
 		private ApplicationUtilities _applicationUtilities = ApplicationUtilities.GetAppInstance();
 
@@ -62,6 +65,35 @@ namespace CakeShop.Pages
 			Global.Global.clearGlobal();
 			currentOrdersListView.ItemsSource = null;
 
+			UpdateOrder?.Invoke(-1);
+
 		}
-    }
+
+		private void deleteCakeButton_Click(object sender, RoutedEventArgs e)
+		{
+			int numOfActive = 0;
+			var selectedID = int.Parse(((Button)sender).Tag.ToString());
+
+			foreach (var cake in Global.Global.cakesOrder)
+			{
+				if (cake.ID_Cake == selectedID)
+				{
+					cake.isActive = 0;
+				}
+			}
+
+			currentOrdersListView.ItemsSource = null;
+			currentOrdersListView.ItemsSource = Global.Global.cakesOrder;
+
+			foreach (var cake in Global.Global.cakesOrder)
+			{
+				if (cake.isActive == 1)
+				{
+					numOfActive++;
+				}	
+			}
+
+			UpdateOrder?.Invoke(numOfActive);
+		}
+	}
 }
