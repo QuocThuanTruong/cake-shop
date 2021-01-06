@@ -41,7 +41,7 @@ namespace CakeShop.Pages
 		private const int TIME_LOAD_UNIT = 100;
 		private const int TOTAL_TIME_LOAD_IN_SECOND = 5;
 
-		private int _sortedBy = 0;
+		private int _sortedBy = 5;
 		private int _currentPage = 1;
 		private int totalCakePerPage = 9;
 		private bool _isSearching = false;
