@@ -186,7 +186,7 @@ namespace CakeShop.Pages
         {
 			if (customerTextBox.Text.Length == 0)
             {
-				//Khong duoc bo trong
+				notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống tên khách hàng", "Cancel", () => { });
 				return;
             }
 
@@ -198,20 +198,22 @@ namespace CakeShop.Pages
             {
                 if (addressTextBox.Text.Length == 0)
                 {
-                    //Khong duoc bo trong
-                    return;
+					notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống địa chỉ khác hàng", "Cancel", () => {});
+					return;
                 }
                 customerAddress = addressTextBox.Text;
 
                 if (phoneTextBox.Text.Length == 0)
                 {
-                    return;
+					notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ số điện thoại khác hàng", "Cancel", () => { });
+					return;
                 }
                 customerPhone = phoneTextBox.Text;
 
                 if (shipipngFeeTextBox.Text.Length == 0)
                 {
-                    return;
+					notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống chi phí ship hàng", "Cancel", () => { });
+					return;
                 }
                 _shippingFee = int.Parse(shipipngFeeTextBox.Text);
                 //shippingFeeTextBlock.Text = _applicationUtilities.GetMoneyForBinding(_shippingFee);
@@ -318,8 +320,6 @@ namespace CakeShop.Pages
 		private void cancelOrderButton_Click(object sender, RoutedEventArgs e)
         {
 			BackOrderPage?.Invoke();
-
-			
 		}
 
 		private void shipipngFeeTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -343,13 +343,16 @@ namespace CakeShop.Pages
 			var numOfActive = 0;
 			var selectedID = int.Parse(((Button)sender).Tag.ToString());
 
+			Cake cakeDelete = new Cake();
 			foreach (var cake in Global.Global.cakesOrder)
 			{
 				if (cake.ID_Cake == selectedID)
 				{
-					cake.isActive = 0;
+					cakeDelete = cake;
 				}
 			}
+
+			Global.Global.cakesOrder.Remove(cakeDelete);
 
 			orderedCakeListView.ItemsSource = null;
 			orderPreviewListView.ItemsSource = null;

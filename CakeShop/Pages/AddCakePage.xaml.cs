@@ -64,10 +64,9 @@ namespace CakeShop.Pages
 
 			DataContext = this._cake;
 
-			
+			Debug.WriteLine("link ne: " + _cake.Link_Avt);
 
 			updateTextBlock.Visibility = Visibility.Visible;
-			
 		}
 
 		private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -97,6 +96,7 @@ namespace CakeShop.Pages
 
 			if (isUpdate)
             {
+				avatarButton.Visibility = Visibility.Collapsed;
 				_ordinal_number_image = _databaseUtilities.GetMaxOrdinalNumberImage(_cake.ID_Cake);
 			}
 		}
@@ -150,6 +150,7 @@ namespace CakeShop.Pages
 					bitmap.UriSource = new Uri(openFileDialog.FileName, UriKind.Relative);
 					bitmap.EndInit();
 
+					avatarButton.Visibility = Visibility.Collapsed;
 					avatarImage.Source = bitmap;
 				}
 			}
@@ -236,7 +237,7 @@ namespace CakeShop.Pages
 
             //Check empty Avatar
 
-            if (avatarImage.Source == null)
+            if (!isUpdate && avatarImage.Source == null)
             {
                 notiMessageSnackbar.MessageQueue.Enqueue("Không được bỏ trống hình đại diện", "OK", () => { });
                 return;
@@ -293,18 +294,7 @@ namespace CakeShop.Pages
 			cakeImageListView.Visibility = Visibility.Collapsed;
 			cakeImageListView.ItemsSource = null;
 
-			string avaPath = FindResource("TEST_AVT").ToString();
-			avaPath = avaPath.Substring(23);
-			avaPath = (string)(absolutePath.Convert(avaPath, null, null, null));
-
-			BitmapImage bitmap = new BitmapImage();
-
-			bitmap.BeginInit();
-			bitmap.CacheOption = BitmapCacheOption.OnLoad;
-			bitmap.UriSource = new Uri(avaPath, UriKind.Relative);
-			bitmap.EndInit();
-
-			avatarImage.Source = bitmap;
+			avatarButton.Visibility = Visibility.Visible;
 
 		}
 

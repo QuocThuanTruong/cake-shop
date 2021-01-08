@@ -249,9 +249,11 @@
                         <!-- Set data -->
                         <Image Name="avatarImage"
                                Margin="0, 8, 0, 0"
+                               Visibility="Visible"
                        Width="176"
                        Height="176"
-                       Stretch="UniformToFill"/>
+                       Stretch="UniformToFill"
+                               Source="{Binding Link_Avt, Converter={StaticResource abosolutePathConverter}}"/>
 
                         <Button Name="avatarButton"
                             Visibility="Visible"

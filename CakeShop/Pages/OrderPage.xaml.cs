@@ -74,13 +74,16 @@ namespace CakeShop.Pages
 			int numOfActive = 0;
 			var selectedID = int.Parse(((Button)sender).Tag.ToString());
 
+			Cake cakeDelete = new Cake();
 			foreach (var cake in Global.Global.cakesOrder)
 			{
 				if (cake.ID_Cake == selectedID)
 				{
-					cake.isActive = 0;
+					cakeDelete = cake;
 				}
 			}
+
+			Global.Global.cakesOrder.Remove(cakeDelete);
 
 			currentOrdersListView.ItemsSource = null;
 			currentOrdersListView.ItemsSource = Global.Global.cakesOrder;

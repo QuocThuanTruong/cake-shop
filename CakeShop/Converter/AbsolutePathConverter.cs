@@ -20,6 +20,11 @@ namespace CakeShop.Converter
 			var pattern = "([A-Z]:\\.*)";
 			var regex = new Regex(pattern);
 
+			if (relativePath == null)
+            {
+				return "";
+            }
+
 			if (regex.IsMatch(relativePath))
 			{
 				return relativePath;
