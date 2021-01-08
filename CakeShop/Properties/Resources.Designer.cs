@@ -227,7 +227,7 @@ namespace CakeShop.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://www.youtube.com/watch?v=bOr5t7jbtw8.
+        ///   Looks up a localized string similar to https://youtu.be/I599my5pvoc.
         /// </summary>
         public static string text_link_video_help {
             get {
