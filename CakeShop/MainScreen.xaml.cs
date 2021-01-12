@@ -102,6 +102,7 @@ namespace CakeShop
 				iconAddCakePage.Source = (ImageSource)FindResource(_mainScreenButtons[2].Item4);
 				addCakePageName.Foreground = Brushes.White;
 				result = new AddCakePage();
+				((AddCakePage)result).BackHome += MainScreen_BackHome;
 
 			}
 			else if (selectedButton.Name == orderPageButton.Name)
@@ -128,6 +129,11 @@ namespace CakeShop
 			}
 
 			return result;
+		}
+
+		private void MainScreen_BackHome()
+		{
+			DrawerButton_Click(homePageButton, null);
 		}
 
 		private void MainScreen_UpdateOrder(int value)

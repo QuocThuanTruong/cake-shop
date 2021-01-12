@@ -36,6 +36,9 @@ namespace CakeShop.Pages
 		public delegate void BackCakeDetailHandler(int cakeID);
 		public event BackCakeDetailHandler BackCakeDetail;
 
+		public delegate void BackHomeHandler();
+		public event BackHomeHandler BackHome;
+
 		public List<Cake_Image> Images_For_Binding;
 
 		private int _ordinal_number_image = 0;
@@ -47,7 +50,8 @@ namespace CakeShop.Pages
 			DataContext = this._cake;
 
 			
-			cancelImage.Source = (ImageSource)FindResource("IconWhiteClose");
+			cancelImage.Source = (ImageSource)FindResource("IconWhiteClearAll");
+			cancelAddCakeButton.ToolTip = "Clear all";
 
 			updateTextBlock.Visibility = Visibility.Collapsed;
 			this.isUpdate = false;
@@ -58,7 +62,8 @@ namespace CakeShop.Pages
 			InitializeComponent();
 
 			this.isUpdate = true;
-			cancelImage.Source = (ImageSource)FindResource("IconWhiteClearAll");
+			cancelImage.Source = (ImageSource)FindResource("IconWhiteClose");
+			cancelAddCakeButton.ToolTip = "Back";
 
 			_cake = _databaseUtilities.getCakeById(cakeID);
 
@@ -261,7 +266,7 @@ namespace CakeShop.Pages
 				}
 
 
-				notiMessageSnackbar.MessageQueue.Enqueue($"Đã thêm thành công bánh {_cake.Name_Cake}", "BACK", () => { BackCakeDetail?.Invoke(_cake.ID_Cake); });
+				notiMessageSnackbar.MessageQueue.Enqueue($"Đã thêm thành công bánh {_cake.Name_Cake}", "BACK", () => { BackHome?.Invoke(); });
 			} 
 			else
             {

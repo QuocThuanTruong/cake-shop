@@ -186,7 +186,7 @@ namespace CakeShop.Pages
         {
 			if (customerTextBox.Text.Length == 0)
             {
-				notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống tên khách hàng", "Cancel", () => { });
+				notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống tên khách hàng", "OK", () => { });
 				return;
             }
 
@@ -198,21 +198,21 @@ namespace CakeShop.Pages
             {
                 if (addressTextBox.Text.Length == 0)
                 {
-					notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống địa chỉ khác hàng", "Cancel", () => {});
+					notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống địa chỉ khách hàng", "OK", () => {});
 					return;
                 }
                 customerAddress = addressTextBox.Text;
 
                 if (phoneTextBox.Text.Length == 0)
                 {
-					notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ số điện thoại khác hàng", "Cancel", () => { });
+					notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ số điện thoại khách hàng", "OK", () => { });
 					return;
                 }
                 customerPhone = phoneTextBox.Text;
 
                 if (shipipngFeeTextBox.Text.Length == 0)
                 {
-					notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống chi phí ship hàng", "Cancel", () => { });
+					notiMessageSnackbar.MessageQueue.Enqueue($"Không được bỏ trống chi phí ship hàng", "OK", () => { });
 					return;
                 }
                 _shippingFee = int.Parse(shipipngFeeTextBox.Text);

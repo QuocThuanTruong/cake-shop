@@ -43,8 +43,7 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
 
-            <!-- nếu là năm hiện tại thì hiện tổng bánh hiện tại
-            ngược lại hiện tổng nhập kho nếu chọn năm khác-->
+      
             <materialDesign:Card
                 Name="currentCakeCard"
                 Grid.Row="1"
