@@ -1,6 +1,6 @@
 <p align="center"><img src="https://github.com/QuocThuanTruong/CakeShop/blob/master/Img/logo.png" height="180"/></p>
 
-# ĐỒ ÁN 2: WE SPLIT
+# ĐỒ ÁN 2: CAKE SHOP
 
 <p align="left">
 <img src="https://img.shields.io/badge/version-1.0.0-blue">
