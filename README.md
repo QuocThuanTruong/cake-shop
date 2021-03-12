@@ -94,3 +94,6 @@
 
 ### Link backup file bài nộp
 > ***https://drive.google.com/drive/folders/1N6Vn0L2wuyFSzef6ndIQRHpMO6bJWxKO?usp=sharing***
+
+### License
+Cake Shop is available under the [MIT license](https://opensource.org/licenses/MIT) . See [LICENSE](https://github.com/QuocThuanTruong/CakeShop/blob/master/LICENSE) for the full license text.
