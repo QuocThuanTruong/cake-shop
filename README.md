@@ -84,13 +84,13 @@
 - **Điểm cộng đề nghị: 1đ.**
 
 ### Link youtube demo
-- https://www.youtube.com/watch?v=vCa_c9SSn6E
+> ***https://www.youtube.com/watch?v=vCa_c9SSn6E***
 
 ### Link drive bài nộp
-- https://drive.google.com/file/d/1Y2vdHD89AyZDN5_kXV9R5Za8rvOQ48SE/view?usp=sharing
+> ***https://drive.google.com/file/d/1Y2vdHD89AyZDN5_kXV9R5Za8rvOQ48SE/view?usp=sharing***
 
 ### Link github
-- https://github.com/QuocThuanTruong/CakeShop
+> ***https://github.com/QuocThuanTruong/CakeShop***
 
 ### Link backup file bài nộp
-- https://drive.google.com/drive/folders/1N6Vn0L2wuyFSzef6ndIQRHpMO6bJWxKO?usp=sharing
+> ***https://drive.google.com/drive/folders/1N6Vn0L2wuyFSzef6ndIQRHpMO6bJWxKO?usp=sharing***
