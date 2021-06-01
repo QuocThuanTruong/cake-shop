@@ -33,6 +33,8 @@
 <div>
 <img src="https://github.com/QuocThuanTruong/CakeShop/blob/master/Img/home_1.png" width="1080"/>
 <img src="https://github.com/QuocThuanTruong/CakeShop/blob/master/Img/home_2.png" width="1080"/>
+  <img src="https://github.com/QuocThuanTruong/CakeShop/blob/master/Img/detail_1.png" width="1080"/>
+  <img src="https://github.com/QuocThuanTruong/CakeShop/blob/master/Img/detail_2.png" width="1080"/>
 </div>
 
 <br></br>
