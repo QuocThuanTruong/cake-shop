@@ -79,6 +79,7 @@
 - Khi xem chi tiết một bánh nào đó, người dùng có thể thêm nhanh chúng vào hóa đơn và sau đó có thể cân nhắc mua hay không mua ở mục Order. 
 
 **2. Hiển thị hình ảnh bánh dạng carousel**
+
 **3. Thực hiện toàn bộ các cảnh giới tìm kiếm với Full-Text search của SQL Server Express 2019**
 
 ### Điểm đề nghị cho bài tập
